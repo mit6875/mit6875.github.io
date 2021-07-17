@@ -1,0 +1,125 @@
+body {
+	margin:0;
+	padding:0;
+	font-family:times new roman, times;
+	
+	color:#333;
+	background-color:#FFF;
+}
+
+h1 { 
+	margin: 0 0 15 0;
+	padding:0;
+	font-size: 20px;
+	font-weight:800;
+	color: #dd0022;
+}
+
+h2 { 
+	margin: 0 0 15 0;
+	padding:0;
+	font-size: 16px;
+	font-weight:600;
+	color: #881133;
+}
+
+
+.box {
+  text-align: justify;
+  border: solid;
+  border-width: 1px;
+  padding: 10px;
+  padding-top: 5px;
+  width: 100%;
+  margin-top: 5px;
+  background: #eee;  
+}
+
+.border { border:1px solid #333; margin:10px; }
+.pic    { border:1px solid #333; float:right; }
+
+.bread { text-align: justify;
+  border: dashed;
+  border-width: 1px;
+  padding: 3px;
+  padding-top: 5px;
+  width: 680px;
+  margin-top: 5px;
+  background: #F2F2FF;
+}
+
+#main p { margin:0px; width: 100%; padding:5px;}
+#main p+p { text-indent:20px; }
+
+#main {margin-left:3%;
+    margin-right:10%;
+	padding:10px;
+}
+
+.right { float:right; text-align:right; font-size:11px; }
+
+a {
+	color: #09C;
+	font-size:16px;
+	text-decoration:none;
+	font-family:times new roman, times;
+	font-weight:600;
+}
+
+a:link { color: #4477bb; }
+a:visited {color: #07C; }
+a:hover { background-color: #EEE; }
+
+#profilepic {float: left;
+    padding:25px; 
+    width: 250px;
+}
+
+#leftpanel {float: left;
+    	padding:25px; 
+    	width: 250px;
+	position:absolute;
+	top:300px;
+}
+
+#title {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    	font-weight:800;
+	color: #1144bb;
+    font-size: 18px;
+}
+
+#menu {
+	position:absolute;
+	top:300px;
+	left:25px;
+	width:600px;
+}
+
+#hr {
+	float: center;
+	width: 80%;
+	position: absolute;
+	left: 100px;
+	border: 0;
+	color: #f00;
+	height: 5px;
+}
+
+
+#menu a:hover { background-color: #C7EEf5; }
+
+table.schedule {
+border-collapse:collapse;
+border: outset 3px #888; border-spacing: 0px;
+width: 70em;
+}
+
+
+table.schedule td {
+border: solid 1px #888; padding:3px; }
+
+table.schedule td.top {
+background-color: #800000; font-weight: bold; border: solid 1px; padding:3px; }
+
