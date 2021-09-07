@@ -35,32 +35,35 @@
             margin-left: 50px;
             margin-right: 50px
         }
+        table {
+            width: 100%;
+        }
     </style>
 </head>
 
 <body>
     <div id="main">
         <div id="title">
-            <span class="maroon">MIT 6.875</span>
-            <br />
-            <span class=black>Foundations of Cryptography</span>
+            <span class="blue">MIT 6.875</span>
+                  <br />
+                   <span class="maroon">Foundations of Cryptography</span>
         </div>
 
         <br />
 
         <div id="inner">
+            <!-- <img width=40% src="course-poster-for-the-web.jpg"> -->
             <h1>Course Description</h1>
 
-            The last few years have witnessed dramatic developments in the foundations of cryptography as well as its applications to real-world privacy and security problems.
-            On the one hand, security and privacy are of paramount importance in the age of big data and mass surveillance.
-            On the other hand, cryptography is abuzz with solutions to long-standing open problems such as fully homomorphic encryption and software obfuscation that use the abundance of data for public good without compromising security.
+            The field of cryptography gives us a technical language to <i>define</i> important real-world problems such as security, privacy and integrity, a mathematical toolkit to <i>construct</i> mechanisms such as encryption, digital signatures, zero-knowledge proofs, homomorphic encryption and secure multiparty computation, and a complexity-theoretic framework to <i>prove</i> security using reductions that together help us <i>enforce the rules of the road</i> in digital interactions. <br><br>
 
-            The course will explore both the rich theory of cryptography as well as its real-world applications.
+            The last few years have witnessed dramatic developments in the foundations of cryptography, as well as its applications to real-world privacy and security problems. For example, cryptography is abuzz with solutions to long-standing open problems such as fully homomorphic encryption and software obfuscation that use an abundance of data for public good without compromising security.<br><br>
+
+            The course will explore the rich theory of cryptography all the way from the basics to the recent developments.
 
             <br /><br />
             <b>Prerequisites: </b>
-            This is an introductory, but fast-paced, graduate course, intended for beginning graduate students and upper level undergraduates in CS and Math.
-            We will assume fluency in algorithms (equivalent to 6.046), complexity theory (equivalent to 6.045) and discrete probability (equivalent to 6.042).
+            This is an introductory, but fast-paced, graduate course, intended for beginning graduate students and upper level undergraduates in CS and Math. We will assume fluency in algorithms (equivalent to 6.046), complexity theory (equivalent to 6.045) and discrete probability (equivalent to 6.042). Mathematical maturity and an ease with writing mathematical proofs will be assumed starting from the first lecture.
 
             <br /><br />
 
@@ -78,7 +81,7 @@
                             Email: vinodv at csail dot mit dot edu
                         </td>
                     </tr>
-			
+
 		    <tr>
                         <td valign="top" halign="left">
                             <b>LOCATION AND TIME</b>
@@ -97,12 +100,12 @@
                             <strong>Lali Devadas</strong>
                             <br />
                             Email: lali at mit dot edu  <br />
-				Office hours: Monday 5-6pm in 24-310, Tuesday 10-11am in 24-317 
+				Office hours: Monday 5-6pm in 24-310, Tuesday 10-11am in 24-317
 			    <br /><br />
                             <strong>Sacha Servan-Schreiber</strong>
                             <br />
                             Email: 3s at mit dot edu <br />
-			       Office hours: Tuesday 6-7pm in 24-310, Friday 1-2pm in 24-310 
+			       Office hours: Tuesday 6-7pm in 24-310, Friday 1-2pm in 24-310
 
                         </td>
                     </tr>
@@ -122,7 +125,7 @@
                                 <li><a href="http://toc.cryptobook.us/book.pdf">Boneh-Shoup</a></li>
 				<li><a href="http://www.wisdom.weizmann.ac.il/~oded/foc-book.html">Goldreich</a></li>
 				<li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/">Rosulek</a></li>
-				<li>Advanced tutorial on the foundations of crypto: <a href="http://www.wisdom.weizmann.ac.il/~oded/MC/219.html">Lindell</a></li>
+				<li> <a href="http://www.wisdom.weizmann.ac.il/~oded/MC/219.html">Lindell</a>'s advanced tutorial on the foundations of crypto.</li>
                             </ol>
                         </td>
                     </tr>
@@ -143,19 +146,15 @@
                         <td><b>ASSIGNMENTS AND GRADING</b></td>
                         <td>
                             Grading will be based on the problem sets (95%) and class participation (5%).
-                            There will be 6 problem sets and your top 5 scores will count towards your grade.
-
-                            <br />
-                            Late day policy: You have a total of 10 late days to use across the 6 psets (max of 5 late days for a single pset).
-                            You can use these late days however you'd like - we will use the timestamp of your Gradescope submission to calculate the number of late days.
+                            There will be 6 problem sets and your top 5 scores will count towards your grade. You have a total of 10 late days to use across the 6 psets (max of 5 late days for any single pset). You can use these late days however you like; we will use the timestamp of your Gradescope submission to calculate the number of late days.
                             <br />
 			    <br />
-                            <b>Submitting psets:</b> 
+                            <b>Submitting psets:</b>
 				<ul>
-				<li> Typesetting your pset answers in LaTeX is strongly encouraged. </li>
+				<li> You should typeset your pset answers in LaTeX. </li>
 				<li> PDFs are to be submitted via <a href="https://www.gradescope.com/">Gradescope</a>. </li>
 				<li> Here is a <a href="https://www.overleaf.com/read/mfdngppntbjt">LaTeX template</a> you can use. </li>
-				</ul>	
+				</ul>
 			    <br />
 			    <!-- <ul>
 				    <li><a href="psets/pset1.pdf">Problem Set 1</a></li>
@@ -171,7 +170,8 @@
                     <tr valign="top" halign="left">
                         <td><b>COLLABORATION POLICY</b></td>
                         <td>
-                            You are free to collaborate with other students on the homework in discussing answers,
+                          Collaboration is permitted and encouraged in smallgroups of at most three.
+                            You are free to collaborate in discussing answers,
                             but you must write up solutions on your own, and specify in your submission the names of any collaborators.
                             Do not copy any text from your collaborators; the writeup must be entirely your work.
                             Additionally, you may make use of published material, provided that you acknowledge all sources used.
@@ -191,7 +191,7 @@
                     <td class="top" width="60%"> <font color="white"> Topic</font> </td>
                     <!-- <td class="top" width="25%"> <font color="white"> References </font> </td> -->
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 1.</strong> </td>
@@ -201,14 +201,10 @@
                 <tr>
 		    <td valign="top"> Lecture 1 (Wed Sep 8) <br /> <em><font color=blue>HW #1 out</font></em> </td>
                     <td valign="top">
-			Introduction to cryptography. Adversaries. The importance of definitions. Shannon’s definitions of perfect secrecy. One-time pad. Shannon’s lower bound.
-                        <!-- Shannon, perfect security and the one-time pad -->
-                        <!-- (<strong>Shafi</strong>) -->
-                        <!-- <br> <a href="slides/lec1.pdf">Lecture Slides</a>
-                  			<br />
-                  			<a href="notes/Shannon.pdf">A Communication Theory of Secrecy Systems</a> (by Claude Shannon)
-                  			<br />
-                  			<a href="notes/Diffie-Hellman.pdf">New Directions in Cryptography</a> (by Whitfield Diffie and Martin E. Hellman) -->
+			              Introduction to cryptography. <br>
+                    Secure Communication and Shannon’s definitions of perfect secrecy.<br>
+                    The One-time pad construction.<br>
+                    Shannon’s lower bound.
                     </td>
 
                 </tr>
@@ -216,7 +212,9 @@
                 <tr>
                     <td valign="top"> Lecture 2 (Mon Sep 13) </td>
                     <td valign="top">
-			How to circumvent Shannon’s lower bound: the computational adversary. Definition of computational security. The definition of pseudorandom generators (informally). Pseudorandom generators imply symmetric encryption.
+			                   How to circumvent Shannon’s lower bound: the computational adversary. <br> Definition of computational security.<br>
+                         The definition of pseudorandom generators (PRG). <br>
+                         Pseudorandom generators imply (stateful) secret-key encryption.
                         <!-- The computational adversary, definition of computational security,
                         definition of pseudo random generators (informally),
                         and pseudo random generators implies symmetric encryption <br> -->
@@ -228,7 +226,10 @@
                 <tr>
                     <td valign="top"> Lecture 3 (Wed Sep 15) </td>
                     <td valign="top">
-			PRG length extension. The notion of pseudorandom functions. Definition, motivation, discussion and comparison with PRGs. PRFs imply symmetric encryption.
+			                   The Hybrid Argument.<br>
+                         An application: PRG length extension. <br>
+                         The notion of pseudorandom functions: Definition, motivation, discussion and comparison with PRGs.<br>
+                         PRFs imply secret-key encryption.
                         <!-- The tool: One-way functions, hard core bits, GL theorem -->
                         <!-- <br />
                         <a href="slides/lec3.pdf">Lecture Slides</a> (<a href="slides/lec3.pptx">PPTX version</a>)
@@ -240,7 +241,8 @@
                 <tr>
                     <td valign="top"> Lecture 4 (Mon Sep 20) </td>
                     <td valign="top">
-			GGM PRF construction. Other theoretical computer science perspectives on pseudorandomness if time permits.
+			                   The Goldreich-Goldwasser-Micali (GGM) PRF construction. <br>
+                         TOC perspectives on pseudorandomness (if time permits).
                         <!-- Pseudorandom generators: definition, construction, properties <br>
                         <a href="slides/lec4.pdf">Lecture Slides</a> (<a href="slides/lec4.pptx">PPTX version</a>)
                         <br />
@@ -256,7 +258,7 @@
                     </td>
 
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 2.</strong> </td>
@@ -296,7 +298,7 @@
                   			<a href="notes/Kalai_generating_factored.pdf">Generating Random Factored Numbers, Easily</a> (by Adam Kalai) -->
                     </td>
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 3.</strong> </td>
@@ -340,9 +342,9 @@
                         <a href="notes/probabilistic_encryption.pdf">Goldwasser-Micali paper</a> -->
                     </td>
                 </tr>
-		    
+
 		<tr>
-                    <td valign="top"> No lecture (Mon Oct 11) <br /> <em>Indigenous Peoples' Day</em> </td> 
+                    <td valign="top"> No lecture (Mon Oct 11) <br /> <em>Indigenous Peoples' Day</em> </td>
 	            <td valign="top"> </td>
 		</tr>
 
@@ -405,7 +407,7 @@
                     </td>
 
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 4.</strong> </td>
@@ -463,7 +465,7 @@
                     </td>
 
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 5.</strong> </td>
@@ -563,7 +565,7 @@
                     </td>
 
                 </tr>
-		    
+
 		<tr>
 		    <td valign="top">  </td>
                     <td valign="top"> <strong>Module 6.</strong> </td>
