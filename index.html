@@ -102,7 +102,10 @@
                 <strong>Tina Zhang</strong> <br />
                 Email: tinaz at mit dot edu <br />
                 Office hours: Tuesday 5-6pm in 34-304, Thursday 4:15-5:15pm in 36-112.
-
+                <br /><br />
+                <strong>Matthew Hong</strong> <br />
+                Email: matthong at mit dot edu <br />
+                Office hours: Thursday 10:30-11:30am in TBD. (Will take place in G5 of Stata on 29 Sept 2022.)
             </td>
         </tr>
 
@@ -185,7 +188,7 @@ You have a total of 10 late days to use across the 6 psets (max of 5 late days f
                 <b>Released problem sets:</b>
                 <ul>
                     <li> <!-- All problem sets will be posted here! -->
-                        <a href="PSETS/hw1.pdf">PSET 1 (PDF)</a> | Released: 7 Sep, 2:30pm | Due: 21 Sep, 11:59:59pm ET
+                        <a href="PSETS/hw1.pdf">PSET 1 (PDF)</a> | <a href="PSETS/hw1sol.pdf">PSET 1 Solutions </a> | Released: 7 Sep, 2:30pm | Due: 21 Sep, 11:59:59pm ET
                     </li>
                     <li> <!-- All problem sets will be posted here! -->
                         <a href="PSETS/hw2.pdf">PSET 2 (PDF)</a> | Released: 21 Sep, 2:30pm | Due: 5 Oct, 11:59:59pm ET
@@ -264,7 +267,7 @@ You have a total of 10 late days to use across the 6 psets (max of 5 late days f
 
                 <b>Topics covered:</b> </br>
                 <ul>
-                    <li>  How to circumvent Shannon’s lower bound: the computational adversary. </li>
+                    <li> How to circumvent Shannon’s lower bound: the computational adversary. </li>
                     <li> Definition of computational security. </li>
                     <li> The definition of pseudorandom generators (PRG).  </li>
                     <li> Pseudorandom generators imply (stateful) secret-key encryption. </li>
@@ -373,33 +376,34 @@ Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Gu
             <td valign="top"> 
                 Lecture 6 (Mon Sep 26)
             </td>
-
-            <td valign="top"><!-- 
+<br /> <br />
+            <td valign="top">
                 <b>Resources:</b> <br />
-                Last year's lecture <a href="https://vimeo.com/616268828">video</a>.
+                <a href="FA22SLIDES/lec6.pptx">Slides</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=12594d13-467f-4d4f-834d-af1a00d725f7">lecture video</a>.
 
-                </br></br> -->
-
+<br /> <br />
                 <b>Topics covered:</b> </br>
                 <ul>
                     <li> The tool: One-way functions and its properties. </li>
                     <li> Hard core bits and PRG. </li>
                     <li> Goldreich-Levin theorem. </li>
-                    <li> A TCS perspective on GL theorem: local list decoding (if time permits) </li>
-                    <li> An example: factoring which leads us to weak OWF and hardness amplification. </li>
+                    <li> A TCS perspective on GL theorem: local list decoding (if time permits). </li>
                 </ul>
 
 
-                <b> Recommended reading (same as last time): </b>
+                <b> Recommended reading: </b>
                 <ul>
-                    <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li>
+                    <li><a href="https://www.wisdom.weizmann.ac.il/~oded/gl.html">A generic hardcore predicate for any one-way function</a> Oded Goldreich and Leonid Levin</li>
+
+                <!-- 
+                    <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li> -->
                 </ul> 
-                <br />
+                <!-- <br />
                 <b> Advanced reading (same as last time): </b>
                 <ul>
                     <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.8031&rep=rep1&type=pdf">Generating Random Factored Numbers, Easily</a> by Adam Kalai.</li>
                     <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
-                </ul>
+                </ul> -->
 
             </td>
         </tr>
@@ -409,20 +413,27 @@ Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Gu
                 Lecture 7 (Wed Sep 28) 
             </td>
 
-            <td valign="top"><!-- 
+            <td valign="top">
                 <b>Resources:</b> <br />
-                Last year's lecture <a href="https://vimeo.com/618223264">video</a>.
-
-                </br></br> -->
+                <a href="FA22SLIDES/lec7.pptx">Slides</a>.
+                </br></br>
 
                 <b>Topics covered:</b> </br>
                 <ul>
-                    <li> Primes, Z_p* and its properties. Computations: what is easy and what is hard. </li>
+                    <li> More on Goldreich-Levin Theorem. </li>
+                    <!-- <li> Primes, Z_p* and its properties. Computations: what is easy and what is hard. </li>
                     <li> The Discrete log problem and a candidate OWF.  </li>
                     <li> Hardcore bit of Diffie-Hellman. </li>
                     <li> A TCS perspective: Random self-reduction and Hardness amplification. </li>
                     <li> Diffie-Hellman assumption and PRGs.  </li>
-                    <li> Diffie-Hellman and PRFs --- Naor-Reingold. </li>
+                    <li> Diffie-Hellman and PRFs --- Naor-Reingold. </li> -->
+                </ul>
+
+                <b> Advanced reading </b>
+                <ul>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. (Page 3 contains a construction of hardcore predicates from any list-decodable code.)
+                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
+                    <li> <a href="https://salil.seas.harvard.edu/files/salil/files/p817vadhan.pdf"> Characterizing Pseudoentropy and Simplifying Pseudorandom Generator Constructions </a> by Salil Vadhan and Colin Jia Zheng. </li>
                 </ul>
 
                 <!-- TODO: update readings -->
