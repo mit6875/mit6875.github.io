@@ -1,0 +1,821 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" ><title>MIT 6.5620/6.875/18.425 Foundations of Cryptography (Fall 2023)</title>
+
+    <link rel="icon" href="http://www.mit.edu/%7Evinodv/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="StyleSheet" href="st3.css" type="text/css"></head>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        #top-table tr td:first-of-type {
+            width: 25%;
+        }
+
+        #title {
+            font-size: 24pt;
+        }
+
+	.important {
+	    font-weight: bold;
+	    color: #c00;
+	}
+
+        .maroon {
+            color: maroon;
+        }
+
+        .black {
+            color: black;
+        }
+
+        #inner {
+            margin-left: 50px;
+            margin-right: 50px
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="main">
+<div id="title">
+    <span class="blue">MIT 6.5620/6.875/18.425 (Fall 2023)</span> <br />
+    <span class="maroon">Foundations of Cryptography</span>
+</div>
+
+<br />
+
+<div id="inner">
+    <!-- <img width=40% src="course-poster-for-the-web.jpg"> -->
+<h1>Course Description</h1>
+
+    The field of cryptography gives us a technical language to <i>define</i> important real-world problems such as security, privacy and integrity, a mathematical toolkit to <i>construct</i> mechanisms such as encryption, digital signatures, zero-knowledge proofs, homomorphic encryption and secure multiparty computation, and a complexity-theoretic framework to <i>prove</i> security using reductions that together help us <i>enforce the rules of the road</i> in digital interactions. <br><br>
+
+    The last few years have witnessed dramatic developments in the foundations of cryptography, as well as its applications to real-world privacy and security problems. For example, cryptography is abuzz with solutions to long-standing open problems such as fully homomorphic encryption and software obfuscation that use an abundance of data for public good without compromising security.<br><br>
+
+    The course will explore the rich theory of cryptography all the way from the basics to the recent developments.
+
+    <br /><br />
+
+    <b>Prerequisites: </b>
+    This is an introductory, but fast-paced, graduate course, intended for beginning graduate students and upper level undergraduates in CS and Math. We will assume fluency in algorithms (equivalent to 6.046), complexity theory (equivalent to 6.045) and discrete probability (equivalent to 6.042). Mathematical maturity and an ease with writing mathematical proofs will be assumed starting from the first lecture.
+
+    <br /><br />
+
+    <h1>Course Information</h1>
+
+    <table id="top-table" cellpadding="4"> <tbody>
+        <tr>
+            <td valign="top" halign="left" width="50%">
+                <b>INSTRUCTOR</b>
+            </td>
+            <td>
+                <a href="http://people.csail.mit.edu/vinodv">Vinod Vaikuntanathan</a> <br />
+                Email: vinodv at csail dot mit dot edu
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>LOCATION AND TIME</b>
+            </td>
+            <td>
+                <strong>Monday and Wednesday 1:00-2:30pm</strong> in <strong>1-190</strong>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td valign="top" halign="left" width="50%">
+                <b>TAs</b>
+            </td>
+            <td>
+                <strong>Neekon Vafa</strong> <br />
+                Email: nvafa at mit dot edu <br />
+                Office hours: TBD.
+                <br /><br />
+                <strong>Hanshen Xiao</strong> <br />
+                Email: hsxiao at mit dot edu  <br />
+                Office hours: TBD.
+                <br /><br />
+                <strong>Chirag Falor</strong> <br />
+                Email: chiragfalor2 at gmail dot com <br />
+                Office hours: TBD.
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>RECITATIONS</b>
+            </td>
+            <td>
+	           Probability review: <b>Friday September 8 12-1pm in TBD </b>
+	           (<a href="FA22HANDOUTS/probability.pdf">Probability theory handout</a>)<br>
+
+	           Complexity and reductions review: <b>Friday September 15 1-2pm in TBD.</b>
+                <br>
+ 	           (<a href="FA22HANDOUTS/Complexity recitation 2022.pdf">Complexity theory and reductions handout</a>)<br>
+
+                Number theory review: <b>Friday September 29 12-1pm on Zoom (see Piazza for the link).</b>
+              (<a href="HANDOUTS/numbertheory.pdf">Number theory handout</a>; see also <a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Dana Angluin's high-quality and comprehensive notes</a>.)
+            </td>
+
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>RESOURCES</b>
+            </td>
+            <td>
+                The main references will be the course materials including lecture notes, slides and/or videos.
+                We will also post relevant papers after every lecture.
+                Here are a few supplementary references for the entire course material.
+
+                <br /><br/>
+
+                <b> Lecture notes </b>
+                <ol>
+                    <li><a href="fall2022.html">Fall 2022 course website</a> </li>
+                    <li><a href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf">Pass-Shelat</a></li>
+                </ol>
+                <b> Textbooks </b>
+                <ol>
+                    <li><a href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513">Katz-Lindell</a></li>
+                    <li><a href="http://toc.cryptobook.us/book.pdf">Boneh-Shoup</a></li>
+                    <li><a href="http://www.wisdom.weizmann.ac.il/~oded/foc-book.html">Goldreich</a></li>
+                    <li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/">Rosulek</a></li>
+                    <li> <a href="http://www.wisdom.weizmann.ac.il/~oded/MC/219.html">Lindell</a>'s advanced tutorial on the foundations of crypto.</li>
+                </ol>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>PIAZZA</b>
+            </td>
+            <td>
+                We will use Piazza for class communication.
+                Our class Piazza is <a href="https://piazza.com/mit/fall2023/6875">here</a>.
+                Please ask your questions there, so that other students can see the questions and answers.
+            </td>
+        </tr>
+
+
+        <tr valign="top" halign="left">
+            <td><b>ASSIGNMENTS AND GRADING</b></td>
+            <td>
+                Grading will be based on the problem sets, midterm exam, and class participation.
+                There will be 6 problem sets and your top 5 scores will count towards your grade.
+You have a total of 10 late days to use across the 6 psets (max of 5 late days for any single pset). You can use these late days however you like; we will use the timestamp of your Gradescope submission to calculate the number of late days.
+
+                <br /> <br />
+
+                <b>Submitting psets:</b>
+                <ul>
+                    <li> You should typeset your pset answers in LaTeX. </li>
+                    <li> PDFs are to be submitted via <a href="https://www.gradescope.com/">Gradescope</a> on or before 11:59:59pm ET on the due date. The Gradescope access code is available on the course information page on Piazza.
+ </li>
+                    <li> Here is a <a href="https://www.overleaf.com/read/cqysyydpbwnf">LaTeX template</a> you can use.
+                    <li> Solutions will be posted on piazza.
+                    </li>
+                </ul>
+
+                <br />
+
+                <b>Released problem sets:</b>
+                <ul>
+                    <li> <!-- All problem sets will be posted here! -->
+                    </li>
+        </tr>
+
+        <tr valign="top" halign="left">
+            <td><b>COLLABORATION POLICY</b></td>
+            <td>
+                Collaboration is permitted and encouraged in smallgroups of at most three.
+                You are free to collaborate in discussing answers,
+                but you must write up solutions on your own, and specify in your submission the names of any collaborators.
+                Do not copy any text from your collaborators; the writeup must be entirely your work.
+                Additionally, you may make use of published material, provided that you acknowledge all sources used.
+                Of course, scavenging for solutions from prior years is forbidden.
+            </td>
+        </tr>
+    </tbody> </table>
+
+    <br />
+
+<h1>Schedule <small> (tentative and subject to change) </small> </h1>
+
+    <table class="schedule">
+        <tr>
+            <td class="top" width="15%"> <font color="white">Lecture</font> </td>
+            <td class="top" width="60%"> <font color="white"> Topic</font> </td>
+            <!-- <td class="top" width="25%"> <font color="white"> References </font> </td> -->
+        </tr>
+
+    <tr>
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 1.</strong> </td>
+    </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 1 (Wed Sep 6) <br />
+                <em><font color=blue>HW #1 out</font></em>
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec1.pptx"> Slides</a>,
+                <a href="FA22SLIDES/lec1.pdf"> Slides (PDF)</a>
+				and <a href=https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b2418944-3599-4a81-929b-af0900815008> lecture video</a>.
+            </a>
+
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Introduction to cryptography. </li>
+                    <li> Secure Communication and Shannon’s definitions of perfect secrecy. </li>
+                    <li> The One-time pad construction. </li>
+                    <li> Shannon’s lower bound. </li>
+                </ul> <br>
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/shannon-secrecy.pdf">Communication Theory of Secrecy Systems</a> by Claude Shannon </li>
+                    <li><a href="https://www.youtube.com/watch?v=ZQBIs0BUVh4"> The Cryptographic Lens: Visions  of our Past and Future </a> by Shafi Goldwasser | <a href="https://simons.berkeley.edu/sites/default/files/docs/407/goldwassershafi.pdf"> Slides </a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 2 (Mon Sep 11)
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+
+                <a href="FA22SLIDES/lec2.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec2.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b19c81cf-554c-4360-9a13-af0900622763">lecture video</a>.
+
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> How to circumvent Shannon’s lower bound: the computational adversary. </li>
+                    <li> Definition of computational security. </li>
+                    <li> The definition of pseudorandom generators (PRG).  </li>
+                    <li> Pseudorandom generators imply (stateful) secret-key encryption. </li>
+                </ul> <br>
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/Diffie-Hellman.pdf">New Directions in Cryptography</a> by Whitfield Diffie and Martin Hellman</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 3 (Wed Sep 13)
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec3.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec3.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fd561533-44ef-4ca8-aacc-af09006298e1">lecture video</a>.
+
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> The Hybrid Argument. </li>
+                    <li> An application: PRG length extension.  </li>
+                    <li> The notion of pseudorandom functions: Definition, motivation, discussion and comparison with PRGs.  </li>
+                    <li> PRFs imply secret-key encryption. </li>
+                </ul> <br>
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
+                    <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali </li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 4 (Mon Sep 18)
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec4.pdf">Slides (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=addc5a32-fbca-4680-94dc-af0c00d7840f">lecture video</a>.
+
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Formal definition of PRF security. </li>
+                    <li> The Goldreich-Goldwasser-Micali (GGM) PRF construction. </li>
+                    <li> Definition of IND-CPA secure encryption.</li>
+                </ul> <br>
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
+                </ul> <br />
+
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="PAPERS/learning.pdf">Cryptographic Limitations on Learning Boolean Formulae and Finite Automata</a> by Michael Kearns and Leslie Valiant.</li>
+                    <li><a href="PAPERS/natural_proofs.pdf">Natural Proofs</a> by Alexander Razborov and Steven Rudich</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 5 (Wed Sep 20) <br />
+                <em><font color=red>HW #1 due</font>, <em><font color=blue>HW #2 out</font></em>
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec5.pdf">Slides (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ecce115e-11c5-4999-8516-af1300d72e1a">lecture video</a>.
+
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Identification protocols. </li>
+                    <li> Authentication and message-authentication codes (MAC). </li>
+                    <li> Chosen ciphertext secure symmetric key encryption. </li>
+                </ul>
+
+
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message
+Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
+                </ul>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 6 (Mon Sep 25)
+            </td>
+<br /> <br />
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec6.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec6.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=12594d13-467f-4d4f-834d-af1a00d725f7">lecture video</a>.
+
+<br /> <br />
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> One-way functions and its properties. </li>
+                    <li> Hard core bits and PRG. </li>
+                    <li> Goldreich-Levin theorem. </li>
+                </ul>
+
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="https://www.wisdom.weizmann.ac.il/~oded/gl.html">A generic hardcore predicate for any one-way function</a> Oded Goldreich and Leonid Levin</li>
+
+                <!--
+                    <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li> -->
+                </ul>
+                <!-- <br />
+                <b> Advanced reading (same as last time): </b>
+                <ul>
+                    <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.8031&rep=rep1&type=pdf">Generating Random Factored Numbers, Easily</a> by Adam Kalai.</li>
+                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
+                </ul> -->
+
+            </td>
+        </tr>
+
+     <tr>
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 3.  Public-key Cryptography </strong> </td>
+    </tr>
+
+
+
+        <tr>
+            <td valign="top">
+                Lecture 7 (Wed Sep 27)
+            </td>
+
+            <td valign="top">
+                <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec7.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec7.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=734f395a-bd5e-459e-af7b-af1a00d7b38b">lecture video</a>.
+                </br></br>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Goldreich-Levin Theorem (contd.) </li>
+                    <li> A TCS perspective on GL theorem: local list decoding (if time permits). </li>
+                    <!-- <li> Primes, Z_p* and its properties. Computations: what is easy and what is hard. </li>
+                    <li> The Discrete log problem and a candidate OWF.  </li>
+                    <li> Hardcore bit of Diffie-Hellman. </li>
+                    <li> A TCS perspective: Random self-reduction and Hardness amplification. </li>
+                    <li> Diffie-Hellman assumption and PRGs.  </li>
+                    <li> Diffie-Hellman and PRFs --- Naor-Reingold. </li> -->
+                </ul>
+
+                <b> Advanced reading </b>
+                <ul>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. <br>(See Page 3 for a construction of hardcore predicates from any list-decodable code.)
+                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
+                    <li> <a href="https://salil.seas.harvard.edu/files/salil/files/p817vadhan.pdf"> Characterizing Pseudoentropy and Simplifying Pseudorandom Generator Constructions </a> by Salil Vadhan and Colin Jia Zheng. </li>
+                </ul>
+
+                <!-- TODO: update readings -->
+                <!-- <b> Recommended reading (same as last time): </b>
+                <ul>
+                    <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li>
+                </ul>
+                <br />
+                <b> Advanced reading (same as last time): </b>
+                <ul>
+                    <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.8031&rep=rep1&type=pdf">Generating Random Factored Numbers, Easily</a> by Adam Kalai.</li>
+                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
+                </ul> -->
+            </td>
+        </tr>
+
+    <tr>
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 2.</strong> </td>
+    </tr>
+
+
+        <tr>
+            <td valign="top">
+                Lecture 8 (Mon Oct 2)
+            </td>
+
+            <td valign="top">
+	      <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec8.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec8.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=0163f5ee-e1f6-4606-ac87-af2100d69d7e">video</a>.<!--
+                <b>Resources:</b> <br />
+                Last year's lecture <a href="https://vimeo.com/622823102">video</a>.
+-->
+                </br></br>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Merkle's key exchange protocol </li>
+                    <li> Public-key encryption. </li>
+                    <li> Definition of security: IND-CPA. </li>
+                    <li> Overview of group theory and number theory. </li>
+                </ul>
+    <b> Recommended reading </b>
+    <ul>
+      <li> <a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li>
+      <li> <a href="https://mit6875.github.io/PAPERS/probabilistic_encryption.pdf"> Probabilistic Encryption </a> by Shafi Goldwasser and Silvio Micali. </li>
+		  <li> <a href="https://people.csail.mit.edu/rivest/Rsapaper.pdf"> A Method for Obtaining Digital Signatures and Public-Key Cryptosystems </a> by R.L. Rivest, A. Shamir, and L. Adleman </li>
+		  <li> <a href="https://ee.stanford.edu/~hellman/publications/24.pdf"> New Directions in Cryptography </a> by Whitefield Diffie and Martin E. Hellman. </li>
+		  <li> <a href="http://www.ralphmerkle.com/1974/PuzzlesAsPublished.pdf"> Secure Communications Over Insecure Channels </a> by Ralph C. Merkle </li>
+    </ul>
+		<b> Talk on history of public key cryptography mentioned in lecture:</b>
+        <ul>
+					<li> <a href="https://www.youtube.com/watch?v=w704skq5q_8">The Growth of Cryptography</a> by Ronald L. Rivest, at the 2011 Killian Lecture.</li>
+				</ul>
+
+
+            </td>
+        </tr>
+
+
+        <tr>
+            <td valign="top">
+                Lecture 9 (Wed Oct 4) <br />
+                <em><font color=red>HW #2 due</font>, <font color=blue>HW #3 out</font></em>
+            </td>
+
+            <td valign="top">
+            <b>Resources:</b> <br />
+                <a href="FA22SLIDES/lec9.pptx">Slides</a>,
+                <a href="FA22SLIDES/lec9.pdf"> Slides (PDF)</a>
+				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=bd6c4da3-13e2-4132-a33c-af2100d6d9fa">video</a>.
+            <br><br>
+            <b>Topics covered:</b> </br>
+            <ul>
+                <li> Discrete Log Asssumption.</li>
+                <li> Diffie-Hellman key exchange. </li>
+                <li> Diffie-Hellman/El Gamal encryption. </li><!--
+                <li> Composites, factoring. </li>
+                <li> RSA, trapdoor permutations and another public-key cryptosystem. </li>
+                <li> QRA, Goldwasser-Micali and Homomorphism. </li> -->
+            </ul>
+
+            <b> Recommended reading (same as last lecture). </b> <br> <br>
+
+            <b>Advanced reading:</b>
+            <ul>
+              <li> <a href="https://inst.eecs.berkeley.edu/~cs276/fa20/notes/Kalai_generating_factored.pdf">Generating Random Factored Numbers, Easily </a> by Adam Kalai. </li>
+            </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                No lecture (Mon Oct 9) <br />
+                <em>Indigenous Peoples' Day</em>
+            </td>
+
+            <td valign="top">
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 10 (Wed Oct 11)
+            </td>
+
+            <td valign="top">
+            <b>Digital signatures I  (+CRHF) </b> <br />
+     
+            <br><br>
+            <b>Topics covered:</b> </br>
+            <ul>
+                <li> Trapdoor functions. </li>
+                <li> RSA, trapdoor permutations and another public-key cryptosystem. </li>
+                <li> QRA, Goldwasser-Micali and Homomorphism. </li>
+                <!-- <li> Motivation for Digital Signatures. </li>
+                <li> Definition: EUF-CMA Security </li>
+                <li> One-time signatures or, how to sign a single bit: Lamport’s Scheme. </li>
+                <li> Collision-resistant hashing and how to sign polynomially many bits, once. </li> -->
+            </ul>
+            <b> Recommended reading: </b>
+            <ul>
+              <li><a href="PAPERS/probabilistic_encryption.pdf">Probabilistic Encryption</a>  by Shafi Goldwasser and Silvio Micali.</li>
+            </ul>
+            <b> Advanced reading: </b>
+            <ul>
+                <li><a href="https://arxiv.org/pdf/2106.08121.pdf">A Minimalist Proof of the Law of Quadratic Reciprocity</a> by Bogdan Veklych.</li>
+
+            </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 11 (Mon Oct 16)
+            </td>
+            
+ 	    <td valign="top">
+            <b>Digital signatures II. </b> <br />
+
+            </td>
+        </tr>
+
+
+        <tr>
+            <td valign="top">
+                Lecture 12 (Wed Oct 18) <br>
+                <em><font color=red>HW #3 due</font>, <font color=blue>HW #4 out</font></em>
+            </td>
+
+            <td valign="top">
+            <b>Digital signatures III. </b> <br />
+
+
+        </tr>
+
+
+  	<tr>
+            <td valign="top">
+                Lecture 13 (Mon Oct 23) <br/>
+                
+            </td>
+
+            <td valign="top">
+            <b>Zero knowledge I, definitions and example. </b> <br />
+
+
+        </tr>
+
+    
+  
+
+        <tr>
+            <td valign="top">
+                Lecture 14 (Wed Oct 25) <br />
+            </td>
+
+            <td valign="top">
+            <b> Midterm Exam: Covering material upto (and including) Lecture 12 </b> <br />
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 15 (Mon Oct 30)
+            </td>
+
+            <td valign="top">
+            <b>Zero knowledge II, NP in ZK </b> <br />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 16 (Wed Nov 1) <br>
+      
+            </td>
+            <td valign="top">
+                <b>Proofs of Knowledge </b> <br />
+                </td>
+        </tr>
+
+        <tr>
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 4. Outsourcing Storage and Computation. Secure Collaboration. </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 17 (Mon Nov 6)
+            </td>
+            <td valign="top">
+                <b>TBD </b> <br />
+            </td>
+        </tr>
+
+        
+
+        <tr>
+            <td valign="top">
+                Lecture 18 (Wed Nov 8) <br />
+		 <em><font color=red>HW #4 due</font>, <font color=blue>HW #5 out</font></em>
+            </td>
+
+            <td valign="top">
+         	<b> Homomorphic Encryption </b> <br />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 19 (Mon Nov 13)
+            </td>
+
+            <td valign="top">
+                <b>Lattices and Learning with Errors </b> <br />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 20 (Wed Nov 15) <br>
+            </td>
+
+            <td valign="top">
+                <b>Fully Homomorphic Encryption </b> <br />
+            </td>
+        </tr>
+
+        <tr>
+        <td valign="top">  </td>
+        <td valign="top"> <strong>Module 6.</strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 21 (Mon Nov 20) <br />
+                <em><font color=red>HW #5 due</font>, <font color=blue>HW #6 out</font></em>
+            </td>
+
+            <td valign="top">
+                <b>Secret Sharing</b> <br />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 22 (Wed Nov 22) 
+            </td>
+
+            <td valign="top">
+		<b> Secure computation: BGW Protocol. </b> <br />
+            </td>
+        </tr>
+
+
+        <tr>
+            <td valign="top">
+                Lecture 23 (Mon Nov 27) <br />
+            </td>
+
+            <td valign="top">
+                <b>Oblivious transfer + PIR. </b> <br />
+
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 24 (Wed Nov 29)
+            </td>
+
+            <td valign="top">
+                <b> GMW two-party computation </b> <br />
+            </td>
+
+        </tr>
+       
+        <tr>
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 5. Additional Topics </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 25 (Mon Dec 4) <br />
+ 		<em><font color=red>HW #6 due</font></em>
+            </td>
+
+            <td valign="top">
+                <b>TBD </b> <br />
+            </td>
+
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 26 (Wed Dec 6) <br>
+             
+            </td>
+
+            <td valign="top">
+                <b>TBD </b> <br />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 27 (Mon Dec 11)
+            </td>
+
+            <td valign="top">
+                <b> GMW two-party computation </b> <br />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 28 (Wed Dec 13)
+            </td>
+
+            <td valign="top">
+              <b> GMW two-party computation </b> </br>
+            </td>
+        </tr>
+
+    </table>
+
+
+    <!-- <br /><br />
+    <a name="refs">
+    <h1>References</h1>
+    </a>
+
+    Courses Elsewhere:
+    <ul>
+
+    <li> A precursor of this course at MIT: <a href="http://people.csail.mit.edu/vinodv/6876-Fall2015/index.html">Fall 2015</a> and <a href="http://people.csail.mit.edu/vinodv/6876-Fall2017/index.html">Fall 2017</a> and <a href="http://people.csail.mit.edu/vinodv/6876-Fall2018/index.html">Fall 2018</a>.
+
+    <li> Oded Regev's course at <a href="https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/index.html">Tel-Aviv University</a>.
+
+    <li> Daniele Micciancio's course at <a href="http://cseweb.ucsd.edu/classes/wi10/cse206a/">UCSD</a>.
+
+    <li> Cynthia Dwork's course at <a href="dwork-lattice-lectures.ps">Stanford</a>.
+
+    <li> Chris Peikert's course at <a href="http://web.eecs.umich.edu/~cpeikert/lic15/">Michigan/Georgia Tech</a>.
+
+    </ul>
+
+</div>
+</div>
+</body>
+</html>
