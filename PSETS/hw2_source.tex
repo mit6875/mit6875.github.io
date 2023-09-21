@@ -1,0 +1,113 @@
+\documentclass{article}
+\input{preamble.tex}
+
+% configure document 
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+
+%%% TODO: update with every pset
+\newcommand{\psetnum}{2}    
+\newcommand{\psettitle}{Problem Set \psetnum}
+\newcommand{\myname}{} % Your name here!
+\newcommand{\mycolaborators}{} %{{\bf Collaborators:} List your collaborators here!}   
+\newcommand{\MAC}{{\sf MAC}}
+\newcommand{\Enc}{{\sf Enc}}
+\newcommand{\Dec}{{\sf Dec}}
+\newcommand{\Gen}{{\sf Gen}}
+
+\newcommand{\secp}{n}
+
+\begin{document}
+
+\lecturenotes{Due: Oct. 4, 2023}{\myname}{\mycolaborators}{\psettitle}{}
+\noindent \textbf{Total Number of Points}: 60.
+\\
+\\\noindent 
+\textbf{Collaboration Policy:} Collaboration is allowed and encouraged in small groups of at most three students. You are free to collaborate in discussing answers, but you must write up solutions on your own and must specify in your submission the names of any collaborators. Do not copy any text from your collaborators; the writeup must be entirely your work. Do not write down solutions on a board and copy them verbatim into \LaTeX; again, the writeup must be entirely your own words and your own work and should demonstrate a clear understanding of the solution. Additionally, you may make use of published material, provided that you acknowledge all sources used. Of course, scavenging for solutions from prior years is forbidden. 
+
+\begin{problems}
+
+\problem[Input Length Extension for PRFs.] (16 points) Let $\{\mathcal{F}_\secp\}_{\secp \in \mathbb{N}}$ where $$\mathcal{F}_n = \{ f_k: \{0,1\}^\ell \to \{0,1\}^\ell\}_{k \in \{0,1\}^{\ell}}$$ is a pseudo-random function (PRF) family. For each of the following parts, either prove that the function family
+$\{\mathcal{F}_\secp'\}_{\secp \in \mathbb{N}}$ where 
+$$\mathcal{F}'_n = \{ f'_k: \{0,1\}^{2\ell} \to \{0,1\}^\ell\}_{k \in \{0,1\}^{\ell}}$$ 
+is a pseudorandom function family or provide a polynomial-time attack showing that it is not. 
+%A non-adaptive distinguisher is one that makes all her queries at the same time. 
+
+\begin{problemparts}
+%\problempart (5 points) $f'_k(x,y) = f_k(x)\oplus f_k(y)$. 
+\problempart (1 point) $f'_k(x,y) = f_k(x \oplus y)$.
+\problempart (5 points) $f'_k(x,y) = f_{k\oplus x}(y)$.
+\problempart (10 points) $f'_k(x,y) = f_{f_k(x)}(y)$.
+\end{problemparts}
+
+
+
+\problem [Swapping the Input and the Key.] (10 points) Recall the Goldreich-Goldwasser-Micali (GGM) construction of a pseudo-random function (PRFs) family from any pseudo-random generator (PRGs): let $G: \{0,1\}^{\secp} \to \{0,1\}^{2\secp}$ be a PRG and let $G_0$ (resp. $G_1$) be the function that outputs the first (resp. second) half of the bits of $G$. That is, $G(k)= G_0(k)\| G_1(k)$, the concatenation of $G_0(k)$ and $G_1(k)$. For any key $k \in \{0,1\}^\secp$, the GGM construction defines $f_k: \{0,1\}^\secp \to \{0,1\}^\secp$ as 
+$$ f_k(x_1, \cdots, x_n) = G_{x_n}(G_{x_{n-1}}(\cdots G_{x_2}(G_{x_1}(k)) \cdots )).$$
+where $x_i \in \{0,1\}$ are the bits of the input $x$.
+
+We saw in class that if $G$ is a PRG, the collection of functions $\{\mathcal{F}_\secp\}_{\secp\in \mathbb{N}}$ where 
+$$ \mathcal{F}_\secp = \{f_k: \{0,1\}^\secp \to \{0,1\}^{\secp}\}_{k\in \{0,1\}^\secp}$$
+is a pseudorandom function family.
+
+
+\begin{problemparts}
+\problempart (5 points) Tim the Tinkerer, a first-year taking 6.5620, wants to poke around GGM a bit. In particular, he wants to see what happens if you swap the roles of the input and the key in the GGM construction.
+That is, he defines the function family $\{\mathcal{F}'_\secp\}$ where each 
+$$ \mathcal{F}'_\secp = \{f'_k: \{0,1\}^\secp \to \{0,1\}^{\secp}\}_{k\in \{0,1\}^\secp}$$
+and 
+$$ f'_k(x) = G_{k_n}(G_{k_{n-1}}(\cdots G_{k_2}(G_{k_1}(x)) \cdots )).$$
+Help Tim by proving or disproving the following statement: For every PRG $G: \{0,1\}^{n} \to \{0,1\}^{2n}$, $\mathcal{F}'_\secp$ is a pseudo-random function family. 
+\problempart (5 points) Callista the Cryptographer, a graduate student in 6.5620,  decides to modify the construction further and comes up with the following variant of GGM. She defines the function family $\{\mathcal{F}''_\secp\}$ where each 
+$$ \mathcal{F}''_\secp = \{f''_{k,r}: \{0,1\}^\secp \to \{0,1\}^{\secp}\}_{k,r\in \{0,1\}^\secp}$$
+and 
+$$ f''_{k,r}(x) = G_{k_n}(G_{k_{n-1}}(\cdots G_{k_2}(G_{k_1}(x\oplus r)) \cdots )).$$
+Prove or disprove the following statement: For every PRG $G: \{0,1\}^{n} \to \{0,1\}^{2n}$, $\mathcal{F}''_\secp$ is a pseudo-random function family. 
+\end{problemparts}
+
+
+
+
+\problem[One-way ... or another.] (20 points) Let $f$ be a length-preserving one-way function. For each of the following parts, either prove that $f_i$ is necessarily a one-way function or show a counterexample (namely, a length-preserving one-way function $f$ for which $f_i$ is {\em not} one-way.) Your counterexamples must rely only on the {\em existence} of one-way functions. 
+
+\begin{problemparts}
+\problempart (5 points) $f_0(x) = f(f(x))$
+\problempart (5 points) $f_1(x,y) := f(x) \| f(x \oplus y),$ where the length of $x$ and $y$ is the same, i.e., $|x| = |y|$.
+%\problempart (3 points) $f_2(x) := \big(f(x)||x_{[1:\log |x|]}\big)$, where the notation $y_{[1:\ell]}$ denotes the string $y$ restricted to its first $\ell$ bits.
+\problempart (5 points) $f_2(x) := f(x)_{[1:|x|-1]}$. 
+\problempart (5 points) $f_3(x) := f(x)\oplus x$. 
+\end{problemparts}
+
+
+\problem[A Hardcore Problem.] (14 points) Assume that one-way functions exist.  $b: \{0,1\}^* \to \{0,1\}$ is a hard-core predicate of a one-way function $f(\cdot)$ if $b(x)$ is efficiently computable given $x$ and there exists a negligible function $v$ such that for every PPT adversary $A$ and for every $n$:
+$$ \Pr[x \gets \{0,1\}^n: A(f(x)) = b(x) ] \leq \frac{1}{2} + v(n). $$
+
+\begin{problemparts}
+%\problempart (2 points) Construct an one-way function $f: \{0,1\}^n \to \{0,1\}^m$ for input $x=(x_1,x_2,\cdots, x_n)$ such that the first bit $x_1$ is not hardcore.  
+
+\problempart (2 points) A polynomial time-computable predicate $b: \{0,1\}^n \to \{0,1\}$ is called a {\em universal} hardcore predicate if for {\em every} one-way function $f:\{0,1\}^n \to \{0,1\}^m$, $b$ is hardcore.  Prove that there is no universal hardcore predicate.
+
+\problempart (12 points) Could there be a one-way function $f$ for which {\em none} of the individual bits of the input are hardcore? It turns out that there are such beasts. Construct a one-way function $f:\{0,1\}^n \to \{0,1\}^m$ for which none of the predicates $b_i(x_1,\ldots,x_n) = x_i$ are hardcore.
+\end{problemparts}
+
+\iffalse
+\problem[Simultaneous Encryption and Authentication.] (15 points)
+Let $(\Enc,\Dec)$ be a computationally indistinguishable symmetric encryption scheme and $\MAC$ an existentially unforgeable message authentication scheme under Chosen Message Attack (CMA): i.e., any adversary who can request MACs on messages $M_1, M_2,...$ of his choice cannot generate a valid forgery on a new message $M'$.  
+
+Suppose Alice and Bob share two independent keys $K_1, K_2$ (generated at random using the respective generation algorithms) for privacy and authentication, respectively.  They want to exchange messages $M$ in a private and authenticated way.  Consider sending each of the following as a means to this end, and argue whether it is secure or not, where secure means both computationally indistinguishable and existentially unforgeable under CMA.
+\begin{problemparts}
+\problempart (3 points)  $M, \MAC_{K_2}(\Enc_{K_1}(M))$ 
+\problempart (3 points) $\Enc_{K_1}(M, \MAC_{K_2}(M))$
+\problempart (3 points) $\Enc_{K_1}(M), \MAC_{K_2}(M)$
+\problempart  (3 points) $\Enc_{K_1}(M), \MAC_{K_2}(\Enc_{K_1}(M))$
+\problempart (3 points) $\Enc_{K_1}(M,A)$, where $A$ denotes the identity of Alice.  Bob decrypts the ciphertext and checks that the second half of the plaintext is $A$.
+\end{problemparts}
+\fi 
+
+\end{problems}
+
+\end{document}
