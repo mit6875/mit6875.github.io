@@ -131,7 +131,7 @@
                 <b>RECITATION</b>
             </td>
             <td>
-	            Number theory review: <b>TBD (sometime in October).</b><br/>
+	            Number theory review: <b>Monday, September 29th in 4-237 from 3-5pm.</b><br/>
                 <a href="HANDOUTS/numbertheory.pdf">Number theory handout</a> | <a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Dana Angluin's notes</a> | <a href = FA23HANDOUTS/cyclicmodp.pdf>Keith Conrad's note on the cyclicity of Zp*</a>
             </td>
         </tr>
@@ -384,7 +384,11 @@ more explanation or examples; it's all fine.
                     <li> The Goldreich-Levin hardcore predicate. </li>
                 </ul>
 		
-               
+                <b> Advanced reading </b>
+                <ul>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. <br>(See Page 3 for a construction of hardcore predicates from any list-decodable code.)
+                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
+                </ul>
             </td>
         </tr>
         <tr>
@@ -429,8 +433,7 @@ more explanation or examples; it's all fine.
                 Pseudorandom Functions (PRFs)
 				<br><br>
                 <b>Resources:</b> <br />
-				<a href="LECNOTES/lec6.pdf"> Lecture Notes (PDF) </a> 
-<!-- 				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=579067a8-8747-4a5e-90e6-b33f00f6d489"> Lecture Recording </a> -->
+				<a href="LECNOTES/lec6.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ae8a5a2c-54ae-47d5-9b15-b33f00f6d4bd"> Lecture Recording </a>
 				
                 <br /> <br/>
 
@@ -440,36 +443,11 @@ more explanation or examples; it's all fine.
 					<li> PRF definition. </li>
 					<li> Constructing PRFs from PRGs. </li>
                 </ul>
-                <!-- <b>Resources:</b> <br />
-                <br /> <br />
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Formal definition of PRF security. </li>
-                    <li> The Goldreich-Goldwasser-Micali (GGM) PRF construction. </li>
-                    <li> Definition of IND-CPA secure encryption.</li>
-                </ul> <br>
+                <br>
                 <b> Recommended reading: </b>
                 <ul>
-                    <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
-                </ul> <br />
-
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="PAPERS/learning.pdf">Cryptographic Limitations on Learning Boolean Formulae and Finite Automata</a> by Michael Kearns and Leslie Valiant.</li>
-                    <li><a href="PAPERS/natural_proofs.pdf">Natural Proofs</a> by Alexander Razborov and Steven Rudich</li>
-                </ul>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Identification protocols. </li>
-                    <li> Authentication and message-authentication codes (MAC). </li>
-                    <li> Chosen ciphertext secure symmetric key encryption. </li>
-                </ul>
-
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
-                </ul> -->
+                    <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali </li>
+                </ul>              
             </td>
         </tr>
 
@@ -480,38 +458,37 @@ more explanation or examples; it's all fine.
             <br /> <br />
             <td valign="top">
                 Message Authentication Codes (MACs)
-                <!-- <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec6.pptx"> Slides</a>,
-                <a href="FA23SLIDES/lec6.pdf"> Slides (PDF)</a>, and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=755abf54-3a80-4667-8ca1-b0870084eeb5">lecture video</a>.
-                <br /> <br /> -->
+                <br><br>
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec7.pdf"> Lecture Notes (PDF)</a>
+                <!-- , and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=755abf54-3a80-4667-8ca1-b0870084eeb5">lecture video</a>. -->
+                <br /> <br />
 
-                <!-- <b>Topics covered:</b> </br>
+                <b>Topics covered:</b> </br>
                 <ul>
-                    <li> One-way functions and its properties. </li>
-                    <li> Hard core bits and PRG. </li>
-                    <li> Goldreich-Levin theorem. </li>
-                </ul> -->
+                    <li> GGM construction of PRFs, cont. </li>
+                    <li> Definition of MACs </li>
+                    <li> Construction of MACs from PRFs </li>
+                </ul>
 
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
+                </ul>
 
                 <!-- <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="https://www.wisdom.weizmann.ac.il/~oded/gl.html">A generic hardcore predicate for any one-way function</a> Oded Goldreich and Leonid Levin</li>
-                    <li><a href="https://www.wisdom.weizmann.ac.il/~oded/foc-vol1.html">Goldreich's "Foundations of Cryptography" Volume 1</a>, Chapter 2.5</li> -->
-
-                <!--
                     <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li> -->
                 <!-- </ul> -->
                 <!-- <br />
                 <b> Advanced reading (same as last time): </b>
                 <ul>
+                    <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
                     <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.8031&rep=rep1&type=pdf">Generating Random Factored Numbers, Easily</a> by Adam Kalai.</li>
                     <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
                 </ul> -->
 
                 <!-- <b> Advanced reading </b>
                 <ul>
-                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. <br>(See Page 3 for a construction of hardcore predicates from any list-decodable code.)
-                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
                     <li> <a href = "https://eccc.weizmann.ac.il/report/2023/143/">Counting Unpredictable Bits: A Simple PRG from One-way Functions</a> by Noam Mazor and Rafael Pass.</li>
                     <li> <a href="https://salil.seas.harvard.edu/files/salil/files/p817vadhan.pdf"> Characterizing Pseudoentropy and Simplifying Pseudorandom Generator Constructions </a> by Salil Vadhan and Colin Jia Zheng. </li>
                 </ul> -->
