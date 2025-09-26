@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage{macros}
+\usepackage[]{algorithm2e}
+\newcommand{\BPP}{\mathsf{BPP}}
+\newcommand{\pk}{\mathsf{pk}}
+\newcommand{\sk}{\mathsf{sk}}
+\title{Foundations of Cryptography, Fall 2025 \\ Problem Set 2 \\ Due Friday, Oct 10}
+\date{}
+\author{}
+\begin{document}
+
+\maketitle
+
+\paragraph{Total Number of Points: 100}
+
+\paragraph{Collaboration Policy:} Collaboration is permitted and encouraged in small groups of at most three students. You are free to collaborate in discussing answers, but you must write up solutions on your own, and must specify in your submission the names of any collaborators. Do not copy any text from your collaborators; the writeup must be entirely your work. Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution. \textbf{Solutions should be typeset in $\text{\LaTeX}$.} You may make use of published material, provided that you clearly acknowledge all sources/tools used. Of course, scavenging for solutions from prior years is forbidden.
+
+\paragraph{On the Use of LLMs:} You may use AI however you wish to deepen your understanding of the lecture material. Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine. You may not use LLMs in any way to work on your homework. You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI generated content whatsoever in your homework submissions. If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
+
+\section*{Problem 1: One-way Functions and Cryptography (15 points)}
+In this problem, we will investigate the kinds of assumptions that we need to construct certain cryptographic primitives, focusing primarily on one-way functions.
+\begin{enumerate}
+    \item (5 points) In this problem part, your goal is to show that {\em some} complexity-theoretic assumptions are indeed necessary. Make sure you read the \href{https://mit6875.github.io/FA23HANDOUTS/complexity-updated.pdf}{complexity theory} handout before you begin this problem. 
+
+    \textbf{In particular, show that if $\NP \subseteq \BPP$, then one-way functions do not exist.} 
+    \item (10 points) In this problem part, your goal is to show that one-way functions are in some sense also a minimal cryptographic primitive.
+    
+    \textbf{In particular, show that if (secret-key) CPA-secure encryption schemes exist, then one-way functions also exist.}
+    
+    An alternative way to phrase this question is: assume that $(\Enc, \Dec)$ is a perfectly correct and CPA-secure encryption scheme, where a key $k$ is sampled randomly at random, $\Enc(k, m)$ outputs a ciphertext $c$, and $\Dec(k, c)$ outputs a message $m$. Using $(\Enc, \Dec)$, construct a one-way function.
+
+    \emph{Hint:} Of course, we do not currently know if the existence of the one-time-pad implies the existence of one-way functions! As such, your OWF and reduction (from the security of your constructed OWF to the CPA-security of the encryption scheme) will need to ask for the encryptions of many messages (which are always encrypted with the \emph{same} key sampled once at the beginning of the CPA experiment).
+\end{enumerate}
+
+\section*{Problem 2: The Leftover Hash Lemma (30 points)}
+In this problem, we will construct a proof of the Leftover Hash Lemma (first introduced in the seminal work of H{\aa}stad, Impagliazzo, Levin, and Luby), which is a central result in randomness extraction and cryptography. 
+\begin{enumerate}
+    \item (10 points) Recall that in lecture we saw a proof of the Goldreich-Levin theorem, which states that any predictor for the GL hardcore predicate corresponding to a one-way function $f$ gives rise to an inverter for $f$. In this part, you will construct an \emph{information-theoretic} version of Goldreich-Levin. Formally, you should prove the following statement:
+    \begin{theorem}
+        For each $n \in \bbN$, let $D_n$ be some distribution over $\{0, 1\}^n \times \{0, 1\}^{*}$. Suppose there is a (possibly inefficient) algorithm $\calA$ such that
+            \[ \Pr_{(x, y) \gets D_n, r \gets \{0, 1\}^n}[\calA(y, r) = x \cdot r] > \frac{1}{2}+\eps \]
+        for some function $\eps := \eps(n)$. Then there exists a (possibly inefficient) algorithm $\calB$ such that
+            \[ \Pr_{(x, y) \gets D_n}[\calB(y) = x] > \frac{\eps^3}{32n}. \]
+    \end{theorem}
+    Note that we have generalized to arbitrary distributions $D_n$.
+    
+    \emph{Hint:} Your proof should closely follow the reduction from class. In fact, (you do not have to prove this) your reduction should have the property that $T_\calB \leq \poly(T_\calA, 1/\epsilon)$, where $T_\calA$ and $T_\calB$ are the runtimes of $\calA$ and $\calB$, respectively.
+    \item (5 points) Fix $k, n \in \bbN$, $\eps \in [0, 1]$. Let $X$ be any distribution over $\{0, 1\}^n$ and let $\matM \gets \{0, 1\}^{n \times k}$ be a random matrix. Suppose there is a (possibly inefficient) algorithm $\calA$ such that
+        \[ \left| \Pr_{\vecx \gets X, \matM}[\calA(\matM, \matM \star \vecx) = 1] - \Pr_{\matM, \vecu \gets \{0, 1\}^k}[\calA(\matM, \vecu) = 1] \right| > \eps, \]
+    where $\matM \star \vecx$ denotes the vector in $\{0, 1\}^k$ whose $i$'th entry is formed by taking the dot product of $\vecx$ and the $i$'th column of $\matM$ (denoted by $\vecm_i$) modulo 2.
+    
+    Prove that there exists a (possibly inefficient) algorithm $\calB$ and index $i \in [k]$ such that
+        \[ \left| \Pr_{\vecx \gets X, \matM}[\calB(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_i) = 1] - \Pr_{\vecx \gets X, \matM, b \gets \{0, 1\}}[\calB(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}, b) = 1] \right| > \frac{\eps}{k}. \]
+    \emph{Hint:} Think about how to adapt the proof from class to the information-theoretic setting. Your algorithm $\calB$ should run in roughly the same amount of time as $\calA$.
+    \item (5 points) Now, suppose there is a (possibly inefficient) algorithm $\calA$ and index $i \in [k]$ such that
+        \[ \left| \Pr_{\vecx \gets X, \matM}[\calA(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_i) = 1] - \Pr_{\vecx \gets X, \matM, b \gets \{0, 1\}}[\calA(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}, b) = 1] \right| > \eps'. \]
+    
+    Prove that there exists a (possibly inefficient) algorithm $\calB$ such that
+        \[ \Pr_{\vecx \gets X, \matM}[\calB(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}) = \vecx \cdot \vecm_i] > \frac{1}{2}+\frac{\eps'}{2}. \]
+    \emph{Hint:} As with the previous parts, think about how to adapt the proof from class to the information-theoretic setting. Your algorithm $\calB$ should run in roughly the same amount of time as $\calA$.
+    \item (10 points) Recall that the min-entropy of a distribution $P$ (as defined in the \href{https://mit6875.github.io/FA23HANDOUTS/probability.pdf}{probability handout}), denoted by $H_{\infty}(P)$, is defined by
+        \[ H_{\infty}(P) := -\log(\max_{p \in \mathsf{supp}(P)}\Pr[P = p]). \] 
+    We now fix $n \in \bbN$, $\eps \in [0, 1]$, and let $X$ be a distribution over $\{0, 1\}^n$. Let $\matM \gets \{0, 1\}^{n \times k}$ be a random matrix for $k \leq H_{\infty}(X)-3\log 1/\eps-4\log n-8$, where $H_{\infty}(X)$ is the min-entropy of $X$. Prove that for all (even inefficient) algorithms $\calA$,
+        \[ \left|\Pr_{\matM, \vecx \gets X}[\calA(\matM, \matM \star \vecx) = 1] -\Pr_{\matM, \vecu \gets \{0, 1\}^k}[\calA(\matM, \vecu) = 1]\right| \leq \eps, \]
+    where $U_k$ is the uniform distribution over $\{0, 1\}^k$. That is, show that the joint distributions $(\matM, \matM \star X)$ and $(\matM, U_k)$ have statistical/trace distance at most $\eps$.
+    
+    \emph{Hint:} How likely is it for a (possibly inefficient) algorithm to guess the value of a sample from $X$?
+\end{enumerate}
+
+\section*{Problem 3: Identifying PRFs (20 points)}
+Let $\calF = \{\calF_{\secp}\}_{\secp \in \bbN}$ be a PRF family with $\calF_{\secp} = \{F_k: \{0, 1\}^{\secp} \to \{0,1\}^{\secp}\}_{k \in \{0,1\}^{\secp}}$. Let $\calF' = \{\calF'_{\secp}\}_{\secp \in \bbN}$ be a family of functions with $\calF'_{\secp} = \{F'_k: \{0, 1\}^{\secp} \to \{0,1\}^{\secp}\}_{k \in \calK_\secp}$ for some keyspace $K_{\secp}$. For each of the following constructions, determine if $\calF'$ is necessarily a family of pseudorandom functions.
+\begin{enumerate}
+    \item (5 points) $F'_{(k_1, k_2)}(x_1 || x_2) = F_{k_1}(x_1) || F_{k_2}(x_2)$, where $|x_1| = |x_2|$ or $|x_1| = |x_2| + 1$ and $\calK_\secp = \{0, 1\}^{\secp}$.
+    \item (10 points) $F'_{(k_1, k_2)}(x) = F_{k_1}(F_{k_2}(x))$, where $|k_1| = |k_2|$ and $\calK_{\secp} = \{0, 1\}^{2\secp}$.
+    \item (5 points) $F'_k(x) = F_k(x) \oplus H(x || x)$, where $H: \{0, 1\}^{*} \to \{0, 1\}^{*}$ is some efficiently computable function which maps inputs of length $2\secp$ to outputs of length $\secp$, and $\calK_{\secp} = \{0, 1\}^{\secp}$.
+\end{enumerate}
+
+\section*{Problem 4: Fun with PRFs (15 points)}
+\newcommand{\PointRejectKey}{\mathsf{PointRejectKey}}
+\newcommand{\Eval}{\mathsf{Eval}}
+\newcommand{\st}{\mathsf{st}}
+
+In this problem, we will look at one variant of a PRF, which we call \emph{point-rejecting PRFs}.
+
+\begin{definition}
+A point-rejecting PRF is a PRF family $\calF = \{\calF_{\secp}\}_{\secp \in \bbN}$ with $\calF_{\secp} = \{ F_k : \{0, 1\}^{\secp} \to \{0, 1\}^{\secp} \}_{k \in \{0, 1\}^{\secp}}$, along with two additional polynomial-time algorithms $\PointRejectKey$ and $\Eval$ such that 
+\begin{itemize}
+    \item $\PointRejectKey$ gets as input a key $k$ and a point $x^{*}$, and outputs a point-rejecting key $k\{x^{*}\}$.
+    \item $\Eval$ gets as input a point-rejecting key $k\{x^{*}\}$ and an input $x$, and outputs a $y \in \{0, 1\}^{\secp}$. 
+\end{itemize}
+In addition to $\calF$ being a PRF family, the following two properties should also hold: 
+\begin{itemize}
+    \item \textbf{Point-Rejecting Key Correctness:} For all input lengths $\secp \in \mathbb{N}$, and for all keys $k \in \{0, 1\}^{\secp}$, input points $x^{*} \in \{0, 1\}^{\secp}$, and inputs $x \in \{0, 1\}^{\secp}$ such that $x \neq x^{*}$, 
+        \[ \Eval(\PointRejectKey(k, x^{*}), x) = F_k(x). \]
+    \item \textbf{Point-Rejecting Key Security:} Any PPT algorithm $\calA$ wins the following game between an adversary $\calA$ and a challenger $\calC$ with at most $\frac{1}{2}+\negl(\secp)$ probability: 
+    \begin{itemize}
+        \item $\calA$ gets as input $1^{\secp}$, then picks $x^{*} \in \{0, 1\}^{\secp}$ and sends $x^{*}$ to the challenger $\calC$.
+        \item The challenger $\calC$ selects a uniformly random key $k \in \{0, 1\}^{\secp}$ for the point-rejecting PRF family and computes the point-rejecting key $k\{x^{*}\} = \PointRejectKey(k, x^{*})$. $\calC$ then samples a random bit $b \in \{0, 1\}$ and random value $y \in \{0, 1\}^{\secp}$. If $b = 0$, $\calC$ sends the pair $(k\{x^{*}\}, F_k(x^{*}))$ to $\calA$, otherwise it sends the pair $(k\{x^{*}\}, y)$ to $\calA$. 
+        \item $\calA$ examines the pair that was received from the challenger $\calC$, and then outputs a bit $b'$.
+    \end{itemize}
+    We say that $\calA$ wins if $b = b'$ at the end of the game. 
+\end{itemize}
+\end{definition}
+\noindent \textbf{Prove that if PRGs exist, then so do point-rejecting PRFs.}
+\\ \\
+\noindent To get started, try thinking about the GGM construction. How might one modify the keys to allow an adversary to evaluate all possible inputs except for one? Keep in mind that the length of point-rejecting keys can be different from the length of original PRF keys.
+
+\section*{Problem 5: Candidate One-Way Functions (20 points)}
+Candidate one-way functions often rely on a variety of hard problems, from number-theoretic to lattice-based or code-based assumptions. In this problem, we will see how to build a one-way function based on the \emph{hardness of factoring} assumption.
+
+The hardness of factoring assumption is as follows:
+\begin{assumption}
+    For every $\secp \in \bbN$, let $P_\secp$ be the set of all primes which are at most $2^\secp$. For every poly-size adversary $\calA$, there exists a negligible function $\mu$ such that for all $\secp \in \bbN$,
+        \[ \Pr_{p, q \gets P_\secp}[A(1^{\secp}, N := p * q) \in \{p, q\}] \leq \mu(\secp). \]
+\end{assumption}
+We will also use the following two facts about prime numbers (make sure to read the \href{https://mit6875.github.io/HANDOUTS/numbertheory.pdf}{number theory handout} on the class website for more information):
+\begin{theorem}[Chebyshev, \href{https://web.williams.edu/Mathematics/lg5/Chebyshev.pdf}{reference}]
+    For all $x \geq 2$, $\pi(x) \geq \frac{x}{2\log x}$, where $\pi(x)$ is the number of primes less than or equal to $x$.
+\end{theorem}
+\begin{theorem}[Agrawal, Kayal, Saxena]
+    There is a deterministic polynomial-time algorithm to test if a $n$-bit number is prime.
+\end{theorem}
+\newcommand{\mult}{\mathsf{mult}}
+\begin{enumerate}
+    \item (10 points) Our first goal is to build a \emph{weak one-way function}:
+    \begin{definition}
+        A function $f: \{0, 1\}^{*} \to \{0, 1\}^{*}$ is \emph{weakly one-way} if it satisfies the following two conditions:
+        \begin{itemize}
+            \item \textbf{Easy to compute:} There exists a poly-time algorithm $B$ such that for every $x \in \{0, 1\}^{*}$, $B(x) = f(x)$.
+            \item \textbf{Somewhat hard to invert:} There exists a positive polynomial $p(\secp)$ such that for sufficiently large $\secp \in \bbN$, the following holds: for any poly-size adversary $\calA$, 
+                \[ \Pr_{x \gets \{0, 1\}^\secp}[x' \gets \calA(1^{\secp}, f(x)) : f(x) = f(x')] \leq 1-\frac{1}{p(\secp)}. \]
+            In this case, we say that $f$ is $(1-\frac{1}{p(\secp)})$-hard.
+        \end{itemize}
+    \end{definition}
+    Assuming the hardness of factoring, prove that $f_{\mult}(x, y) = x * y$ if $x, y \neq 1$ (and $\bot$ otherwise), where $|x| = |y|$,\footnote{Here, we are using the standard mapping between $n$-bit strings and the range $[1, 2^n]$. In other words, $f_{\mult}$ takes as input two $n$-bit strings, interprets them as integers between 1 and $2^n$, multiplies them (if neither is 1), and converts the resulting $2n$-bit number into a $2n$-bit string.} is a weak-one way function, and give a polynomial $p$ such that $f_{\mult}$ is $(1-\frac{1}{p(\secp)})$-hard.
+    
+    \textbf{Note:} Technically, we have only defined $f_{\mult}$ on even-length inputs. In this problem, you can assume/consider only even-length inputs to $f_{\mult}$. It is not too hard (as we have seen in the previous problem set) to extend this to a function which works on inputs of odd length (e.g. by ignoring the first input bit).
+    \item (10 points) We will now \emph{amplify} our weak one-way function into a standard one-way function. Concretely, prove that if $f: \{0, 1\}^{\secp} \to \{0, 1\}^{\ell(\secp)}$ is a weak one-way function with hardness $1-\eps$ where $\eps = \frac{1}{\poly(\secp)}$, then $f^k : \{0, 1\}^{k\secp} \to \{0, 1\}^{k\ell(\secp)}$ defined as
+        \[ f^k(x_1, \ldots, x_k) = (f(x_1), f(x_2), \ldots, f(x_k)) \]
+    is a one-way function when $k = 2\secp/\eps = \poly(\secp)$. As in the first part, to extend $f^k$ to all inputs, one can do a simple padding procedure (or drop the last bits of input until we have something whose length is a multiple of $k$). Thus, in this part, you can work with only input lengths which are multiples of $k$.
+\end{enumerate}
+\end{document}
