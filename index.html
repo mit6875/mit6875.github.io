@@ -358,7 +358,6 @@ more explanation or examples; it's all fine.
                 <b> Recommended reading: </b>
                 <ul>
                     <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
-                    <!-- <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali </li> -->
                 </ul>
             </td>
         </tr>
@@ -475,15 +474,10 @@ more explanation or examples; it's all fine.
                     <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
                 </ul>
 
-                <!-- <b> Recommended reading: </b>
-                    <li><a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Lecture Notes on the Complexity of Some Problems in Number Theory</a> by Dana Angluin.</li> -->
-                <!-- </ul> -->
-                <!-- <br />
-                <b> Advanced reading (same as last time): </b>
+                <!-- <b> Advanced reading (same as last time): </b>
                 <ul>
                     <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
                     <li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.135.8031&rep=rep1&type=pdf">Generating Random Factored Numbers, Easily</a> by Adam Kalai.</li>
-                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
                 </ul> -->
 
                 <!-- <b> Advanced reading </b>
@@ -498,7 +492,12 @@ more explanation or examples; it's all fine.
             <td valign="top">
                 Fri Sep 26: <em><font color=blue>HW #2 out</font></em>
             </td>
-            <td></td>
+            <td>
+                <b> Related reading: </b>
+                <ul>
+                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
+                </ul>
+            </td>
         </tr>
 
         <tr>
@@ -507,16 +506,17 @@ more explanation or examples; it's all fine.
             </td>
 
             <td valign="top">
-                Construction of CCA-secure Encryption
-                <!-- <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec7.pptx"> Slides</a>,
-                <a href="FA23SLIDES/lec7.pdf"> Slides (PDF)</a>, and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=0aa68bc6-954b-4aee-8434-b0870084f83d">lecture video</a>.
-                <br /> <br />
+                Construction of CCA-secure Encryption <br/> <br/>
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec8.pdf"> Lecture Notes (PDF)</a> <!-- and <a href="">Lecture Recording</a>. -->
+                <br/> <br/>
                 <b>Topics covered:</b> </br>
                 <ul>
-                    <li> Goldreich-Levin Theorem (contd.) </li>
-                    <li> A TCS perspective on GL theorem: local list decoding (if time permits). </li>
-                </ul> -->
+                    <li> Security Proof for MACs from PRFs </li>
+                    <li> Authenticated Encryption </li>
+                    <li> Definition of CCA security </li>
+                    <li> Encrypt-then-MAC is CCA-secure </li>
+                </ul>
             </td>
         </tr>
 
@@ -531,16 +531,22 @@ more explanation or examples; it's all fine.
             </td>
 
             <td valign="top">
-                Key Exchange
+                Digital Signatures I
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                    <a href="FA23SLIDES/lec8.pptx">Slides</a>,
-                    <a href="FA23SLIDES/lec8.pdf"> Slides (PDF)</a>
-                    and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=dc8bdfb8-3bd8-4039-a708-b08e0084d66e">lecture video</a>.
+                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
+                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
+                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
                 <br /> <br />
+                <b>Recommended reading:</b>
+                <ul>
+                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
+                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
+                </ul>
                 <b>Advanced reading:</b>
                 <ul>
-                <li> <a href="FA23HANDOUTS/adam-kalai-generating-factored-numbers.pdf">Generating Random Factored Numbers, Easily </a> by Adam Kalai. </li>
+                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
+                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
                 </ul> -->
             </td>
         </tr>
@@ -548,81 +554,50 @@ more explanation or examples; it's all fine.
         <tr>
             <td valign="top">
                 Lecture 10 (Mon Oct 6) <br />
-                <!-- <em><font color=red>HW #2 due</font>, <font color=blue>HW #3 out</font></em> -->
             </td>
 
             <td valign="top">
-                Public-Key Encryption 
+                Digital Signatures II
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec9.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec9.pdf"> Slides (PDF)</a>
-				and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2677d81d-578e-446e-983d-b08e0084dfc0">lecture video</a>.
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Discrete Log Asssumption.</li>
-                    <li> Diffie-Hellman key exchange. </li>
-                    <li> Diffie-Hellman/El Gamal encryption. </li>
-                </ul>
-
-                <b> Recommended reading (same as last lecture). </b> <br> <br>
-
+                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
+                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
+                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
                 <br /> <br />
+                <b>Recommended reading:</b>
+                <ul>
+                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
+                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
+                </ul>
                 <b>Advanced reading:</b>
                 <ul>
-                <li> <a href="FA23HANDOUTS/rsa-hardcore-bit.pdf">RSA and Rabin Functions: Certain Parts Are as Hard as the Whole </a> by Werner Alexi, Benny Chor, Oded Goldreich, and Claus P. Schnorr. </li>
+                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
+                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
                 </ul> -->
             </td>
         </tr>
-
-        <!-- <tr>
-            <td valign="top">
-                Lecture 10 (Mon Oct 6)
-            </td>
-
-            <td valign="top">
-                Construction of Public-Key Encryption from Trapdoor Permutations -->
-                <!-- <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec10.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec10.pdf"> Slides (PDF)</a>
-                and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3c97f6ec-453a-4a4f-98a7-b09700f49d00">lecture video</a>.
-                
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Trapdoor functions. </li>
-                    <li> RSA, trapdoor permutations and another public-key cryptosystem. </li>
-                    <li> QRA, Goldwasser-Micali and Homomorphism. </li>
-                </ul>
-                <b> Recommended reading: </b>
-                <ul>
-                <li><a href="PAPERS/probabilistic_encryption.pdf">Probabilistic Encryption</a>  by Shafi Goldwasser and Silvio Micali.</li>
-                </ul>
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="https://arxiv.org/pdf/2106.08121.pdf">A Minimalist Proof of the Law of Quadratic Reciprocity</a> by Bogdan Veklych.</li>
-
-                </ul> -->
-            <!-- </td>
-        </tr> -->
 
         <tr>
             <td valign="top">
                 Lecture 11 (Wed Oct 8)
             </td>
-
- 	        <td valign="top">
-                Construction of Public-Key Encryption from LWE 
+            <td valign="top">
+                Digital Signatures III
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                    <a href="FA23SLIDES/lec11.pptx">Slides</a>,
-                    <a href="FA23SLIDES/lec11.pdf"> Slides (PDF)</a>
-                    and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=40f6e017-6b83-4a24-8114-b09c0084853b">lecture video</a>.
+                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
+                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
+                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
                 <br /> <br />
-                <b> Recommended reading: </b>
+                <b>Recommended reading:</b>
                 <ul>
-                <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
+                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
+                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
+                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
                 </ul> -->
             </td>
         </tr>
@@ -647,16 +622,19 @@ more explanation or examples; it's all fine.
         <tr>
             <td valign="top">
                 Lecture 12 (Wed Oct 15) <br>
-                <!-- <em><font color=red>HW #3 due</font>, <font color=blue>HW #4 out</font></em> -->
             </td>
-
             <td valign="top">
-                Fully Homomorphic Encryption I
+                Key Exchange
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec12.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec12.pdf"> Slides (PDF)</a>
-                and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8165a619-9a12-4f95-ada0-b09c008487ac">lecture video</a>. -->
+                    <a href="FA23SLIDES/lec8.pptx">Slides</a>,
+                    <a href="FA23SLIDES/lec8.pdf"> Slides (PDF)</a>
+                    and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=dc8bdfb8-3bd8-4039-a708-b08e0084d66e">lecture video</a>.
+                <br /> <br />
+                <b>Advanced reading:</b>
+                <ul>
+                <li> <a href="FA23HANDOUTS/adam-kalai-generating-factored-numbers.pdf">Generating Random Factored Numbers, Easily </a> by Adam Kalai. </li>
+                </ul> -->
             </td>
         </tr>
 
@@ -665,22 +643,26 @@ more explanation or examples; it's all fine.
                 Lecture 13 (Mon Oct 20) <br/>
             </td>
             <td valign="top">
-                Fully Homomorphic Encryption II
+                Public-Key Encryption 
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
-                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
-                <br /> <br />
-                <b>Recommended reading:</b>
+                <a href="FA23SLIDES/lec9.pptx">Slides</a>,
+                <a href="FA23SLIDES/lec9.pdf"> Slides (PDF)</a>
+                and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=2677d81d-578e-446e-983d-b08e0084dfc0">lecture video</a>.
+                <b>Topics covered:</b> </br>
                 <ul>
-                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
-                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
+                    <li> Discrete Log Asssumption.</li>
+                    <li> Diffie-Hellman key exchange. </li>
+                    <li> Diffie-Hellman/El Gamal encryption. </li>
                 </ul>
+
+                <b> Recommended reading (same as last lecture). </b> <br> <br>
+                    <li><a href="PAPERS/probabilistic_encryption.pdf">Probabilistic Encryption</a>  by Shafi Goldwasser and Silvio Micali.</li>         
+                <br /> <br />
                 <b>Advanced reading:</b>
                 <ul>
-                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
-                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
+                    <li><a href="https://arxiv.org/pdf/2106.08121.pdf">A Minimalist Proof of the Law of Quadratic Reciprocity</a> by Bogdan Veklych.</li>
+                    <li> <a href="FA23HANDOUTS/rsa-hardcore-bit.pdf">RSA and Rabin Functions: Certain Parts Are as Hard as the Whole </a> by Werner Alexi, Benny Chor, Oded Goldreich, and Claus P. Schnorr. </li>
                 </ul> -->
             </td>
         </tr>
@@ -690,22 +672,16 @@ more explanation or examples; it's all fine.
                 Lecture 14 (Wed Oct 22) <br/>
             </td>
             <td valign="top">
-                Digital Signatures I
+                Construction of Public-Key Encryption from LWE 
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
-                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
+                    <a href="FA23SLIDES/lec11.pptx">Slides</a>,
+                    <a href="FA23SLIDES/lec11.pdf"> Slides (PDF)</a>
+                    and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=40f6e017-6b83-4a24-8114-b09c0084853b">lecture video</a>.
                 <br /> <br />
-                <b>Recommended reading:</b>
+                <b> Recommended reading: </b>
                 <ul>
-                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
-                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
-                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
+                <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
                 </ul> -->
             </td>
         </tr>
@@ -722,23 +698,12 @@ more explanation or examples; it's all fine.
                 Lecture 15 (Mon Oct 27) <br/>
             </td>
             <td valign="top">
-                Digital Signatures II
+                Fully Homomorphic Encryption I
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
-                <a href="FA23SLIDES/lec13.pptx">Slides</a>,
-                <a href="FA23SLIDES/lec13.pdf"> Slides (PDF)</a>
-                and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8635adce-af09-4faa-9954-b0a40074e40f">lecture video</a>.
-                <br /> <br />
-                <b>Recommended reading:</b>
-                <ul>
-                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
-                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
-                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
-                </ul> -->
+                <a href="FA23SLIDES/lec12.pptx">Slides</a>,
+                <a href="FA23SLIDES/lec12.pdf"> Slides (PDF)</a>
+                and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8165a619-9a12-4f95-ada0-b09c008487ac">lecture video</a>. -->
             </td>
         </tr>
 
@@ -747,7 +712,7 @@ more explanation or examples; it's all fine.
                 Lecture 16 (Wed Oct 29) <br/>
             </td>
             <td valign="top">
-                Digital Signatures III
+                Fully Homomorphic Encryption II
                 <!-- <br /> <br />
                 <b>Resources:</b> <br />
                 <a href="FA23SLIDES/lec13.pptx">Slides</a>,
@@ -772,8 +737,6 @@ more explanation or examples; it's all fine.
                 Midterm (Mon Nov 3) <br />
             </td>
             <td></td>
-            <!-- <td valign="top">
-            <b> No class. Midterm Exam 7-9pm in 1-190, covering material up to (and including) Lecture 12 </b> <br /> -->
         </tr>
 
         <tr  style="background-color:#d3d3d3">
