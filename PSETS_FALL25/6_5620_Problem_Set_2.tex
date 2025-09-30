@@ -56,7 +56,7 @@ In this problem, we will construct a proof of the Leftover Hash Lemma (first int
         \[ \left| \Pr_{\vecx \gets X, \matM}[\calA(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_i) = 1] - \Pr_{\vecx \gets X, \matM, b \gets \{0, 1\}}[\calA(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}, b) = 1] \right| > \eps'. \]
     
     Prove that there exists a (possibly inefficient) algorithm $\calB$ such that
-        \[ \Pr_{\vecx \gets X, \matM}[\calB(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}) = \vecx \cdot \vecm_i] > \frac{1}{2}+\frac{\eps'}{2}. \]
+        \[ \Pr_{\vecx \gets X, \matM}[\calB(\matM, \vecx \cdot \vecm_1, \ldots, \vecx \cdot \vecm_{i-1}) = \vecx \cdot \vecm_i] > \frac{1}{2}+\eps'. \]
     \emph{Hint:} As with the previous parts, think about how to adapt the proof from class to the information-theoretic setting. Your algorithm $\calB$ should run in roughly the same amount of time as $\calA$.
     \item (10 points) Recall that the min-entropy of a distribution $P$ (as defined in the \href{https://mit6875.github.io/FA23HANDOUTS/probability.pdf}{probability handout}), denoted by $H_{\infty}(P)$, is defined by
         \[ H_{\infty}(P) := -\log(\max_{p \in \mathsf{supp}(P)}\Pr[P = p]). \] 
