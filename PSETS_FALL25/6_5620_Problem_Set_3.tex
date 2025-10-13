@@ -59,9 +59,8 @@ In lecture, we saw how to construct digital signatures from collision-resistant 
 \end{enumerate}
 \newpage
 
-
-\section{Collision-Resistant Hash Functions (30 points)}
-A \emph{compressing collision-resistant function family} is a collection of functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_{k}\}_{k \in \{0,1\}^{\lambda}}$ together with an efficient key generation algorithm $\Gen(1^\lambda) \to k$, such that the following two properties hold:
+\section{Collision-Resistant Hash Functions}
+A \emph{compressing collision-resistant function family} is a collection of functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ together with an efficient key generation algorithm $\Gen(1^\lambda)$, such that the following two properties hold:
 \begin{enumerate}
     \item Compressing: The functions $f_{k}: \{0,1\}^{n+m} \to \{0,1\}^n$ maps an input of length $n+m$ bits to an output of length $n$ bits, thereby ``compressing'' its input, where $m, n = \poly(\lambda)$. For this problem, we will always consider $m > 1$.
     \item Collision-resistant: For every polynomial-size adversary $\mathcal{A}$, there is a negligible function $\mu$ such that
@@ -69,22 +68,20 @@ A \emph{compressing collision-resistant function family} is a collection of func
         \Pr_{k \gets \Gen(1^\lambda)}[f_{k}(x) = f_k(x') \text{ and } x \neq x': (x, x') \gets \mathcal{A}(k) ] \le \mu(\lambda).
     \end{align*}
 \end{enumerate}
-Our goal is build a \textit{variable-length} collision-resistant hash function family $\calH = \{\calH_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH_\lambda = \{H_k \}_{k \in \{0,1\}^\lambda}$
-\[
-H_{k} : \{0,1\}^* \to \{0,1\}^n,
-\]
+Our goal is build a \textit{variable-length} collision-resistant hash function family $\calH = \{\calH_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH_\lambda = \{H_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$
+    \[ H_k : \{0,1\}^* \to \{0,1\}^n, \]
 starting from a standard computational assumption from lattice-based cryptography, namely the Short Integer Solution problem.
 
-\subsection{A compressing collision-resistant function (10 points)}
+\subsection{A compressing collision-resistant function}
 \begin{definition}[Short Integer Solution (SIS) Assumption]
 Let $N, M, q$ be integers with $q > 1$ and $M \gg N \log q$, and let $\mathbf{A} \in \mathbb{Z}_q^{N \times M}$ be a uniformly random matrix. The \emph{SIS problem} with parameters $(N, M, q)$ asks to find a nonzero integer vector $\mathbf{z} \in \{-1, 0, 1\}^M$ such that $\mathbf{A} \mathbf{z} \equiv \mathbf{0} \pmod{q}$. The \emph{SIS assumption} states that no poly-size algorithm can solve the SIS problem with non-negligible probability, given matrix $\mathbf{A}$.
 \end{definition}
 
-Assuming that the SIS assumption holds, give a family of collision-resistant compressing functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k: \{0,1\}^M \rightarrow \mathbb{Z}_q^N\}_{k \in \{0,1\}^\lambda}$, where $M, N = \poly(\lambda)$.
+Assuming that the SIS assumption holds, give a family of collision-resistant compressing functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k: \{0,1\}^M \rightarrow \mathbb{Z}_q^N\}_{k \in \{0,1\}^{\poly(\lambda)}}$, where $M, N = \poly(\lambda)$.
 
-\subsection{Extending to more input lengths (5 points)}
-Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^\lambda}$ and
-$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH' = \{\calH'_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH'_{\lambda} = \{H'_k\}_{k \in \{0,1\}^\lambda}$ and 
+\subsection{Extending to more input lengths}
+Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and
+$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH' = \{\calH'_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH'_{\lambda} = \{H'_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and 
 $$H'_{k}: \{\{0,1\}^{m}\}^* \to \{0,1\}^n.$$ 
 That is, it takes as input strings of length any multiple of $m$ and works follows:
 \begin{itemize}
@@ -92,10 +89,10 @@ That is, it takes as input strings of length any multiple of $m$ and works follo
     \item Let $\mathsf{IV} \in \{0,1\}^n$ be an arbitrary fixed public string. \item Compute $y_0 := \mathsf{IV}$, and $y_i := f_k(y_{i-1} \| x_i)$ for $i = 1, 2, \ldots, t$. 
     \item Finally, set $H'_{k}(x) = y_t$. 
 \end{itemize}
-Prove that this hash function family is ``collision-resistant'' in the following sense: no polynomial-size adversary is able to produce $x \neq x'$ such that $|x| = |x'| \in m \mathbb{Z}$ such that $H'_{k}(x) = H'_{k}(x')$.
+Prove that this hash function family is ``collision-resistant'' in the following sense: no polynomial-size adversary is able to produce with non-negligible probability $x \neq x'$ such that $|x| = |x'| \in m \mathbb{Z}$ such that $H'_{k}(x) = H'_{k}(x')$.
 
-\subsection{Insecure padding (5 points)}\label{sec:insecure-padding}
-Now define the hash function family $\calH'' = \{\calH''_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH''_\lambda = \{H''_k \}_{k \in \{0,1\}^\lambda}$
+\subsection{Insecure padding}\label{sec:insecure-padding}
+Now define the hash function family $\calH'' = \{\calH''_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH''_\lambda = \{H''_k \}_{k \in \{0,1\}^{\poly(\lambda)}}$
 \[
 H''_{k} : \{0,1\}^* \to \{0,1\}^n,
 \]
@@ -103,11 +100,11 @@ that takes as input strings of arbitrary length and outputs
 \begin{align*}
     H''_k(x) = H'_{k}(x\| 0^{\ell}),
 \end{align*}
-where $\ell \in \{0,1, \ldots, m-1\}$ such that $x\|0^{\ell}$ has length that is a multiple of $m$. Give an attack on this hash function---that is, give an efficient algorithm that produces two inputs $x, x'$ such that $H''_k(x) = H_k''(x')$.
+where $\ell \in \{0,1, \ldots, m-1\}$ such that $x\|0^{\ell}$ has length that is a multiple of $m$. Give an attack on this hash function---that is, give an efficient algorithm that produces (with probability 1) two inputs $x, x'$ such that $H''_k(x) = H_k''(x')$.
 
-\subsection{Collision-resistant hash functions, finally (10 points)}
-Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^\lambda}$ and
-$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH = \{\calH_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH_{\lambda} = \{H_k\}_{k \in \{0,1\}^\lambda}$, 
+\subsection{Collision-resistant hash functions, finally}
+Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and
+$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH = \{\calH_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH_{\lambda} = \{H_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$, 
 $$H_{k}: \{\{0,1\}^{m}\}^* \to \{0,1\}^n$$
 that takes as input strings of arbitrary length and does the following to compute its output:
 \begin{itemize}
@@ -136,15 +133,15 @@ A lossy encryption scheme $(\Gen, \Enc, \Dec)$ has the following syntax:
         \[ \Pr[(\pk, \sk) \gets \Gen(1^{\secp}, \real) : b = \Dec(\sk, \Enc(\pk, b))] = 1, \]
     where the probability is over the randomness of $\Gen$, $\Enc$, and $\Dec$.
     \item \textbf{Key Indistinguishability:} Real public keys are computationally indistinguishable from lossy public keys. That is, for any $\secp \in \bbN$,
-    \[ \{ \pk: (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx \{ \widetilde{\pk}: \widetilde{\pk} \gets \Gen(1^{\secp}, \lossy)\}. \]
+    \[ \{ \pk: (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx_c \{ \widetilde{\pk}: \widetilde{\pk} \gets \Gen(1^{\secp}, \lossy)\}. \]
     \item \textbf{Lossy encryption:} Encryption using the lossy key completely loses information about the message encrypted. That is, output distributions of encryptions of $0$ and $1$, under lossy keys, are statistically indistinguishable. For every $\widetilde{\pk} \gets \Gen(1^{\secp}, \lossy)$,
         \[ \Enc(\widetilde{\pk}, 0) \equiv_{\negl(\secp)} \Enc(\widetilde{\pk}, 1). \]
 \end{itemize}
 \subsection{Semantic security is for free (10 points)}
 Show that every lossy encryption scheme (when operating in the real mode) is also semantically secure: that is,
-    \[ \{ (\pk, \Enc(\pk, 0)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx \{ (\pk, \Enc(\pk, 1)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \}. \]
+    \[ \{ (\pk, \Enc(\pk, 0)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx_c \{ (\pk, \Enc(\pk, 1)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \}. \]
 \subsection{DDH tuples (5 points)}
-We will now see how to construct a lossy encryption scheme assuming the Decisional Diffie-Hellman assumption (DDH). Consider a cyclic group $\bbG$ of order $p$ on which DDH assumption holds. That is, suppose that for any generator $g \in \bbG$,
+We will now see how to construct a lossy encryption scheme assuming the Decisional Diffie-Hellman assumption (DDH). Consider a cyclic group $\bbG$ of prime order $p$ on which DDH assumption holds. That is, suppose that for any generator $g \in \bbG$,
         \[ \{ (g, g^x, g^y, g^{xy}): x, y \gets \bbZ_p \} \approx_c \{ (g, g^x, g^y, g^z): x, y, z \gets \bbZ_p \}. \]
 We say that a tuple $(g, h, g', h')$ is a DDH tuple if there exists an $x$ such that $g^x = g'$ and $h^x = h'$. Let $\mathsf{DLOG}_\bbG(x) = \{ h \in \bbG : (h, h^x) \} $ ($h$ does not have to be a generator). 
 
@@ -157,7 +154,7 @@ We say that a tuple $(g, h, g', h')$ is a DDH tuple if there exists an $x$ such 
 Suppose that $g$ and $h$ are generators. \textbf{Show that a) if $(g, g'), (h, h') \in \mathsf{DLOG}_\bbG(x)$, then $(u, v) \gets \mathsf{Rand}(g, h, g', h')$ is a uniformly random element of $\mathsf{DLOG}_\bbG(x)$ and b) if $(g, g') \in \mathsf{DLOG}(x)$ and $(h, h') \in \mathsf{DLOG}(y)$ for $x \neq y$, then $(u, v) \gets \mathsf{Rand}(g, h, g', h')$ is uniformly random in $\bbG^2$.}
 
 \subsection{Lossy encryption from DDH (5 points)}    
-Modify the following encryption scheme by designing a lossy key generation algorithm and proving that the resulting scheme satisfies all three properties of a lossy encryption scheme (assuming DDH).
+Modify the following encryption scheme by designing a lossy key generation algorithm and proving that the resulting scheme satisfies all three properties of a lossy encryption scheme (assuming DDH). Note that in the encryption scheme, $v \cdot m$ refers to the group operation in $\bbG$.
 
 \proto{DDH-Based Encryption Scheme}{
     \begin{itemize}
