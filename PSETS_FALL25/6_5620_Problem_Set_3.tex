@@ -108,7 +108,7 @@ where $\ell \in \{0,1, \ldots, m-1\}$ such that $x\|0^{\ell}$ has length that is
 \subsection{Collision-resistant hash functions, finally}
 Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and
 $f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH = \{\calH_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH_{\lambda} = \{H_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$, 
-$$H_{k}: \{\{0,1\}^{m}\}^* \to \{0,1\}^n$$
+$$H_{k}: \{0,1\}^* \to \{0,1\}^n$$
 that takes as input strings of arbitrary length and does the following to compute its output:
 \begin{itemize}
   \item Divide the input $x$ as $x_1 \| x_2 \| \ldots \| x_t$, where $|x_1| = |x_2| = \ldots = |x_{t-1}| = m -1$ and $|x_t| = m -1 -\ell$ for some $0 \le \ell \le m -2$. That is, $|x| = t \cdot (m-1 - \ell$.
@@ -118,6 +118,8 @@ that takes as input strings of arbitrary length and does the following to comput
   \item Finally, set \(H_k(x) \coloneqq z_{t+1}\).
 \end{itemize}
 Prove that this hash function family is collision-resistant.
+
+\textcolor{red}{Note: A previous version of this question had a typo an incorrectly defined the type of $H_k$ as $H_k: \{\{0,1\}^m \}^* \to \{0,1\}^n$. However in this part, we want the hash function to take as input strings of arbitrary length.}
 
 \newpage
 \section{Lossy Encryption (20 points)}
