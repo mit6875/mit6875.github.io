@@ -1,0 +1,279 @@
+\def\draft{1}
+\documentclass{article}
+\usepackage{macros}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\newcommand{\proto}[2]{
+    \stepcounter{figure}
+    \vspace{0.05cm}
+    { \small
+    \begin{tcolorbox}[breakable]
+        \begin{center}
+            {\bf \underline{#1}}
+        \end{center}
+        #2
+    \end{tcolorbox} }
+}
+\newcommand{\hk}{\mathsf{hk}}
+\newcommand{\pk}{\mathsf{pk}}
+\newcommand{\sk}{\mathsf{sk}}
+\newcommand{\ct}{\mathsf{ct}}
+\newcommand{\real}{\mathsf{real}}
+\newcommand{\lossy}{\mathsf{lossy}}
+\title{Foundations of Cryptography, Fall 2025 \\ Problem Set 3 \\ Due Friday, Oct 24}
+\date{}
+\author{}
+\begin{document}
+
+\maketitle
+
+\paragraph{Total Number of Points: 100}
+
+\paragraph{Collaboration Policy:} Collaboration is permitted and encouraged in small groups of at most three students. You are free to collaborate in discussing answers, but you must write up solutions on your own, and must specify in your submission the names of any collaborators. Do not copy any text from your collaborators; the writeup must be entirely your work. Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution. \textbf{Solutions should be typeset in $\text{\LaTeX}$.} You may make use of published material, provided that you clearly acknowledge all sources/tools used. Of course, scavenging for solutions from prior years is forbidden.
+
+\paragraph{On the Use of LLMs:} You may use AI however you wish to deepen your understanding of the lecture material. Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine. You may not use LLMs in any way to work on your homework. You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI generated content whatsoever in your homework submissions. If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
+
+\section{Better Digital Signatures (30 points)}
+In lecture, we saw how to construct digital signatures from collision-resistant hash functions. However, it turns out that the construction we gave of digital signatures does not need to use the full power of collision-resistance. Indeed, it suffices to use what is called a family of \emph{universal one way hash functions} (UOWHFs).\footnote{These are also known as target-collision-resistant hash functions, for reasons that will be evident from the definition.} In this problem, we will show how to build UOWHFs from one-way permutations.\footnote{It turns out that UOWHFs (and thus digital signatures) can be constructed from one-way functions.} 
+
+\begin{definition}
+	A hash family $(\Gen, \sfH = \{\sfH_{\hk} : \{0, 1\}^{n(\secp)} \to \{0, 1\}^{\secp}\}_{\hk \in \calK_{\secp}})$ is a UOWHF family if (a) given $\hk$, $\sfH_{\hk}$ is computable in polynomial time, (b) $\secp < n(\secp)$, and (c) for all $x \in \{0, 1\}^n$ and all poly-size adversaries $\calA$,
+        \[ \Pr_{\hk \gets \Gen(1^{\secp})}[x' \gets \calA(1^{\secp}, \hk, x) : x \neq x' \land \sfH_{\hk}(x) = \sfH_{\hk}(x')] \leq \negl(\secp). \]
+\end{definition}
+\begin{enumerate}
+    \item (10 points) We would first like to deal with the aspect of compression. Show that if there exists a UOWHF which compresses its input by a single bit, then there exists a UOWHF which compresses its output by any polynomial factor. That is, given a UOWHF
+        \[ \Gen(1^{\secp}) \to \calK_{\secp}, \calH = \left\{\mathsf{H}_{\hk} : \{0, 1\}^{\secp+1} \rightarrow \{0, 1\}^{\secp} \right\}_{\hk \in \calK_{\secp}}, \]
+    construct a UOWHF that compresses an $n(\secp)$-bit input to an $\secp$-bit output. That is, construct
+        \[ \Gen'(1^{\secp}) \to \calK'_{\secp}, \calH' = \left\{\sfH'_{\hk'} : \{0, 1\}^{n(\secp)} \rightarrow \{0, 1\}^{\secp} \right\}_{\hk' \in \calK'_{\secp}}, \]
+    where $n(\secp) = \poly(\secp)$.
+\end{enumerate}
+
+\noindent Thus, it suffices to construct a UOWHF that compresses its input by a single bit. We now show how to construct these objects using two tools: (1) one-way permutations, and (2) hash functions.
+
+\begin{enumerate}[resume]
+    \item (5 points) Consider the field $\bbF := \bbF_{2^{\secp+1}}$.\footnote{If you want more information about finite fields, see references \href{https://www.cs.cmu.edu/~venkatg/teaching/codingtheory/notes/algebra-brief-notes.pdf}{here}, \href{https://ocw.mit.edu/courses/6-451-principles-of-digital-communication-ii-spring-2005/8921c013c1d7802bb197572c52442b97_chap7.pdf}{here}, and \href{https://people.math.harvard.edu/~landesman/assets/finite-fields.pdf}{here}.} If we interpret an input in $\{0, 1\}^{\secp+1}$ as an element of $\bbF$ (and vice versa)\footnote{We assume that the mapping associates the all zeros string $0^{\secp+1}$ with the field element 0.}, we can define the family of hash functions
+        \[ \overline{\sfH} = \left\{ \overline{\sfH}_{(a, b)} : \{0, 1\}^{\secp + 1} \rightarrow \{0, 1\}^{\secp} \right\}_{a \neq 0, b \in \bbF}, \hspace{.1in} \overline{\sfH}_{(a, b)}(x) := (ax+b)_{[1:\secp]}. \]
+    Prove that $\overline{\sfH}$ is a (efficiently computable) family of hash functions that compress their input by a single bit and are always 2-to-1.
+    \item (5 points) Show that the function family $\overline{\sfH}$ defined above has the following property: given $x_1 \neq x_2 \in \{0, 1\}^{\secp+1}$, it is possible to sample in polynomial time a random $(a, b) \in (\bbF \setminus \{0\}) \times \bbF$ subject to the constraint that $(ax_1+b)_{[1:\secp]} = (ax_2+b)_{[1:\secp]}$, that is, $x_1$ and $x_2$ collide under $\overline{\sfH}_{(a, b)}$.
+    \item (10 points) Finally, let $f: \{0, 1\}^{\secp} \rightarrow \{0, 1\}^{\secp}$ be a one-way permutation. Let $\sfH$ be the functions defined by
+        \[ \sfH_{\hk}(x) = \overline{\sfH}_{\hk}(f(x)). \]
+    Show that $\sfH$ is a UOWHF family which compresses its input by a single bit, where $\Gen(1^{\secp})$ samples a random pair $\hk := (a, b) \gets (\bbF \setminus \{0\}) \times \bbF$.
+\end{enumerate}
+\begin{remark}
+    Note that since our adversaries are non-uniform/poly-size circuits, one can alternatively think of $\calA$ (and any other adversaries) as having $x \in \{0, 1\}^{n}$ hardwired into its circuit, as long as the value of $x$ depends only on $n$ (or $\secp$) and not on the hash key being sampled.
+\end{remark}
+\newpage
+
+\section{Collision-Resistant Hash Functions (30 points)}
+A \emph{compressing collision-resistant function family} is a collection of functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ together with an efficient key generation algorithm $\Gen(1^\lambda)$, such that the following two properties hold:
+\begin{enumerate}
+    \item Compressing: The functions $f_{k}: \{0,1\}^{n+m} \to \{0,1\}^n$ maps an input of length $n+m$ bits to an output of length $n$ bits, thereby ``compressing'' its input, where $m, n = \poly(\lambda)$. For this problem, we will always consider $m > 1$.
+    \item Collision-resistant: For every polynomial-size adversary $\mathcal{A}$, there is a negligible function $\mu$ such that
+    \begin{align*}
+        \Pr_{k \gets \Gen(1^\lambda)}[f_{k}(x) = f_k(x') \text{ and } x \neq x': (x, x') \gets \mathcal{A}(k) ] \le \mu(\lambda).
+    \end{align*}
+\end{enumerate}
+Our goal is build a \textit{variable-length} collision-resistant hash function family $\calH = \{\calH_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH_\lambda = \{H_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$
+    \[ H_k : \{0,1\}^* \to \{0,1\}^n, \]
+starting from a standard computational assumption from lattice-based cryptography, namely the Short Integer Solution problem.
+
+\subsection{A compressing collision-resistant function (10 points)}
+\begin{definition}[Short Integer Solution (SIS) Assumption]
+Let $N, M, q$ be integers with $q > 1$ and $M \gg N \log q$, and let $\mathbf{A} \in \mathbb{Z}_q^{N \times M}$ be a uniformly random matrix. The \emph{SIS problem} with parameters $(N, M, q)$ asks to find a nonzero integer vector $\mathbf{z} \in \{-1, 0, 1\}^M$ such that $\mathbf{A} \mathbf{z} \equiv \mathbf{0} \pmod{q}$. The \emph{SIS assumption} states that no poly-size algorithm can solve the SIS problem with non-negligible probability, given matrix $\mathbf{A}$.
+\end{definition}
+
+Assuming that the SIS assumption holds, give a family of collision-resistant compressing functions $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k: \{0,1\}^M \rightarrow \mathbb{Z}_q^N\}_{k \in \{0,1\}^{\poly(\lambda)}}$, where $M, N = \poly(\lambda)$.
+
+\subsection{Extending to more input lengths (5 points)}
+Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and
+$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH' = \{\calH'_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH'_{\lambda} = \{H'_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and 
+$$H'_{k}: \{\{0,1\}^{m}\}^* \to \{0,1\}^n.$$ 
+That is, it takes as input strings of length any multiple of $m$ and works follows:
+\begin{itemize}
+    \item Divide the input $x$ into $t$ blocks of $m$ bits each: $x = x_1 \| x_2 \| \ldots \| x_t$, where $x_i \in \{0,1\}^m$. 
+    \item Let $\mathsf{IV} \in \{0,1\}^n$ be an arbitrary fixed public string. \item Compute $y_0 := \mathsf{IV}$, and $y_i := f_k(y_{i-1} \| x_i)$ for $i = 1, 2, \ldots, t$. 
+    \item Finally, set $H'_{k}(x) = y_t$. 
+\end{itemize}
+Prove that this hash function family is ``collision-resistant'' in the following sense: no polynomial-size adversary is able to produce with non-negligible probability $x \neq x'$ such that $|x| = |x'| \in m \mathbb{Z}$ such that $H'_{k}(x) = H'_{k}(x')$.
+
+\subsection{Insecure padding (5 points)}\label{sec:insecure-padding}
+Now define the hash function family $\calH'' = \{\calH''_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calH''_\lambda = \{H''_k \}_{k \in \{0,1\}^{\poly(\lambda)}}$
+\[
+H''_{k} : \{0,1\}^* \to \{0,1\}^n,
+\]
+that takes as input strings of arbitrary length and outputs
+\begin{align*}
+    H''_k(x) = H'_{k}(x\| 0^{\ell}),
+\end{align*}
+where $\ell \in \{0,1, \ldots, m-1\}$ such that $x\|0^{\ell}$ has length that is a multiple of $m$. Give an attack on this hash function---that is, give an efficient algorithm that produces (with probability 1) two inputs $x, x'$ such that $H''_k(x) = H_k''(x')$.
+
+\subsection{Collision-resistant hash functions, finally (10 points)}
+Suppose there exists a collision-resistant compressing function family $\calF = \{\calF_\lambda\}_{\lambda \in \mathbb{N}}$ where $\calF_\lambda = \{f_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$ and
+$f_{k} : \{0,1\}^{n + m} \to \{0,1\}^n$. Define a hash function family $\calH = \{\calH_{\lambda}\}_{\lambda \in \mathbb{N}}$ where $\calH_{\lambda} = \{H_k\}_{k \in \{0,1\}^{\poly(\lambda)}}$, 
+$$H_{k}: \{0,1\}^* \to \{0,1\}^n$$
+that takes as input strings of arbitrary length and does the following to compute its output:
+\begin{itemize}
+  \item Divide the input $x$ as $x_1 \| x_2 \| \ldots \| x_t$, where $|x_1| = |x_2| = \ldots = |x_{t-1}| = m -1$ and $|x_t| = m -1 -\ell$ for some $0 \le \ell \le m -2$. That is, $|x| = t \cdot (m-1) - \ell$.
+  \item Let \(\mathsf{IV} \in \{0,1\}^{n}\) be a fixed public string.
+  \item For $1 \le i \le t - 1$, let $y_i = x_i$, let $y_t = x_t \| 0^\ell$ and let $y_{t+1}$ be the $(m - 1)$-bit binary representation of $\ell$.
+  \item Define $z_1 = f_{k}(\mathsf{IV} \| 0 \| y_1)$ and for $2 \le i \le t+1$, define $z_i := f_k(z_{i-1} \| 1 \| y_{i})$.
+  \item Finally, set \(H_k(x) \coloneqq z_{t+1}\).
+\end{itemize}
+Prove that this hash function family is collision-resistant.
+
+\textcolor{red}{Note: A previous version of this question had a typo and incorrectly defined the type of $H_k$ as $H_k: \{\{0,1\}^m \}^* \to \{0,1\}^n$. However in this part, we want the hash function to take as input strings of arbitrary length.}
+
+\newpage
+\section{Lossy Encryption (20 points)}
+In this problem, we will explore an alternate notion of encryption called \emph{lossy encryption}. It turns out that this notion is stronger than the usual notion of semantic security for public key encryption and also implies other cryptographic primitives, like oblivious transfer, that we will encounter later on.
+
+A lossy encryption scheme $(\Gen, \Enc, \Dec)$ has the following syntax:
+\begin{itemize}
+    \item $\Gen(1^{\secp}, \mathsf{mode})$: The $\Gen$ algorithm takes as input the security parameter and a mode which can be either $\real$ or $\lossy$. In the $\real$ mode, it outputs a pair of keys $(\pk, \sk)$. In the $\lossy$ mode, it output a lossy public key $\widetilde{\pk}$.
+    \item $\Enc(\pk, b)$: The $\Enc$ algorithm takes a public key (either a real or a lossy public key) and a bit $b$ and outputs a ciphertext $\ct$.
+    \item $\Dec(\sk, \ct)$: The $\Dec$ algorithm takes as input a secret key (which must be a real secret key) and outputs a decrypted bit $b$.
+\end{itemize}
+
+\noindent Furthermore, it has the following properties:
+\begin{itemize}
+    \item \textbf{Correctness:} The encryption scheme is correct in the $\real$ mode. That is, for every bit $b$,
+        \[ \Pr[(\pk, \sk) \gets \Gen(1^{\secp}, \real) : b = \Dec(\sk, \Enc(\pk, b))] = 1, \]
+    where the probability is over the randomness of $\Gen$, $\Enc$, and $\Dec$.
+    \item \textbf{Key Indistinguishability:} Real public keys are computationally indistinguishable from lossy public keys. That is, for any $\secp \in \bbN$,
+    \[ \{ \pk: (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx_c \{ \widetilde{\pk}: \widetilde{\pk} \gets \Gen(1^{\secp}, \lossy)\}. \]
+    \item \textbf{Lossy encryption:} Encryption using the lossy key completely loses information about the message encrypted. That is, output distributions of encryptions of $0$ and $1$, under lossy keys, are statistically indistinguishable. For every $\widetilde{\pk} \gets \Gen(1^{\secp}, \lossy)$,
+        \[ \Enc(\widetilde{\pk}, 0) \equiv_{\negl(\secp)} \Enc(\widetilde{\pk}, 1). \]
+\end{itemize}
+\subsection{Semantic security is for free (10 points)}
+Show that every lossy encryption scheme (when operating in the real mode) is also semantically secure: that is,
+    \[ \{ (\pk, \Enc(\pk, 0)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \} \approx_c \{ (\pk, \Enc(\pk, 1)): (\pk, \sk) \gets \Gen(1^{\secp}, \real) \}. \]
+\subsection{DDH tuples (5 points)}
+We will now see how to construct a lossy encryption scheme assuming the Decisional Diffie-Hellman assumption (DDH). Consider a cyclic group $\bbG$ of prime order $p$ on which DDH assumption holds. That is, suppose that for any generator $g \in \bbG$,
+        \[ \{ (g, g^x, g^y, g^{xy}): x, y \gets \bbZ_p \} \approx_c \{ (g, g^x, g^y, g^z): x, y, z \gets \bbZ_p \}. \]
+We say that a tuple $(g, h, g', h')$ is a DDH tuple if there exists an $x$ such that $g^x = g'$ and $h^x = h'$. Let $\mathsf{DLOG}_\bbG(x) = \{ h \in \bbG : (h, h^x) \} $ ($h$ does not have to be a generator). 
+
+\begin{algorithm}[H]\caption{$\mathsf{Rand}(g, h, g', h')$}
+    $s, t \stackrel{R}\gets \bbZ_p$\;
+    $u \gets g^s h^t$ and $v \gets (g')^s (h')^t$\;
+    \Return $(u, v)$
+\end{algorithm}
+    
+Suppose that $g$ and $h$ are generators. \textbf{Show that a) if $(g, g'), (h, h') \in \mathsf{DLOG}_\bbG(x)$, then $(u, v) \gets \mathsf{Rand}(g, h, g', h')$ is a uniformly random element of $\mathsf{DLOG}_\bbG(x)$ and b) if $(g, g') \in \mathsf{DLOG}(x)$ and $(h, h') \in \mathsf{DLOG}(y)$ for $x \neq y$, then $(u, v) \gets \mathsf{Rand}(g, h, g', h')$ is uniformly random in $\bbG^2$.}
+
+\subsection{Lossy encryption from DDH (5 points)}    
+Modify the following encryption scheme by designing a lossy key generation algorithm and proving that the resulting scheme satisfies all three properties of a lossy encryption scheme (assuming DDH). Note that in the encryption scheme, $v \cdot m$ refers to the group operation in $\bbG$.
+
+\proto{DDH-Based Encryption Scheme}{
+    \begin{itemize}
+        \item $\Gen(1^{\secp})$: Sample $x, y \gets \bbZ_p$. Compute $\pk = (g, g^x, g^y, g^{xy})$ and $\sk = y$ before outputting $(\pk, \sk)$.
+        \item $\Enc(\pk, m)$: Parse $\pk := (g, h, g', h')$. Compute $(u, v) \gets \mathsf{Rand}(g, h, g', h')$ and output $c = (u, v \cdot m)$.
+        \item $\Dec(\sk, c)$: Parse $c := (c_0, c_1)$ and $\sk := y$. Output $c_1/c_0^y$.
+    \end{itemize}
+}
+
+\newpage
+\section{The QR Assumption (20 points)}
+\newcommand{\Rerand}{\mathsf{Rerand}}
+\newcommand{\GM}{\mathsf{GM}}
+\newcommand{\rk}{\mathsf{rk}}
+\newcommand{\supp}{\mathsf{Supp}}
+\newcommand{\QR}{\mathsf{QR}}
+\newcommand{\QNR}{\mathsf{QNR}}
+\newcommand{\Primes}{\mathsf{Primes}}
+
+For any prime $p$, define the Legendre symbol
+    \[ \left(\frac{a}{p}\right) := \begin{cases} 0 & \text{if } a \equiv 0 \bmod{p}, \\ 1 & \text{if } a \neq 0 \bmod{p} \land \exists x: a \equiv x^2 \bmod{p}, \\ -1 & \text{otherwise.} \end{cases} \]
+In other words, $(\frac{a}{p})$ (roughly) indicates whether $a$ is a square modulo $p$. For any integer $a$ and odd integer $N > 0$ with factorization $N = p_1^{e_1} \ldots p_k^{e_k}$, define the Jacobi symbol
+    \[ \left(\frac{a}{N}\right) := \prod_{i=1}^k \left(\frac{a}{p_i}\right)^{e_i}. \]
+For any odd integer $N > 0$, let $\calJ_{N}^1 = \{ a \in \bbZ_N^{*} : \left(\frac{a}{N}\right) = 1\}$ be the set of elements in $\bbZ_N^{*}$ with Jacobi symbol equal to $1$. 
+Let $\QR_N = \{x^2 : x \in \bbZ_N^{*}\}$ be the set of quadratic residues modulo $N$. Let $\QNR_N = \bbZ_N^{*} \setminus \QR_N$ be the set of quadratic non-residues modulo $N$.
+
+\begin{definition}[Quadratic Residuosity Problem]
+Let $N = pq$ be a product of two distinct odd primes, and let 
+\[
+\mathbb{Z}_N^* = \{\, x \in \mathbb{Z}_N : \gcd(x, N) = 1 \,\}
+\]
+denote the multiplicative group of invertible residues modulo $N$.
+An element $x \in \mathbb{Z}_N^*$ is called a \emph{quadratic residue modulo $N$}
+if there exists some $y \in \mathbb{Z}_N^*$ such that
+\[
+x \equiv y^2 \pmod{N}.
+\]
+Otherwise, $x$ is called a \emph{quadratic nonresidue} modulo $N$.
+
+\smallskip
+The \emph{Quadratic Residuosity Problem (QRP)} is the following computational task: given an integer $N = pq$, which is a product of two primes $p,q$, and an element $x \in \mathbb{Z}_N^*$ such that the Jacobi symbol $\left( \frac{x}{N} \right) = 1$, decide whether $x$ is a quadratic residue modulo $N$.
+\end{definition}
+
+We can now define the Quadratic Residuosity Assumption:
+\begin{assumption}[Quadratic Residuosity Assumption for Blum Integers\footnote{One can also consider QRP for general primes (not just those which are equivalent to 3 modulo 4), but these two assumptions are known to be equivalent.}]
+For any poly-size algorithm $\calA$, its advantage in solving the Quadratic Residuosity Problem is negligible in the security parameter~$\secp$.
+That is, for random $p \neq q$ of $\secp$ bits each where $p, q \equiv 3 \bmod{4}$, and random
+$x \in \mathbb{Z}_N^*$ with $\left( \frac{x}{N} \right) = 1$,
+    \[ \Pr[\mathcal{A}(N, x) = 1 \text{ if } x \text{ is a residue, and } 0 \text{ otherwise}]
+\leq \frac{1}{2} + \negl(\secp). \]
+\end{assumption}
+
+\noindent Using the QR assumption, we can design a public-key encryption scheme as follows:
+\proto{QR-Based Encryption Scheme $\GM := (\GM.\Gen, \GM.\Enc, \GM.\Dec)$}{
+\begin{itemize}
+	\item  $\GM.\Gen(1^{\secp})$: Sample distinct $\secp$-bit primes $p, q \equiv 3 \pmod{4}$
+	uniformly from the set 
+	   \[ \{a \in \Primes \cap [1, 2^{\secp}] : a \equiv 3 \bmod 4\}. \]
+	Set $N = pq$, output public key $\pk = N$ and secret key $\sk = (p, q)$.
+	
+	\item $\GM.\Enc(\pk, m)$: On input $\pk = N$ and $m \in \{0,1\}$, choose a uniformly random $r \in \bbZ_N^*$, and output the ciphertext $c = (-1)^m \cdot r^2$. (Note that $c \in \calJ_N^1$, regardless of the values of $m$ and $r$.)
+	
+	\item $\GM.\Dec(\sk, c)$: On input secret key $\sk = (p, q)$ and ciphertext $c$,
+	output 0 if $c \in \QR_N$, and output 1 if $c \in \QNR_N$.
+\end{itemize}
+}
+
+\subsection{A computationally easy problem? (10 points)}
+Show that if the factors $p, q$ are \emph{known}, there is a polynomial-time algorithm that solves QRP.
+
+\emph{Hint:} Prove that for odd primes $p$, one can equivalently define $(\frac{a}{p}) \equiv a^{(p-1)/2} \bmod{p}$. When is a number a quadratic residue modulo $N = pq$? 
+
+\subsection{$\GM$ is additively homomorphic (5 points)}
+Show that $\GM$ is \emph{additively homomorphic}. That is, given the public key $\pk$ and ciphertexts $c = \GM.\Enc(\pk, m)$ and $c' = \GM.\Enc(\pk, m')$, show how to compute an encryption of $m + m' \bmod{2}$.
+
+\subsection{$\GM$ is re-randomizable (5 points)}
+Show that GM is \emph{re-randomizable}. That is, provide a randomized algorithm $\GM.\Rerand$ that takes as input $\pk$ and $c = \GM.\Enc(\pk, m)$ and outputs a ``fresh encryption'' of $m$, in the following sense:
+    \begin{gather}\label{def:rerandomizable}
+    \forall \pk \in \supp(\Gen(1^n)),\ \forall m \in \{0, 1\},\ 
+    \forall c \in  \supp(\Enc(\pk, m)) \notag \\ \GM.\Rerand(\pk, c) \equiv \GM.\Enc(\pk, m)
+    \end{gather}
+    where $\equiv$ denotes equality of probability distributions, and $\supp$ denotes the set of all possible outputs.
+
+\newpage
+\section{RSA and H\r{a}stad's Broadcast Attack (\emph{Bonus}: 15 points)}
+
+The key generation and encryption algorithms of the RSA scheme work as follows:
+\proto{RSA Key Generation and Encryption}{
+\begin{itemize}
+    \item $\Gen(1^{\secp})$:
+    \begin{enumerate}
+        \item Choose two $\secp$-bit distinct odd primes $p$ and $q$, and compute the modulus $N = pq$, and Euler's totient function $\varphi(N) = (p-1)(q-1)$.
+        \item Choose a public exponent $e$ satisfying $\gcd(e, \varphi(N)) = 1$. Compute the multiplicative inverse $d \equiv e^{-1} \mod \phi(N)$.
+        \item Output the public key and secret key as $\pk = (N, e)$, $\sk = d$.
+    \end{enumerate}
+    \item $\Enc(\pk, m)$: To encrypt a message $m \in \{0,1\}$, sample random $r \in \mathbb{Z}_N^*$. Using the public key $(N, e)$, compute the ciphertext
+        \[ c = ( r^e \bmod{N}, \mathsf{lsb}(r) \oplus m ),\]
+    where $\mathsf{lsb}$ is the least significant bit of $r$.
+    \item $\Dec(\sk, c)$: 
+    \begin{enumerate}
+        \item Parse $ c = (s, b)$ and $\sk = d$.
+        \item Compute $r ' \equiv s^{d} \bmod N$ and output $\mathsf{lsb}(r) \oplus b$.
+    \end{enumerate}
+\end{itemize}
+}
+
+\subsection{RSA decryption (5 points)} 
+Show that the RSA encryption scheme satisfies correctness.
+
+\subsection{Broadcast attack (10 points)}
+To make encryption efficient, sometimes the same small public exponent $e$ is used (e.g. $e = 3$) across multiple users. Now suppose a sender transmits encryptions with the same randomness $r$ to $k$ recipients whose public keys are $(N_1, e), \dots, (N_k, e)$, where each $N_i = p_i q_i$ is pairwise coprime. 
+For each recipient, the ciphertext is
+    \[ c_i = (r^e \bmod{N_i}, \mathsf{lsb}(r) \oplus m_i) \qquad \text{for } i = 1, \dots, k. \]
+Suppose $e = 3$. Given an attack that efficiently recover $m$ given three messages $(N_i, c_i)_{i=1}^3$.
+\end{document}
