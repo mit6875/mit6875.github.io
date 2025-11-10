@@ -1,0 +1,232 @@
+\documentclass{article}
+\usepackage{macros}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\newcommand{\proto}[2]{
+    \stepcounter{figure}
+    \vspace{0.05cm}
+    { \small
+    \begin{tcolorbox}[breakable]
+        \begin{center}
+            {\bf \underline{#1}}
+        \end{center}
+        #2
+    \end{tcolorbox} }
+}
+\newcommand{\hk}{\mathsf{hk}}
+\newcommand{\pk}{\mathsf{pk}}
+\newcommand{\sk}{\mathsf{sk}}
+\newcommand{\ct}{\mathsf{ct}}
+\newcommand{\pp}{\mathsf{pp}}
+\newcommand{\com}{\mathsf{com}}
+\newcommand{\Com}{\mathsf{Com}}
+\newcommand{\Ver}{\mathsf{Ver}}
+\usepackage{cryptocode}
+\title{Foundations of Cryptography, Fall 2025 \\ Problem Set 4 \\ Due Monday, November 24}
+\date{}
+\author{}
+\begin{document}
+
+\maketitle
+
+\paragraph{Total Number of Points: 100}
+
+\paragraph{Collaboration Policy:} Collaboration is permitted and encouraged in small groups of at most three students. You are free to collaborate in discussing answers, but you must write up solutions on your own, and must specify in your submission the names of any collaborators. Do not copy any text from your collaborators; the writeup must be entirely your work. Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution. \textbf{Solutions should be typeset in $\text{\LaTeX}$.} You may make use of material referenced on the course website, provided that you clearly acknowledge all sources/tools used. Of course, scavenging for solutions from prior years is forbidden.
+
+\paragraph{On the Use of LLMs:} You may use AI however you wish to deepen your understanding of the lecture material. Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine. \textbf{You may not use AI/LLMs in any way to work on your homework.} You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI-generated content whatsoever in your homework submissions. If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
+
+\def\Eval{\mathsf{Eval}}
+\newpage
+\section{Perfectly Binding Hash Functions: An Oxymoron? (20 points)}
+A hash function $\sfH: \{0,1\}^n \to \{0,1\}^m$ compresses its $n$-bit input into an $m$-bit output for some $m < n$. A perfectly binding function $\sfH: \{0,1\}^n \to \{0,1\}^m$ is injective, i.e. given $\sfH(x)$, $x$ is uniquely determined. Could one have a perfectly binding hash function? Clearly not! Nevertheless, in this problem, we will construct hash functions that achieve a variant of perfect binding. 
+\begin{definition}
+    A \emph{bit-wise perfectly binding} hash function is a pair of polynomial-time algorithms $(\Gen, \sfH)$ where 
+    \begin{itemize}
+        \item $\hk \gets \Gen(1^{\secp}, i)$ takes as input an integer $i \in [n(\secp)]$ and outputs a public hashing key $\hk$;
+        \item $y = \sfH(\hk, x)$ is a deterministic algorithm that takes an $n(\secp)$-bit input $x$ and produces an $m(\secp)$-bit output, where $m(\secp) < n(\secp)$ for all sufficiently large $\secp$.
+    \end{itemize}
+    We additionally require the following two properties:
+    \begin{enumerate}
+        \item \textbf{Index Hiding.} For every pair of indices $i_0, i_1 \in [n(\secp)]$, the hash keys $\hk_0 \gets \Gen(1^{\secp}, i_0)$ and $\hk_1 \gets \Gen(1^{\secp}, i_1)$ are computationally indistinguishable.
+        \item \textbf{Bit-wise Perfectly Binding.} For any $i \in [n(\secp)]$, $\hk \gets \Gen(1^{\secp}, i)$, and $x, x' \in \{0, 1\}^{n(\secp)}$, if $\sfH(\hk, x) = \sfH(\hk, x')$, then $x[i] = x'[i]$.
+    \end{enumerate}
+\end{definition}
+\def\FHE{\mathsf{FHE}}
+\begin{enumerate}
+    \item (10 points) Recall the Quadratic Residuosity Assumption from the third problem set:
+    \begin{assumption}[Quadratic Residuosity Assumption for Blum Integers]
+        For any poly-size algorithm $\calA$, its advantage in solving the Quadratic Residuosity Problem is negligible in the security parameter~$\secp$.
+        That is, for random $p \neq q$ of $\secp$ bits each where $p, q \equiv 3 \bmod{4}$, and random
+        $x \in \mathbb{Z}_N^*$ with $\left( \frac{x}{N} \right) = 1$,
+            \[ \Pr[\mathcal{A}(N, x) = 1 \text{ if } x \text{ is a residue, and } 0 \text{ otherwise}] \leq \frac{1}{2} + \negl(\secp). \]
+    \end{assumption}
+    Construct a bit-wise perfectly binding hash function, assuming the hardness of the quadratic residuosity problem. Prove that your construction is correct.
+    \item (10 points) Construct a bit-wise perfect binding hash function, assuming the existence of a fully homomorphic encryption (FHE) scheme $(\Gen_{\FHE}, \Enc_{\FHE}, \Dec_{\FHE}, \Eval_{\FHE})$ with perfect correctness. Prove that your construction is correct.
+    
+    You may also assume that $(\Gen_{\FHE}, \Enc_{\FHE}, \Dec_{\FHE}, \Eval_{\FHE})$ is \emph{truly compact}. More precisely, this means there exists some polynomial $p(\secp)$ such that the following statement holds: for all polynomial-size circuits $C$ which output a single bit, all inputs $\mu_1, \ldots, \mu_n \in \{0, 1\}$, and all keys $(\pk, \sk) \gets \Gen_{\FHE}(1^{\secp})$, $|\Eval_{\FHE}(\pk, C, \{\Enc(\pk, \mu_i)\}_{i=1}^n)| \leq p(\secp)$.
+\end{enumerate}
+\newpage
+\section{Statistically Hiding Commitments (15 points)}
+In lecture, we have seen a construction of computationally hiding and statistically binding commitments, which can be used to construct computational zero-knowledge proofs. In this problem, we consider how to construct statistically hiding and computationally binding commitments, which can be used to construct statistical zero-knowledge arguments.
+
+We will work with the discrete logarithm assumption over a family of groups $\{G_\secp\}_{\secp\in\mathbb{N}}$, where each $G_\secp$ is a group of prime order $q_\secp$:
+\begin{assumption}[$\mathsf{DLOG}$ for $\{G_\secp\}_{\secp \in \bbN}$]
+    Let $g_\secp$ be a uniformly random generator of $G_\secp$.\footnote{Note that since $G_{\secp}$ is of prime order (and hence cyclic), a uniformly random generator is simply a uniformly random (non-identity) element.} For every poly-size adversary $\calA$, there exists a negligible function $\mu$ such that for all $\secp \in \bbN$,
+        \[ \Pr_{x \gets \bbZ_q^{*}, g}[A(1^{\secp}, g, g^x) \equiv x \bmod{q}] \leq \mu(\secp), \]
+    where $q=q_\secp$ and $g = g_\secp$.
+\end{assumption}
+
+\proto{DLOG-Based Commitment Scheme}{
+    \begin{itemize}
+        \item $\Gen(1^{\secp})$: Sample uniformly random generators $g = g_{\secp}$ and $h = h_{\secp}$ from $G_{\secp}$. Output $\pp = (g, h)$.
+        \item $\Com(\pp, m)$: Parse $\pp = (g, h)$. Sample random $r \gets \bbZ_q$ and output $\com = g^m \cdot h^r$. The opening is $r$.
+        \item $\Ver(\pp, \com, m, r)$: Parse $\pp = (g, h)$. Output 1 iff $g^m \cdot h^r = \com$.
+    \end{itemize}
+}
+It is not hard to see that the commitment scheme has perfect correctness: that is, if the committer and receiver behave as prescribed, the receiver will always accept the committer's opening. We now take a look at two other properties of this commitment scheme.
+\begin{enumerate}
+    \item (5 points) Show that the commitment scheme is \emph{perfectly hiding}: for all $\secp \in \bbN$ and any two messages $m_0, m_1 \in \bbZ_{q_{\secp}}$,
+        \[ (\pp, \Com(\pp, m_0)) \equiv (\pp, \Com(\pp, m_1)), \]
+    where $\pp \gets \Gen(1^{\secp})$.
+    \item (10 points) Assuming the discrete logarithm is hard in $\{G_{\secp}\}_{\secp \in \bbN}$, show that the commitment scheme is \emph{computationally binding}: for all poly-size adversaries $\calA$, there exists a negligible function $\mu$ such that for all $\secp \in \bbN$,
+        \[ \Pr_{\pp \gets \Gen(1^{\secp})}\left[\begin{array}{l}
+             m_0 \not\equiv m_1 \bmod{q_{\secp}} \hspace{0.2cm} \land \\
+             \Ver(\pp, \com, m_0, r_0) = 1 \hspace{0.2cm} \land \\
+             \Ver(\pp, \com, m_1, r_1) = 1
+        \end{array}: (\com, m_0, r_0, m_1, r_1) \gets \calA(1^{\secp}, \pp)\right] \leq \mu(\secp). \]
+\end{enumerate}
+\newpage
+\newcommand{\mode}{\mathsf{mode}}
+\section{Does Zero Knowledge Compose in Parallel? (15 points)}
+We have seen in class that assuming one-way functions exist, there is a three message zero knowledge proof system for an NP-complete problem (graph 3-colorability) with soundness $\frac 1 {\poly(n)}$, and that the soundness can be amplified by repeating this proof system many times in sequence to obtain a zero knowledge proof system with negligible soundness. Unfortunately, this results in a very long protocol. Wouldn't it be nice if we could instead repeat the three message protocol many times \emph{in parallel}? Then maybe we could get negligible soundness with only three messages!
+
+Unfortunately, the problem is that the resulting proof system (which is actually sound!) may not be zero knowledge! In this problem, we will see how repeating an interactive proof can ruin zero knowledge. Consider the following zero knowledge proof $\Pi$ for the discrete logarithm:
+\begin{itemize}
+	\item Public input: a string $h = g^x$ (along with a group $\bbG$ and generator $g$); prover input: the discrete logarithm $x$.
+	\item First message: $P$ chooses a uniformly random $r$ and sends $R = g^r$ to $V$.
+	\item Second message: $V$ chooses a uniformly random bit $b$.
+	\item Third message: $P$ sends $z= r + b x$ to $V$. $V$ accepts if $g^z = R \cdot h^b$.
+\end{itemize}
+
+\begin{figure}[ht]\centering
+	\procedure[]{}{
+		P (h, x) \> \> V(h)  \\ 
+		\begin{subprocedure}
+			\pseudocode[mode=text]{Sample $r$ \\ Compute $R = g^r$}
+		\end{subprocedure} \> \sendmessageright{top={ $R$ }} \\ 
+		\> \sendmessageleft{top={ $b$ }} \> \begin{subprocedure}
+			\pseudocode[mode=text]{Sample a bit $b$}
+		\end{subprocedure} \\
+		\> \sendmessageright{top={ $z = r + b\cdot x$ }} \> \begin{subprocedure}
+			\pseudocode[mode=text]{If $g^z = R \cdot h^b$, accept.}
+		\end{subprocedure} 
+	}
+	\caption{The Zero Knowledge Proof $\Pi$ for Discrete Log.}
+	\label{fig:discrete-log-pok}
+\end{figure}
+\newpage
+\paragraph{The Counterexample}
+\noindent We will now consider the following strange modification $\tilde \Pi$ of $\Pi$ (see Figure \ref{fig:parallel-repetition-counterexample}):
+\begin{itemize}
+	\item Public input: a string $h = g^x$ (along with a group $\bbG$ and generator $g$); prover input: the discrete logarithm $x$.
+	\item First message: $V$ makes a uniformly random guess $x^*$ and checks if $g^{x^*} = h$. If this happens, $V$ sets a variable $\mode$ to $1$, and otherwise $V$ sets $\mode$ to $0$. $V$ then sends $\mode$ to $P$.
+	\item If $\mode = 0$, $P$ and $V$ proceed to execute $\Pi$ $\secp$ times in sequence. If $\mode = 1$, $V$ instead proves to $P$ ($\secp$ times) that $V$ knows $x$, which is equal to $x^*$! That is, $V$ and $P$ execute $\Pi$ ($\secp$ times) with their roles reversed. If $V$ convinces $P$ that $V$ knows $x$, $P$ then sends $x$ to $V$ in the clear. 
+\end{itemize}
+
+\begin{figure}[ht]\centering
+	\procedure[]{}{
+		P (h, x) \> \> V(h)  \pclb
+		\pcintertext[dotted]{\textsc{Select Mode}}  
+		\> \sendmessageleft{top={ \textsf{mode} }} \>
+		\begin{subprocedure}
+			\pseudocode[mode=text]{Sample $x^*$ uniformly at random\\ Compute $g^{x^*}$ \\ If $g^{x^*} = h$, $\mode = 1$, else $\mode = 0$}
+		\end{subprocedure} \pclb
+		\pcintertext[dotted]{\textsc{Execute Proof of Knowledge} (repeat $\secp$ times)}  
+		\begin{subprocedure}
+			\pseudocode[mode=text]{If $\mode = 0$, sample $r$ \\ Compute $R = g^r$}
+		\end{subprocedure} \> \sendmessageright{top={ $R$ if $\mode = 0$, else $\bot$ }} \\ 
+		\> \sendmessageleft{top={ $S$ if $\mode = 1$, else $\bot$ }} \> \begin{subprocedure}
+			\pseudocode[mode=text]{If $\mode = 1$, sample $s$ \\ Compute $S = g^s$}
+		\end{subprocedure} \\ 
+		\begin{subprocedure}
+			\pseudocode[mode=text]{If $\mode = 1$, sample a bit $c$}
+		\end{subprocedure} \> \sendmessageright{top={ $c$ if $\mode = 1$, else $\bot$ }} \\ 
+	    \> \sendmessageleft{top={ $b$ if $\mode = 0$, else $\bot$ }} \> \begin{subprocedure}
+	    	\pseudocode[mode=text]{If $\mode = 0$, sample a bit $b$}
+	    \end{subprocedure} \\
+    	\> \sendmessageright{top={ $z = r + b\cdot x$ if $\mode = 0$, else $\bot$ }} \> \begin{subprocedure}
+    		\pseudocode[mode=text]{If $\mode = 0$ and $g^z \neq R \cdot h^b$, reject.}
+    	\end{subprocedure} \\ 
+    	\begin{subprocedure}
+    		\pseudocode[mode=text]{If $\mode = 1$ and $g^{z^*} \neq S \cdot h^c$, ABORT}
+    	\end{subprocedure} \> \sendmessageleft{top={ $z^* = s + c\cdot x^*$ if $\mode = 1$, else $\bot$ }} \> 
+	\pclb
+		\pcintertext[dotted]{\textsc{Complete Mode $1$}}  
+		\> \sendmessageright{top={$x$ if $\mode = 1$, else $\bot$}} \> 
+		\begin{subprocedure}
+			\pseudocode[mode=text]{If $\mode = 1$ and $x = x^*$, accept. \\ If $\mode = 0$, accept.}
+		\end{subprocedure}
+	}
+	\caption{The Protocol $\tilde \Pi$.}
+	\label{fig:parallel-repetition-counterexample}
+\end{figure}
+
+One can show that $\tilde \Pi$ is still a zero knowledge proof for discrete logarithm (we will not ask you to do this). \textbf{Instead, prove that if the discrete logarithm problem is hard, then $\tilde \Pi$ executed two times in parallel is \emph{not} zero knowledge! In particular, show how a cheating verifier can learn the discrete logarithm $x$ with certainty.}
+\newpage
+
+\section{But Really, Does Zero Knowledge Compose in Parallel? (25 points)}
+We saw in the previous problem that zero knowledge is not always preserved when a protocol is executed many times in parallel. However, the example seems contrived, and we would like to say something about parallel composition anyway! To do so, we will introduce a new (weaker) notion of security against malicious verifiers, which we call witness indistinguishability (WI).
+
+\begin{definition}
+	A proof system $\Pi$ for a language $L\in \NP$ is \emph{witness indistinguishable} if for every (efficient) malicious verifier $V^*$, every instance $x\in L$, every pair of witnesses $w_1, w_2$ for $x$, and every auxiliary input $z$,
+	
+	\[ \mathrm{view}_{V^*}\langle P(w_1), V^*(x, z) \rangle \approx_c \mathrm{view}_{V^*}\langle P(w_2), V^*(x, z) \rangle.
+	\]
+	
+	In other words, $V^*$ cannot tell which witness an honest prover $P$ is using in an execution of the protocol, even given arbitrary auxiliary information about $(x, w_1, w_2)$ (possibly including both $w_1$ and $w_2$).
+\end{definition}
+
+As a motivating example, consider the following scenario. Suppose that there is some organization whose membership is a known list of public keys $\pk_1, \hdots, \pk_n$. Each member $i$ of the organization has secret key $\sk_i$. Now, suppose that a member of the organization wants to prove to an outside party (say, a journalist) that they belong to the organization \emph{without revealing} which member they are. Witness indistinguishable proofs allow you to do this: you are trying to prove a statement with $n$ possible witnesses (the secret keys), and you do not want to reveal which witness you have.
+
+\begin{enumerate}
+    \item (10 points) \textbf{Zero Knowledge Proofs are Witness Indistinguishable}. Prove that every (auxiliary input) zero knowledge proof system $\Pi$ (for a language $L\in \NP$) is also witness indistinguishable.
+    \item (15 points) \textbf{Composition of WI Proofs}. From part 1, we see that the three-message protocol for 3-colorability from lecture is witness indistinguishable. However, it still has poor soundness. Prove that (three-message) WI proof systems actually compose under parallel composition!\footnote{In fact, composition holds for WI proof systems with an arbitrary polynomial number of rounds, but we will restrict to three-message proofs for simplicity.} That is, if $\Pi$ is a three-message WI proof system for some language $L$ with soundness $\mu$ and completeness 1, prove that $\Pi^t$ (a $t$-wise parallel repetition of $\Pi$) is a WI proof system for $L$ with soundness $\mu^t$ and completeness 1.
+\end{enumerate}
+\newpage
+
+\newcommand{\SKE}{\mathsf{SKE}}
+\newcommand{\PKE}{\mathsf{PKE}}
+\newcommand{\RR}{\mathsf{ReRand}}
+\newcommand{\Add}{\mathsf{Add}}
+\section{The Power of Homomorphism (25 points)}
+In this problem, we will see that homomorphism is quite a powerful tool---often, homomorphic properties already present enough structure to imply public-key encryption!
+
+\subsection{PKE from re-randomizable encryption (10 points)}
+Recall the definition of re-randomizable encryption, which is a property that most homomorphic encryption schemes tend to have:
+\begin{definition}[Re-randomizable secret-key encryption]
+A randomized secret-key encryption scheme $\SKE = (\Gen, \Enc, \Dec)$ over message space $\calM = \{0,1\}$ is \emph{re-randomizable} if there exists a PPT algorithm $\RR$ such that for every key $k \gets \Gen(1^\secp)$, message $m \in \calM$, and encryption $c \gets \Enc(k, m)$,
+    \[ \RR(c) \;\stackrel{c}{\approx}\; \Enc(k, m),\footnote{The ciphertext on the right-hand side is a \emph{fresh} encryption of $m$ with the key $k$ which is not necessarily equal to $c$.} \]
+and $\Dec(k, \RR(c)) = \Dec(k, c)$ for all ciphertexts $c$.
+\end{definition}
+Suppose there exists a re-randomizable secret key-encryption scheme $(\Gen, \Enc, \Dec, \RR)$. Show that there exists a (CPA-secure) public-key encryption scheme $(\Gen', \Enc', \Dec')$.
+
+\subsection{PKE from additive homomorphism (15 points)}
+Let $\SKE = (\Gen, \Enc, \Dec, \Add)$ be a \emph{secret-key} encryption scheme for single-bit messages that satisfies the standard compactness and security guarantees, and supports homomorphic addition:
+\begin{itemize}
+  \item \textbf{Additive homomorphism mod 2.} $\Add$ is a deterministic algorithm such that for any ciphertexts $\{c_i\}_{i \in [n]}$, 
+    \[ \Dec(k, \Add(c_1, \ldots, c_n)) = \oplus_{i=1}^n \Dec(k, c_i). \]
+\end{itemize}
+Now, define a public-key encryption scheme $\PKE =(\Gen', \Enc', \Dec')$ as follows:
+\begin{itemize}
+  \item $\Gen'(1^\lambda)$: Let $\ell = \ell(\lambda)$ be a polynomial to be specified later. Sample $k \leftarrow \Gen(1^\lambda)$. For each $i \in [\ell]$, sample fresh
+    \[ X_i \gets \Enc(k, 0), \qquad Y_i \gets \Enc(k, 1). \]
+  Output $\pk = \big((X_1, \dots, X_\ell), (Y_1, \dots, Y_\ell)\big)$ and $\sk = k$.
+  \item $\Enc'(\pk, m)$: Parse $\pk = \big((X_1, \dots, X_\ell), (Y_1, \dots, Y_\ell)\big)$. Sample a uniformly random subset $S \subseteq [\ell]$ conditioned on $|S| \equiv m \bmod{2}$. Form the $\ell$-tuple $Z$ by setting $Z_i := Y_i$ if $i \in S$ and $Z_i := X_i$ if $i \notin S$. Output
+    \[ c \;:=\; \Add(Z_1, \dots, Z_\ell). \]
+  \item $\Dec'(\sk, c)$: Parse $\sk = k$ and output $\Dec(k, c)$.
+\end{itemize}
+Suppose the ciphertexts $c \gets \Enc(k, m), k \gets \Gen(1^\lambda)$ satisfy $|c| \le n(\lambda)$ for some polynomial $n$. Specify the polynomial $\ell$ such that $\PKE$ is CPA-secure, and prove correctness and security. You may take the following information-theoretic statement for granted.
+\begin{theorem}\label{thm:it}
+    Let $X_1, \dots, X_\ell$ and $Y_1, \dots, Y_\ell$ be i.i.d. over a finite set. Sample a uniformly random bit $\sigma \in \{0, 1\}$ and let $S \subseteq [\ell]$ be uniformly random subject to $|S| \bmod 2 \equiv \sigma$. Define $Z_i := X_i$ for $i \notin S$ and $Z_i:=Y_i$ for $i \in S$. Let $X := (X_1, \dots, X_\ell)$, $Y := (Y_1, \dots, Y_\ell)$, and $Z := (Z_1, \ldots, Z_\ell)$. For any (possibly unbounded) adversary that sees $X$, $Y$, and any $n$-bit (possibly randomized) function $g(Z)$ of $Z$, its advantage in predicting $\sigma \equiv |S| \bmod 2$ is at most $2^{-\ell/5 + n + 1}$.\footnote{For this theorem to make sense, $g(Z)$ cannot depend on $X$, $Y$, and $Z$ together (or else it can simply leak $\sigma$!). Thus, the function $g$ is restricted to depend only on the bits in $Z$ (and not $X$, $Y$, and $Z$ simultaneously). Of course, $g$ can depend on the \emph{distribution} of $X$ and $Y$.}
+\end{theorem}
+\end{document}
