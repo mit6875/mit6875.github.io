@@ -191,6 +191,9 @@ As a motivating example, consider the following scenario. Suppose that there is 
 \begin{enumerate}
     \item (10 points) \textbf{Zero Knowledge Proofs are Witness Indistinguishable}. Prove that every (auxiliary input) zero knowledge proof system $\Pi$ (for a language $L\in \NP$) is also witness indistinguishable.
     \item (15 points) \textbf{Composition of WI Proofs}. From part 1, we see that the three-message protocol for 3-colorability from lecture is witness indistinguishable. However, it still has poor soundness. Prove that (three-message) WI proof systems actually compose under parallel composition!\footnote{In fact, composition holds for WI proof systems with an arbitrary polynomial number of rounds, but we will restrict to three-message proofs for simplicity.} That is, if $\Pi$ is a three-message WI proof system for some language $L$ with soundness $\mu$ and completeness 1, prove that $\Pi^t$ (a $t$-wise parallel repetition of $\Pi$) is a WI proof system for $L$ with soundness $\mu^t$ and completeness 1.
+    \begin{remark}
+        You may assume that the honest prover is efficient (i.e. runs in polynomial time) given any $\NP$ witness. This is similar to the honest prover efficiency requirement for zero-knowledge proofs for $\NP$.
+    \end{remark}
 \end{enumerate}
 \newpage
 
@@ -208,10 +211,10 @@ A randomized secret-key encryption scheme $\SKE = (\Gen, \Enc, \Dec)$ over messa
     \[ \RR(c) \;\stackrel{c}{\approx}\; \Enc(k, m),\footnote{The ciphertext on the right-hand side is a \emph{fresh} encryption of $m$ with the key $k$ which is not necessarily equal to $c$.} \]
 and $\Dec(k, \RR(c)) = \Dec(k, c)$ for all ciphertexts $c$.
 \end{definition}
-Suppose there exists a re-randomizable secret key-encryption scheme $(\Gen, \Enc, \Dec, \RR)$. Show that there exists a (CPA-secure) public-key encryption scheme $(\Gen', \Enc', \Dec')$.
+Suppose there exists a (CPA-secure) re-randomizable secret key-encryption scheme $(\Gen, \Enc, \Dec, \RR)$. Show that there exists a (CPA-secure) public-key encryption scheme $(\Gen', \Enc', \Dec')$.
 
 \subsection{PKE from additive homomorphism (15 points)}
-Let $\SKE = (\Gen, \Enc, \Dec, \Add)$ be a \emph{secret-key} encryption scheme for single-bit messages that satisfies the standard compactness and security guarantees, and supports homomorphic addition:
+Let $\SKE = (\Gen, \Enc, \Dec, \Add)$ be a \emph{secret-key} encryption scheme for single-bit messages that satisfies the standard compactness and (CPA) security guarantees, and supports homomorphic addition:
 \begin{itemize}
   \item \textbf{Additive homomorphism mod 2.} $\Add$ is a deterministic algorithm such that for any ciphertexts $\{c_i\}_{i \in [n]}$, 
     \[ \Dec(k, \Add(c_1, \ldots, c_n)) = \oplus_{i=1}^n \Dec(k, c_i). \]
