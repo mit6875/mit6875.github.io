@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{macros}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\newcommand{\proto}[2]{
+    \stepcounter{figure}
+    \vspace{0.05cm}
+    { \small
+    \begin{tcolorbox}[breakable]
+        \begin{center}
+            {\bf \underline{#1}}
+        \end{center}
+        #2
+    \end{tcolorbox} }
+}
+\newcommand{\Ver}{\mathsf{Ver}}
+\newcommand{\Open}{\mathsf{Open}}
+\newcommand{\crs}{\mathsf{crs}}
+\newcommand{\hash}{\mathsf{hash}}
+\def\Commit{\mathsf{Commit}}
+\def\Verify{\mathsf{Verify}}
+\def\Setup{\mathsf{Setup}}
+\def\pk{\mathsf{pk}}
+\def\sk{\mathsf{sk}}
+\def\dec{\mathsf{dec}}
+\def\com{\mathsf{com}}
+\usepackage{cryptocode}
+\title{Foundations of Cryptography, Fall 2025 \\ Problem Set 5 \\ Due Monday, December 8}
+\date{}
+\author{}
+\begin{document}
+
+\maketitle
+
+\paragraph{Total Number of Points: 100}
+
+\paragraph{Collaboration Policy:} Collaboration is permitted and encouraged in small groups of at most three students. You are free to collaborate in discussing answers, but you must write up solutions on your own, and must specify in your submission the names of any collaborators. Do not copy any text from your collaborators; the writeup must be entirely your work. Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution. \textbf{Solutions should be typeset in $\text{\LaTeX}$.} You may make use of material referenced on the course website, provided that you clearly acknowledge all sources/tools used. Of course, scavenging for solutions from prior years is forbidden.
+
+\paragraph{On the Use of LLMs:} You may use AI however you wish to deepen your understanding of the lecture material. Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine. \textbf{You may not use AI/LLMs in any way to work on your homework.} You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI-generated content whatsoever in your homework submissions. If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
+
+\newpage
+\section{Tree-based CRHFs (25 points)}
+In this problem, we will revisit the question of collision-resistant hash functions. Recall the definition of a CRHF:
+\begin{definition}
+    A collision-resistant hash family is associated with a key generation algorithm $\Gen$ and a set of functions $\calH = \{\calH_\lambda\}_{\lambda \in \mathbb{N}}$, where $\calH_\lambda = \{h_k\}_{k \in \calK_{\secp}}$ (where $\calK_{\secp}$ is the keyspace/output space of $\Gen$), with the following properties:
+    \begin{enumerate}
+        \item \textbf{Efficient:} $\Gen$ is PPT and for any $\secp \in \bbN$ and $k \in \calK_{\secp}$, $h_k$ is deterministic and computable in polynomial time.
+        \item \textbf{Compressing:} There exists $n=n(\secp)\leq \poly(\secp)$ and $m=m(\secp)<n(\secp)$ such that for every $k \in \calK_{\secp}$, $h_k: \{0, 1\}^{n} \to \{0, 1\}^m$.
+        \item \textbf{Collision-resistant:} For every polynomial-size adversary $\calA$ and all $\secp \in \bbN$,
+        \begin{align*}
+            \Pr_{k \gets \Gen(1^\secp)}[h_{k}(x) = h_k(x') \text{ and } x \neq x': (x, x') =\calA(1^{\secp}, k) ] \leq \negl(\lambda).
+        \end{align*}
+    \end{enumerate}
+\end{definition}
+Let $(\Gen, \calH)$ be a collision-resistant hash family with $n = 2\secp, m = \secp$, and let $p = p(\secp) = \poly(\secp)$. Construct a collision-resistant hash family $(\Gen, \calH' = \{\calH'_{\secp}\}_{\secp \in \bbN})$ with the following properties:
+\begin{enumerate}
+    \item For every $\secp \in \mathbb{N}$ and every $k \in \calK_{\secp}$, the function $h'_k \in \calH'_{\secp}$, maps inputs of length $p \cdot \secp$ to outputs of length $\secp$; i.e.,
+    \[
+    h'_k:\{0,1\}^{p\cdot \secp}\rightarrow\{0,1\}^\secp.
+    \]
+    Moreover, given $k$, $h'_k$ is an efficiently computable deterministic function.
+    \item For any index $i \in [p]$ and message $m \in \{0, 1\}^{p \cdot \secp}$, there is a {\it local opening} of size $O((\log p) \cdot \secp)$ which suffices to verify the $i$'th block of $m$. More formally, there is a pair of poly-time algorithms $(\Open, \Ver)$ with the following syntax:
+    \begin{itemize}
+        \item $\Open$ takes as input a hash key $k \in \calK_{\secp}$, a message $m \in \{0, 1\}^{p \cdot \secp}$, and an index $i \in [p]$, and outputs a local opening string $L \in \{0, 1\}^{O((\log p) \cdot \secp)}$.
+        \item $\Ver$ takes as input a hash key $k \in \calK_{\secp}$, a hash value $\hash \in \{0, 1\}^{\secp}$, a local opening $L \in \{0, 1\}^{O(\log p \cdot \secp)}$, an index $i \in [p]$, and the purported $i$th message block $\psi \in \{0, 1\}^{\secp}$, and outputs a bit $v \in \{0, 1\}$.
+    \end{itemize}
+    $(\Open, \Ver)$ should satisfy the following properties:
+    \begin{enumerate}
+        \item \textbf{Correctness of local opening:} For all $\secp \in \bbN$,  $k \in \calK_{\secp}$, $m \in \{0, 1\}^{\secp \cdot p}$, and $i \in [p]$, 
+        \[ \Pr[\Ver(k,\hash, L, i, m_{[(i-1)\secp+1:i\secp]}) = 1: \hash =h_k(m), L = \Open(k,m, i)] = 1. \]
+        \item \textbf{Computational binding of local opening:} For all poly-size adversaries $\calA$, all indices $i \in [p]$, and all $\secp \in \bbN$,
+            \[ \Pr_{k \gets \Gen(1^\secp)}[\forall b \in \{0, 1\}, \Ver(k,\hash, L_b, i, m_b) = 1:~(\hash, L_0, m_0, L_1, m_1) = \calA(1^\secp, k)] \leq \negl(\secp). \]
+    \end{enumerate}
+\end{enumerate}
+Together, these properties allow a prover to succinctly hash a large number of values and open to any one of them with small communication.
+
+\textbf{Concretely, you should describe $(\Gen, \calH', \Open, \Ver)$, prove that $(\Gen, \calH')$ is a CRHF, and prove that $(\Open, \Ver)$ is correct and computationally binding.} You may assume that $p > 1$ and that $p$ is a power of 2.
+
+\emph{Hint:} Look at the problem title for some inspiration on how to design your hash functions!
+
+\section{More Secret Sharing Schemes (25 points)}
+In class, we saw the notion of threshold secret sharing. Given $n$ users (numbered 1 through $n$), define the $(t, n)$-threshold access structure to be the collection of sets 
+    \[ \calA_{\mathsf{threshold}} = \{S \subseteq [n] : |S| \geq t \}. \]
+The property of a secret sharing scheme, then, is that when a set $T \subseteq [n]$ of users come together, they can reconstruct the secret from their shares if and only if $T \in \calA_{\mathsf{threshold}}$. 
+
+In this problem, we will generalize secret sharing to other access structures. In general, an access structure $\calA$ is a monotone collection of subsets of $[n]$. Here, monotonicity refers to the condition that if $\calA$ contains a set $T$, it also contains all supersets of $T$. (Do you see why this has to be the case?)
+
+\begin{enumerate}
+    \item \textbf{Adding Weights (10 points).}  Let $w \in \bbN^n$ be an arbitrary \emph{weight vector} with positive integer entries $w_i$ between $1$ and $\poly(n)$. Show that there is an efficient (i.e. polynomial time) secret sharing scheme with the access structure 
+        \[ \calA_1 = \{ S \subseteq [n]: \sum_{i \in S} w_i \geq t(n) \}. \]
+    \item \textbf{A Majority of Majorities (15 points).} Let $k(n)<n$ be any (polynomial-time computable) function of $n$, and suppose that the set $[n]$ is partitioned into $k$ sets $S_1, \hdots, S_k$ of size $\frac n k$. Suppose that we want a subset of players $S \subseteq [n]$ to be able to reconstruct the secret if and only if a \emph{majority} of the sets $S_1, \hdots, S_k$ have \emph{a majority} of players present in $S$. The corresponding access structure can be described as
+        \[ \calA_2 = \{ S \subseteq [n] : |\{i \in [n]: |S_i \cap S| > |S_i|/2\}| > k/2 \}. \]
+
+    Show that we can efficiently (i.e. in polynomial time) share a secret according to this reconstruction constraint/access structure.
+\end{enumerate}
+\newpage
+
+\section{Reusable Zero Knowledge (25 points)}
+In this problem, we will explore the question of constructing multi-theorem NIZKs. Recall that in pset 4, we (essentially) showed that any NIZK argument which is non-adaptive, single-theorem zero-knowledge is also a (non-interactive) non-adaptive, single-theorem witness-indistinguishable argument (NIWI). We also know that NIWI arguments can also be repeated with the same common reference string, giving a non-adaptive, multi-theorem NIWI argument. We will now see how to lift such a NIWI argument to a non-adaptive multi-theorem NIZK argument.\footnote{We did not explicitly define multi-theorem NIWI, but it is the straightforward definition: for any tuple of instances $(x_1, \ldots, x_p)$ and witnesses $\{w_{i, 1}\}_{i = 1}^p$, $\{w_{i, 2}\}_{i = 1}^p$ where $(x_i, w_{i, 1}), (x_i, w_{i, 2}) \in \calR_{\calL}$, $(\crs, \{x_i, P(\crs, x_i, w_{i, 1})\}_{i = 1}^p)$ is computationally indistinguishable from $(\crs, \{x_i, P(\crs, x_i, w_{i, 2})\}_{i = 1}^p)$.}
+\begin{definition}
+    A non-interactive (computational) zero-knowledge argument (NIZK) for a language $\calL \in \NP$ is a triple of PPT algorithms $(\Gen, P, V)$ with the following syntax:
+    \begin{itemize}
+        \item $\Gen(1^{\secp})$: Takes as input the security parameter $1^{\secp}$ and outputs a common reference string $\crs$.
+        \item $P(\crs, x, w)$: Takes as input $\crs$, an instance $x$, and a corresponding witness $w$, and outputs a proof $\pi$.
+        \item $V(\crs, x, \pi)$: Takes as input $\crs$, an instance $x$, and a proof $\pi$ and outputs a bit 0 or 1, indicating whether it rejects or accepts the proof.
+    \end{itemize}
+    In addition, $(\Gen, P, V)$ should satisfy the following properties:
+    \begin{enumerate}
+        \item \textbf{Completeness:} For every $\secp \in \bbN$ and every $(x, w) \in \calR_{\calL}$, 
+            \[ \Pr[(V(\crs, x, P(\crs, x, w)) = 1] \geq 1-\negl(\secp), \]
+        where the probability is over $\crs \gets \Gen(1^{\secp})$ and over the randomness of the prover $P$. 
+        \item \textbf{(Adaptive) Soundness:} For every poly-size (cheating) prover $P^{*}$ there exists a negligible function $\mu$ such that for every $\secp \in \bbN$,
+            \[ \Pr[x \notin \calL~ \land~ V(\crs, x, \pi) = 1:~ (x, \pi) = P^{*}(\crs)] \leq \mu(\secp), \]
+        where the probability is over $\crs \gets \Gen(1^{\secp})$.
+        \item \textbf{(Non-Adaptive, Single/Multi-Theorem) Zero-Knowledge:} If $(\Gen, P, V)$ is single-theorem zero-knowledge, then there exists a PPT simulator $\calS$, such that for every polynomial time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x, w) \in \calR_{\calL}$,
+            \[ (\crs, x, P(\crs, x, w)) \approx S(1^{\secp}, x), \]
+        where $\crs \gets \Gen(1^{\secp})$ and $(x, w) \gets \calI(1^{\secp})$.
+
+        If $(\Gen, P, V)$ is multi-theorem zero-knowledge, then there exists a PPT simulator $\calS$, such that for every polynomial $p = p(\secp)$, every polynomial-time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x_1, w_1), \ldots, (x_p, w_p) \in \calR_{\calL}$,
+            \[ (\crs, \{(x_i, P(\crs, x_i, w_i))\}_{i = 1}^p) \approx S(1^{\secp}, \{x_i\}_{i = 1}^p), \]
+        where $\crs \gets \Gen(1^{\secp})$ and $\{(x_i, w_i)\}_{i = 1}^p \gets \calI(1^{\secp})$.
+    \end{enumerate}
+\end{definition}
+
+Fix any $\NP$-complete language $\calL$, and let $G: \{0, 1\}^{\secp} \to \{0, 1\}^{2\secp}$ be any PRG which stretches inputs of length $\secp$ to outputs of length $2\secp$. Observe that the following language is in $\NP$:
+    \[ \calL' = \{ (x, y): x \in \calL \lor \exists s \in \{0, 1\}^{\secp}: G(s) = y \} \in \NP. \]
+
+Suppose $\Pi = (\Gen, P, V)$ is a (non-adaptive) multi-theorem NIWI argument for $\calL$. \textbf{Construct an argument system $\Pi' = (\Gen', P', V')$ which is a (non-adaptive) multi-theorem NIZK argument for $\calL$ and prove that it satisfies all required properties.} 
+
+\emph{Hint:} Try splitting the common reference string into two parts (related to the two part-condition of $\calL'$).
+\newpage
+\section{Committing to Polynomials (25 points)}
+
+In this problem, we will explore commitments where the goal is to commit and open to a polynomial $f \in \mathbb{Z}_p[x]$ of bounded degree. We could use a standard commitment scheme to do this, but in some situations, instead of opening to the entire polynomial, we want to open only to its evaluation at some queried point.
+
+\begin{definition}[Polynomial Commitment Scheme]
+A polynomial commitment scheme consists of four ${\sf PPT}$ algorithms $\Setup, \Commit, \Open, \Verify$ with the following syntax.
+\begin{itemize}
+    \item $\Setup(1^\secp, d) \to (\pk, \sk)$: takes as input the security parameter and a polynomial degree bound $d$ and outputs a private-key secret-key pair.
+    \item $\Commit(\pk, f) \to \com$: takes as input a public key and a polynomial $f \in \mathbb{Z}_p$ of degree at most $d$, described in terms of its coefficients $f = (f_0 ,\ldots, f_d)$, and produces a commitment $\com$.
+    \item $\Open(\pk, f, u) \to (v, \pi)$: takes as input $\pk, f$ and an evaluation point $u$, and outputs the evaluation $v$ along with a ``proof'' that  $v$ is the evaluation of $f$ at $u$.
+    \item $\Verify(\pk, \com, u, v, \pi) \to \{\top, \bot\}$: takes as input $\pk, \com$ and $u, v, \pi$ and either accepts or rejects.
+\end{itemize}
+These algorithms satisfy the following properties:
+\begin{itemize}
+    \item \textbf{Correctness}: For any $\pk \gets \Setup(^\secp, t)$, polynomial $f \in \F_p$ with degree at most $d$, for any $\com \gets \Commit(\pk, f)$, for any $u \in \F_p$, and $(v, \pi) \gets \Open(\pk, f, u)$, it must hold that $v = f(u)$ and $\Verify(\pk, \com,\allowbreak u, v, \pi) = \top$ with probability $1$. 
+    \item \textbf{Binding}: For all adversaries $\calA$, there is a negligible function $\negl$ such that
+    \begin{align*}
+        \Pr_{\substack{\pk \gets \Setup(1^\secp, d)\\ (\com, u, v, v', \pi, \pi')\gets \calA(\pk)}} \Bigl[\Verify(\pk, \com, u, v, \pi) = \top ~\wedge~ \Verify(\pk, \com, u, v', \pi') = \top ~\wedge~ v \neq v' \Bigr] \le \negl(\secp).
+    \end{align*}
+\end{itemize}
+\end{definition}
+\begin{remark}
+    Note that the commitment definition here does not require hiding -- this is because polynomial commitments are typically used to construct succinct arguments, where hiding is not always required. The construction we will give allows for a succinct (in fact, single group element!) commitment which is still binding at any particular evaluation point.
+\end{remark}
+We will now see a construction of such a commitment scheme. First, we introduce some additional structure in the groups that we will be using. Let $G$ be groups of prime order $p$ with generator $g$. Then group $G$ is called \textit{bilinear} if it is also equipped with an efficiently computable (symmetric) bilinear operation $e: G \times G \to G_T$ that maps pairs $(g_1, g_2) \in G \times G$ to an element of some other group $G_T$ of the same prime order $p$, such that the following properties hold.\footnote{Technically, all of these groups and orders are indexed by the security parameter $\secp$, but we have omitted them from the notation to avoid clutter.}
+\begin{itemize}
+    \item \textbf{Bilinearity}: For every $x, y \in \bbZ_p$, it holds that $e(g^x, g^y) = e(g, g)^{xy}$.
+    \item \textbf{Non-degenerate}: For generator $g \in F$, we have that $e(g, g)$ generates $G_T$.
+\end{itemize}
+
+\paragraph{Construction.} Let $e : G \times G \to G_T$ be an efficiently computable bilinear map for groups $G, G_T$ of prime order $p$. 
+% Assume that the discrete log problem is hard for the groups $G, G_T$.
+\begin{itemize}
+    \item $\Setup(1^\secp, d)$: Sample a random $\sk := \alpha \gets \mathbb{Z}_p^*$ and generate $\pk := (g, g^\alpha, g^{\alpha^2} \ldots, g^{\alpha^d})$
+    \item $\Commit(\pk, f)$: Parse $\pk = (g_0, \ldots, g_d)$ and $f = (f_0, \ldots, f_d)$, and compute and output 
+    \begin{align*}
+        \mathsf{com} :=  \prod_{i = 0}^t g_i^{f_i}  = g^{f(\alpha)}.
+    \end{align*}
+    \item $\Open(\pk, f, u)$: Parse $\pk = (g_0, \ldots, g_t)$, and define the polynomial $f'$ and compute $\pi$ as follows:
+    \begin{align*}
+        f'(x) &:= \frac{f(x) - f(u)}{x - u}\\
+        \pi &:= \prod_{i = 0}^t g_i^{f'_i} = g^{f'(\alpha)}.
+    \end{align*}
+    where $f' = (f'_0, f'_1, \ldots, f'_d)$.
+    \item $\Verify(\pk, \com, u, v, \pi)$: Accept if 
+    \begin{align*}
+        e(\com, g) = e(\pi, g^{\alpha - u}) \cdot e(g, g)^{v}
+    \end{align*}
+    and reject otherwise.
+\end{itemize}
+
+\textbf{Prove that this scheme satisfies correctness and binding, assuming the following strengthening of the Diffie Hellman assumption holds over $G$.}
+
+\begin{definition}[$t$-strong Diffie Hellman Assumption]
+    Let $\alpha \gets \bbZ_p^*$ be a random element. Let $g$ be a generator of the group $G$. For every poly-size adversary $\calA$, there is a negligible function $\negl$ such that, given as input the tuple $(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^t}) \in G^{t+1}$, for any $c \in \bbZ_p \setminus \{-\alpha\}$, it holds that
+    \begin{align*}
+        \Pr_{\alpha \gets \bbZ_p^*}[\calA(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^t}) \to (c, g^{(\alpha + c)^{-1}})] \le \negl(\secp).
+    \end{align*}
+\end{definition}
+\end{document}
