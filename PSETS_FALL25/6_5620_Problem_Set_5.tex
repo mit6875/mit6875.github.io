@@ -48,7 +48,7 @@ In this problem, we will revisit the question of collision-resistant hash functi
         \item \textbf{Compressing:} There exists $n=n(\secp)\leq \poly(\secp)$ and $m=m(\secp)<n(\secp)$ such that for every $k \in \calK_{\secp}$, $h_k: \{0, 1\}^{n} \to \{0, 1\}^m$.
         \item \textbf{Collision-resistant:} For every polynomial-size adversary $\calA$ and all $\secp \in \bbN$,
         \begin{align*}
-            \Pr_{k \gets \Gen(1^\lambda)}[h_{k}(x) = h_k(x') \text{ and } x \neq x': (x, x') =\calA(1^{\secp}, k) ] \leq \negl(\lambda).
+            \Pr_{k \gets \Gen(1^\secp)}[h_{k}(x) = h_k(x') \text{ and } x \neq x': (x, x') =\calA(1^{\secp}, k) ] \leq \negl(\lambda).
         \end{align*}
     \end{enumerate}
 \end{definition}
@@ -66,7 +66,7 @@ Let $(\Gen, \calH)$ be a collision-resistant hash family with $n = 2\secp, m = \
     \end{itemize}
     $(\Open, \Ver)$ should satisfy the following properties:
     \begin{enumerate}
-        \item \textbf{Correctness of local opening:} For all $\secp \in \bbN$,  $k\in\Gen(1^\secp)$, $m \in \{0, 1\}^{\secp \cdot p}$, and $i \in [p]$, 
+        \item \textbf{Correctness of local opening:} For all $\secp \in \bbN$,  $k \in \calK_{\secp}$, $m \in \{0, 1\}^{\secp \cdot p}$, and $i \in [p]$, 
         \[ \Pr[\Ver(k,\hash, L, i, m_{[(i-1)\secp+1:i\secp]}) = 1: \hash =h_k(m), L = \Open(k,m, i)] = 1. \]
         \item \textbf{Computational binding of local opening:} For all poly-size adversaries $\calA$, all indices $i \in [p]$, and all $\secp \in \bbN$,
             \[ \Pr_{k \gets \Gen(1^\secp)}[\forall b \in \{0, 1\}, \Ver(k,\hash, L_b, i, m_b) = 1:~(\hash, L_0, m_0, L_1, m_1) = \calA(1^\secp, k)] \leq \negl(\secp). \]
@@ -86,9 +86,9 @@ The property of a secret sharing scheme, then, is that when a set $T \subseteq [
 In this problem, we will generalize secret sharing to other access structures. In general, an access structure $\calA$ is a monotone collection of subsets of $[n]$. Here, monotonicity refers to the condition that if $\calA$ contains a set $T$, it also contains all supersets of $T$. (Do you see why this has to be the case?)
 
 \begin{enumerate}
-    \item \textbf{Adding Weights (10 points).}  Let $w\in \bbN^n$ be an arbitrary \emph{weight vector} with positive integer entries $w_i$ between $1$ and $\poly(n)$. Show that there is an efficient (i.e. polynomial time) secret sharing scheme with the access structure 
+    \item \textbf{Adding Weights (10 points).}  Let $w \in \bbN^n$ be an arbitrary \emph{weight vector} with positive integer entries $w_i$ between $1$ and $\poly(n)$. Show that there is an efficient (i.e. polynomial time) secret sharing scheme with the access structure 
         \[ \calA_1 = \{ S \subseteq [n]: \sum_{i \in S} w_i \geq t(n) \}. \]
-    \item \textbf{A Majority of Majorities (15 points).} Let $k(n)<n$ be any (polynomial-time computable) function of $n$, and suppose that the set $[n]$ is partitioned into $k$ sets $S_1, \hdots, S_k$ of size $\frac n k$. Suppose that we want a subset of players $S\subset [n]$ to be able to reconstruct the secret if and only if a \emph{majority} of the sets $S_1, \hdots, S_k$ have \emph{a majority} of players present in $S$. The corresponding access structure can be described as
+    \item \textbf{A Majority of Majorities (15 points).} Let $k(n)<n$ be any (polynomial-time computable) function of $n$, and suppose that the set $[n]$ is partitioned into $k$ sets $S_1, \hdots, S_k$ of size $\frac n k$. Suppose that we want a subset of players $S \subseteq [n]$ to be able to reconstruct the secret if and only if a \emph{majority} of the sets $S_1, \hdots, S_k$ have \emph{a majority} of players present in $S$. The corresponding access structure can be described as
         \[ \calA_2 = \{ S \subseteq [n] : |\{i \in [n]: |S_i \cap S| > |S_i|/2\}| > k/2 \}. \]
 
     Show that we can efficiently (i.e. in polynomial time) share a secret according to this reconstruction constraint/access structure.
@@ -96,7 +96,7 @@ In this problem, we will generalize secret sharing to other access structures. I
 \newpage
 
 \section{Reusable Zero Knowledge (25 points)}
-In this problem, we will explore the question of constructing multi-theorem NIZKs. Recall that in pset 4, we (essentially) showed that any NIZK argument which is non-adaptive, single-theorem zero-knowledge is also a (non-interactive) non-adaptive, single-theorem witness-indistinguishable argument (NIWI). We also know that NIWI arguments can also be repeated with the same common reference string, giving a non-adaptive, multi-theorem NIWI argument. We will now see how to lift such a NIWI argument to a non-adaptive multi-theorem NIZK argument.
+In this problem, we will explore the question of constructing multi-theorem NIZKs. Recall that in pset 4, we (essentially) showed that any NIZK argument which is non-adaptive, single-theorem zero-knowledge is also a (non-interactive) non-adaptive, single-theorem witness-indistinguishable argument (NIWI). We also know that NIWI arguments can also be repeated with the same common reference string, giving a non-adaptive, multi-theorem NIWI argument. We will now see how to lift such a NIWI argument to a non-adaptive multi-theorem NIZK argument.\footnote{We did not explicitly define multi-theorem NIWI, but it is the straightforward definition: for any tuple of instances $(x_1, \ldots, x_p)$ and witnesses $\{w_{i, 1}\}_{i = 1}^p$, $\{w_{i, 2}\}_{i = 1}^p$ where $(x_i, w_{i, 1}), (x_i, w_{i, 2}) \in \calR_{\calL}$, $(\crs, \{x_i, P(\crs, x_i, w_{i, 1})\}_{i = 1}^p)$ is computationally indistinguishable from $(\crs, \{x_i, P(\crs, x_i, w_{i, 2})\}_{i = 1}^p)$.}
 \begin{definition}
     A non-interactive (computational) zero-knowledge argument (NIZK) for a language $\calL \in \NP$ is a triple of PPT algorithms $(\Gen, P, V)$ with the following syntax:
     \begin{itemize}
@@ -109,15 +109,14 @@ In this problem, we will explore the question of constructing multi-theorem NIZK
         \item \textbf{Completeness:} For every $\secp \in \bbN$ and every $(x, w) \in \calR_{\calL}$, 
             \[ \Pr[(V(\crs, x, P(\crs, x, w)) = 1] \geq 1-\negl(\secp), \]
         where the probability is over $\crs \gets \Gen(1^{\secp})$ and over the randomness of the prover $P$. 
-        %Moreover, given a witness $w$ for an instance $x \in \calL$, $P(\crs, x, w)$ runs in polynomial time.  
         \item \textbf{(Adaptive) Soundness:} For every poly-size (cheating) prover $P^{*}$ there exists a negligible function $\mu$ such that for every $\secp \in \bbN$,
             \[ \Pr[x \notin \calL~ \land~ V(\crs, x, \pi) = 1:~ (x, \pi) = P^{*}(\crs)] \leq \mu(\secp), \]
         where the probability is over $\crs \gets \Gen(1^{\secp})$.
-        \item \textbf{(Non-Adaptive, Single/Multi-Theorem) Zero-Knowledge:} If $(\Gen, P, V)$ is single-theorem zero-knowledge, then for every PPT $V^{*}$, there exists a PPT simulator $\calS$, such that for every polynomial time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x, w) \in \calR_{\calL}$,
+        \item \textbf{(Non-Adaptive, Single/Multi-Theorem) Zero-Knowledge:} If $(\Gen, P, V)$ is single-theorem zero-knowledge, then there exists a PPT simulator $\calS$, such that for every polynomial time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x, w) \in \calR_{\calL}$,
             \[ (\crs, x, P(\crs, x, w)) \approx S(1^{\secp}, x), \]
         where $\crs \gets \Gen(1^{\secp})$ and $(x, w) \gets \calI(1^{\secp})$.
 
-        If $(\Gen, P, V)$ is multi-theorem zero-knowledge, For every PPT $V^{*}$ there exists a PPT simulator $\calS$, such that for every polynomial $p = p(\secp)$, every polynomial-time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x_1, w_1), \ldots, (x_p, w_p) \in \calR_{\calL}$,
+        If $(\Gen, P, V)$ is multi-theorem zero-knowledge, then there exists a PPT simulator $\calS$, such that for every polynomial $p = p(\secp)$, every polynomial-time instance generator algorithm $\calI$, that on input $1^{\secp}$ outputs $(x_1, w_1), \ldots, (x_p, w_p) \in \calR_{\calL}$,
             \[ (\crs, \{(x_i, P(\crs, x_i, w_i))\}_{i = 1}^p) \approx S(1^{\secp}, \{x_i\}_{i = 1}^p), \]
         where $\crs \gets \Gen(1^{\secp})$ and $\{(x_i, w_i)\}_{i = 1}^p \gets \calI(1^{\secp})$.
     \end{enumerate}
