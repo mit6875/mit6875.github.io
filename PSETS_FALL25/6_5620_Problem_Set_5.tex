@@ -128,7 +128,9 @@ Fix any $\NP$-complete language $\calL$, and let $G: \{0, 1\}^{\secp} \to \{0, 1
 Suppose $\Pi = (\Gen, P, V)$ is a (non-adaptive) multi-theorem NIWI argument for $\calL$. \textbf{Construct an argument system $\Pi' = (\Gen', P', V')$ which is a (non-adaptive) multi-theorem NIZK argument for $\calL$ and prove that it satisfies all required properties.} 
 
 \emph{Hint:} Try splitting the common reference string into two parts (related to the two part-condition of $\calL'$).
+
 \newpage
+
 \section{Committing to Polynomials (25 points)}
 
 In this problem, we will explore commitments where the goal is to commit and open to a polynomial $f \in \mathbb{Z}_p[x]$ of bounded degree. We could use a standard commitment scheme to do this, but in some situations, instead of opening to the entire polynomial, we want to open only to its evaluation at some queried point.
@@ -136,7 +138,7 @@ In this problem, we will explore commitments where the goal is to commit and ope
 \begin{definition}[Polynomial Commitment Scheme]
 A polynomial commitment scheme consists of four ${\sf PPT}$ algorithms $\Setup, \Commit, \Open, \Verify$ with the following syntax.
 \begin{itemize}
-    \item $\Setup(1^\secp, d) \to (\pk, \sk)$: takes as input the security parameter and a polynomial degree bound $d$ and outputs a private-key secret-key pair.
+    \item $\Setup(1^\secp, d) \to (\pk, \sk)$: takes as input the security parameter and a polynomial degree bound $d$ and outputs a public-key secret-key pair.
     \item $\Commit(\pk, f) \to \com$: takes as input a public key and a polynomial $f \in \mathbb{Z}_p$ of degree at most $d$, described in terms of its coefficients $f = (f_0 ,\ldots, f_d)$, and produces a commitment $\com$.
     \item $\Open(\pk, f, u) \to (v, \pi)$: takes as input $\pk, f$ and an evaluation point $u$, and outputs the evaluation $v$ along with a ``proof'' that  $v$ is the evaluation of $f$ at $u$.
     \item $\Verify(\pk, \com, u, v, \pi) \to \{\top, \bot\}$: takes as input $\pk, \com$ and $u, v, \pi$ and either accepts or rejects.
@@ -144,7 +146,7 @@ A polynomial commitment scheme consists of four ${\sf PPT}$ algorithms $\Setup, 
 These algorithms satisfy the following properties:
 \begin{itemize}
     \item \textbf{Correctness}: For any $\pk \gets \Setup(^\secp, t)$, polynomial $f \in \F_p$ with degree at most $d$, for any $\com \gets \Commit(\pk, f)$, for any $u \in \F_p$, and $(v, \pi) \gets \Open(\pk, f, u)$, it must hold that $v = f(u)$ and $\Verify(\pk, \com,\allowbreak u, v, \pi) = \top$ with probability $1$. 
-    \item \textbf{Binding}: For all adversaries $\calA$, there is a negligible function $\negl$ such that
+    \item \textbf{$d$-Binding}: For all poly-size adversaries $\calA$,
     \begin{align*}
         \Pr_{\substack{\pk \gets \Setup(1^\secp, d)\\ (\com, u, v, v', \pi, \pi')\gets \calA(\pk)}} \Bigl[\Verify(\pk, \com, u, v, \pi) = \top ~\wedge~ \Verify(\pk, \com, u, v', \pi') = \top ~\wedge~ v \neq v' \Bigr] \le \negl(\secp).
     \end{align*}
@@ -153,14 +155,13 @@ These algorithms satisfy the following properties:
 \begin{remark}
     Note that the commitment definition here does not require hiding -- this is because polynomial commitments are typically used to construct succinct arguments, where hiding is not always required. The construction we will give allows for a succinct (in fact, single group element!) commitment which is still binding at any particular evaluation point.
 \end{remark}
-We will now see a construction of such a commitment scheme. First, we introduce some additional structure in the groups that we will be using. Let $G$ be groups of prime order $p$ with generator $g$. Then group $G$ is called \textit{bilinear} if it is also equipped with an efficiently computable (symmetric) bilinear operation $e: G \times G \to G_T$ that maps pairs $(g_1, g_2) \in G \times G$ to an element of some other group $G_T$ of the same prime order $p$, such that the following properties hold.\footnote{Technically, all of these groups and orders are indexed by the security parameter $\secp$, but we have omitted them from the notation to avoid clutter.}
+We will now see a construction of such a commitment scheme. First, we introduce some additional structure in the groups that we will be using. Let $G$ be a group of prime order $p$ with generator $g$. Then group $G$ is called \textit{bilinear} if it is also equipped with an efficiently computable (symmetric) bilinear operation $e: G \times G \to G_T$ that maps pairs $(g_1, g_2) \in G \times G$ to an element of some other group $G_T$ of the same prime order $p$, such that the following properties hold.\footnote{Technically, all of these groups and orders are indexed by the security parameter $\secp$, but we have omitted them from the notation to avoid clutter. This means we have publicly known families of groups $\{G_{\secp}\}_{\secp \in \bbN}$ and $\{G_{T, \secp}\}_{\secp \in \bbN}$ with prime orders $\{p_{\secp}\}_{\secp \in \bbN}$ and publicly known generators $\{g_{\secp}\}_{\secp \in \bbN}$ and $\{e(g_{\secp}, g_{\secp})\}_{\secp \in \bbN}$.}
 \begin{itemize}
     \item \textbf{Bilinearity}: For every $x, y \in \bbZ_p$, it holds that $e(g^x, g^y) = e(g, g)^{xy}$.
-    \item \textbf{Non-degenerate}: For generator $g \in F$, we have that $e(g, g)$ generates $G_T$.
+    \item \textbf{Non-degenerate}: For generator $g \in G$, we have that $e(g, g)$ generates $G_T$.
 \end{itemize}
 
-\paragraph{Construction.} Let $e : G \times G \to G_T$ be an efficiently computable bilinear map for groups $G, G_T$ of prime order $p$. 
-% Assume that the discrete log problem is hard for the groups $G, G_T$.
+\paragraph{Construction.} Let $e : G \times G \to G_T$ be an efficiently computable bilinear map for groups $G, G_T$ of prime order $p$. Let $g$ be a generator of $G$ (publicly known).
 \begin{itemize}
     \item $\Setup(1^\secp, d)$: Sample a random $\sk := \alpha \gets \mathbb{Z}_p^*$ and generate $\pk := (g, g^\alpha, g^{\alpha^2} \ldots, g^{\alpha^d})$
     \item $\Commit(\pk, f)$: Parse $\pk = (g_0, \ldots, g_d)$ and $f = (f_0, \ldots, f_d)$, and compute and output 
@@ -180,7 +181,7 @@ We will now see a construction of such a commitment scheme. First, we introduce 
     and reject otherwise.
 \end{itemize}
 
-\textbf{Prove that this scheme satisfies correctness and binding, assuming the following strengthening of the Diffie Hellman assumption holds over $G$.}
+\textbf{Prove that this scheme satisfies correctness and that for any $t$, this scheme is $t$-binding assuming the $t$-strong Diffie Hellman assumption holds over $G$.}
 
 \begin{definition}[$t$-strong Diffie Hellman Assumption]
     Let $\alpha \gets \bbZ_p^*$ be a random element. Let $g$ be a generator of the group $G$. For every poly-size adversary $\calA$, there is a negligible function $\negl$ such that, given as input the tuple $(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^t}) \in G^{t+1}$, for any $c \in \bbZ_p \setminus \{-\alpha\}$, it holds that
