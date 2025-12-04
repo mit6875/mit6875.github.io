@@ -127,10 +127,8 @@ Fix any $\NP$-complete language $\calL$, and let $G: \{0, 1\}^{\secp} \to \{0, 1
 
 Suppose $\Pi = (\Gen, P, V)$ is a (non-adaptive) multi-theorem NIWI argument for $\calL$. \textbf{Construct an argument system $\Pi' = (\Gen', P', V')$ which is a (non-adaptive) multi-theorem NIZK argument for $\calL$ and prove that it satisfies all required properties.} 
 
-\emph{Hint:} Try splitting the common reference string into two parts (related to the two part-condition of $\calL'$).
-
+\emph{Hint:} Try splitting the common reference string into two parts (related to the two-part condition of $\calL'$).
 \newpage
-
 \section{Committing to Polynomials (25 points)}
 
 In this problem, we will explore commitments where the goal is to commit and open to a polynomial $f \in \mathbb{Z}_p[x]$ of bounded degree. We could use a standard commitment scheme to do this, but in some situations, instead of opening to the entire polynomial, we want to open only to its evaluation at some queried point.
@@ -145,7 +143,7 @@ A polynomial commitment scheme consists of four ${\sf PPT}$ algorithms $\Setup, 
 \end{itemize}
 These algorithms satisfy the following properties:
 \begin{itemize}
-    \item \textbf{Correctness}: For any $\pk \gets \Setup(^\secp, t)$, polynomial $f \in \F_p$ with degree at most $d$, for any $\com \gets \Commit(\pk, f)$, for any $u \in \F_p$, and $(v, \pi) \gets \Open(\pk, f, u)$, it must hold that $v = f(u)$ and $\Verify(\pk, \com,\allowbreak u, v, \pi) = \top$ with probability $1$. 
+    \item \textbf{Correctness}: For any $\pk \gets \Setup(1^\secp, d)$, polynomial $f \in \F_p$ with degree at most $d$, for any $\com \gets \Commit(\pk, f)$, for any $u \in \F_p$, and $(v, \pi) \gets \Open(\pk, f, u)$, it must hold that $v = f(u)$ and $\Verify(\pk, \com,\allowbreak u, v, \pi) = \top$ with probability $1$. 
     \item \textbf{$d$-Binding}: For all poly-size adversaries $\calA$,
     \begin{align*}
         \Pr_{\substack{\pk \gets \Setup(1^\secp, d)\\ (\com, u, v, v', \pi, \pi')\gets \calA(\pk)}} \Bigl[\Verify(\pk, \com, u, v, \pi) = \top ~\wedge~ \Verify(\pk, \com, u, v', \pi') = \top ~\wedge~ v \neq v' \Bigr] \le \negl(\secp).
@@ -166,12 +164,12 @@ We will now see a construction of such a commitment scheme. First, we introduce 
     \item $\Setup(1^\secp, d)$: Sample a random $\sk := \alpha \gets \mathbb{Z}_p^*$ and generate $\pk := (g, g^\alpha, g^{\alpha^2} \ldots, g^{\alpha^d})$
     \item $\Commit(\pk, f)$: Parse $\pk = (g_0, \ldots, g_d)$ and $f = (f_0, \ldots, f_d)$, and compute and output 
     \begin{align*}
-        \mathsf{com} :=  \prod_{i = 0}^t g_i^{f_i}  = g^{f(\alpha)}.
+        \mathsf{com} :=  \prod_{i = 0}^d g_i^{f_i}  = g^{f(\alpha)}.
     \end{align*}
-    \item $\Open(\pk, f, u)$: Parse $\pk = (g_0, \ldots, g_t)$, and define the polynomial $f'$ and compute $\pi$ as follows:
+    \item $\Open(\pk, f, u)$: Parse $\pk = (g_0, \ldots, g_d)$, and define the polynomial $f'$ and compute $\pi$ as follows:
     \begin{align*}
         f'(x) &:= \frac{f(x) - f(u)}{x - u}\\
-        \pi &:= \prod_{i = 0}^t g_i^{f'_i} = g^{f'(\alpha)}.
+        \pi &:= \prod_{i = 0}^d g_i^{f'_i} = g^{f'(\alpha)}.
     \end{align*}
     where $f' = (f'_0, f'_1, \ldots, f'_d)$.
     \item $\Verify(\pk, \com, u, v, \pi)$: Accept if 
@@ -181,12 +179,12 @@ We will now see a construction of such a commitment scheme. First, we introduce 
     and reject otherwise.
 \end{itemize}
 
-\textbf{Prove that this scheme satisfies correctness and that for any $t$, this scheme is $t$-binding assuming the $t$-strong Diffie Hellman assumption holds over $G$.}
+\textbf{Prove that this scheme satisfies correctness and that for any $d \le \poly(\secp)$, this scheme is $d$-binding assuming the $d$-strong Diffie Hellman assumption holds over $G$.}
 
-\begin{definition}[$t$-strong Diffie Hellman Assumption]
-    Let $\alpha \gets \bbZ_p^*$ be a random element. Let $g$ be a generator of the group $G$. For every poly-size adversary $\calA$, there is a negligible function $\negl$ such that, given as input the tuple $(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^t}) \in G^{t+1}$, for any $c \in \bbZ_p \setminus \{-\alpha\}$, it holds that
+\begin{definition}[$d$-strong Diffie Hellman Assumption]
+    Let $\alpha \gets \bbZ_p^*$ be a random element. Let $g$ be a generator of the group $G$. For every poly-size adversary $\calA$, there is a negligible function $\negl$ such that, given as input the tuple $(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^d}) \in G^{d+1}$, it holds that
     \begin{align*}
-        \Pr_{\alpha \gets \bbZ_p^*}[\calA(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^t}) \to (c, g^{(\alpha + c)^{-1}})] \le \negl(\secp).
+        \Pr_{\alpha \gets \bbZ_p^*}[\calA(g, g^\alpha, g^{\alpha^2}, \ldots, g^{\alpha^d}) \to (c, g^{(\alpha + c)^{-1}}) \text{ s.t. } c \in \bbZ_p \setminus \{-\alpha\}] \le \negl(\secp).
     \end{align*}
 \end{definition}
 \end{document}
