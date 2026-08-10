@@ -1,369 +1,2120 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Fall 2026 course information, assignments, and lecture schedule for MIT 6.5620 Foundations of Cryptography.">
-  <title>MIT 6.5620 · Foundations of Cryptography · Fall 2026</title>
-  <style>
-:root {
-  --paper: #fcfcfa;
-  --ink: #243038;
-  --ink-deep: #172128;
-  --muted: #66737b;
-  --teal: #176f7d;
-  --teal-dark: #105763;
-  --teal-pale: #e8f3f4;
-  --hairline: #e3e8e8;
-  --rule: #cfd8d9;
-  --night: #18333a;
-  --nav: #4d5c63;
-  --text-secondary: #516068;
-  --text-tertiary: #617077;
-  --soft-surface: #f4f6f5;
-  color-scheme: light;
-  --serif: Charter, "Bitstream Charter", Georgia, Cambria, "Times New Roman", serif;
-  --sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Fall 2026 course information, assignments, and lecture schedule for MIT 6.5620 Foundations of Cryptography."
+    />
+    <title>MIT 6.5620 · Foundations of Cryptography · Fall 2026</title>
+    <style>
+      :root {
+        --paper: #fcfcfa;
+        --ink: #243038;
+        --ink-deep: #172128;
+        --muted: #66737b;
+        --teal: #176f7d;
+        --teal-dark: #105763;
+        --teal-pale: #e8f3f4;
+        --hairline: #e3e8e8;
+        --rule: #cfd8d9;
+        --night: #18333a;
+        --nav: #4d5c63;
+        --text-secondary: #516068;
+        --text-tertiary: #617077;
+        --soft-surface: #f4f6f5;
+        color-scheme: light;
+        --serif:
+          Charter, "Bitstream Charter", Georgia, Cambria, "Times New Roman",
+          serif;
+        --sans:
+          var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
 
-:root[data-theme="dark"] {
-  --paper: #111719;
-  --ink: #dce6e8;
-  --ink-deep: #f3f7f7;
-  --muted: #9cabad;
-  --teal: #72c2ca;
-  --teal-dark: #a0d8dd;
-  --teal-pale: #18343a;
-  --hairline: #2a3639;
-  --rule: #3a494d;
-  --night: #0b2429;
-  --nav: #b3c0c2;
-  --text-secondary: #b7c5c7;
-  --text-tertiary: #a5b4b7;
-  --soft-surface: #182023;
-  color-scheme: dark;
-}
+      :root[data-theme="dark"] {
+        --paper: #111719;
+        --ink: #dce6e8;
+        --ink-deep: #f3f7f7;
+        --muted: #9cabad;
+        --teal: #72c2ca;
+        --teal-dark: #a0d8dd;
+        --teal-pale: #18343a;
+        --hairline: #2a3639;
+        --rule: #3a494d;
+        --night: #0b2429;
+        --nav: #b3c0c2;
+        --text-secondary: #b7c5c7;
+        --text-tertiary: #a5b4b7;
+        --soft-surface: #182023;
+        color-scheme: dark;
+      }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
 
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 17px;
-  line-height: 1.62;
-  text-rendering: optimizeLegibility;
-}
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 17px;
+        line-height: 1.62;
+        text-rendering: optimizeLegibility;
+      }
 
-::selection { background: #cfe6e8; }
-a { color: var(--teal); text-decoration: none; text-underline-offset: 3px; }
-a:hover { color: var(--teal-dark); text-decoration: underline; }
-a:focus-visible { border-radius: 2px; outline: 2px solid var(--teal); outline-offset: 3px; }
-p, h1, h2, h3, h4 { margin-top: 0; }
+      ::selection {
+        background: #cfe6e8;
+      }
+      a {
+        color: var(--teal);
+        text-decoration: none;
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        color: var(--teal-dark);
+        text-decoration: underline;
+      }
+      a:focus-visible {
+        border-radius: 2px;
+        outline: 2px solid var(--teal);
+        outline-offset: 3px;
+      }
+      p,
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin-top: 0;
+      }
 
-.wrap { width: min(1100px, calc(100% - 48px)); margin-inline: auto; }
+      .wrap {
+        width: min(1100px, calc(100% - 48px));
+        margin-inline: auto;
+      }
 
-.course-header {
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid var(--rule);
-  background: var(--paper);
-  padding-top: 26px;
-}
+      .course-header {
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--rule);
+        background: var(--paper);
+        padding-top: 26px;
+      }
 
-.eyebrow-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 560;
-  letter-spacing: 0.085em;
-  text-transform: uppercase;
-}
+      .eyebrow-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 560;
+        letter-spacing: 0.085em;
+        text-transform: uppercase;
+      }
 
-.eyebrow-row p { margin-bottom: 0; }
-.header-actions { display: flex; align-items: center; gap: 18px; }
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--nav);
-  padding: 5px 9px;
-  font: inherit;
-  font-size: 10px;
-  font-weight: 680;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.theme-toggle:hover { border-color: var(--teal); color: var(--teal); }
-.theme-toggle:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
-.theme-toggle span { font-size: 13px; line-height: 1; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 92px; padding: 82px 0 76px; }
+      .eyebrow-row p {
+        margin-bottom: 0;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--nav);
+        padding: 5px 9px;
+        font: inherit;
+        font-size: 10px;
+        font-weight: 680;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .theme-toggle:hover {
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+      .theme-toggle:focus-visible {
+        outline: 2px solid var(--teal);
+        outline-offset: 3px;
+      }
+      .theme-toggle span {
+        font-size: 13px;
+        line-height: 1;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 92px;
+        padding: 82px 0 76px;
+      }
 
-.course-number {
-  margin-bottom: 18px;
-  color: var(--teal);
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 680;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
+      .course-number {
+        margin-bottom: 18px;
+        color: var(--teal);
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 680;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
 
-h1 {
-  max-width: 770px;
-  margin-bottom: 24px;
-  color: var(--ink-deep);
-  font-size: clamp(48px, 7vw, 82px);
-  font-weight: 520;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
-}
+      h1 {
+        max-width: 770px;
+        margin-bottom: 24px;
+        color: var(--ink-deep);
+        font-size: clamp(48px, 7vw, 82px);
+        font-weight: 520;
+        letter-spacing: -0.045em;
+        line-height: 0.98;
+      }
 
-.hero-facts { align-self: end; border-top: 1px solid var(--ink); font-family: var(--sans); }
-.hero-facts > div { border-bottom: 1px solid var(--hairline); padding: 14px 0; }
-.hero-instructors > a, .hero-instructors > p { display: block; }
+      .hero-facts {
+        align-self: end;
+        border-top: 1px solid var(--ink);
+        font-family: var(--sans);
+      }
+      .hero-facts > div {
+        border-bottom: 1px solid var(--hairline);
+        padding: 14px 0;
+      }
+      .hero-instructors > a,
+      .hero-instructors > p {
+        display: block;
+      }
 
-.hero-facts span,
-.card-label,
-.note-kicker,
-.policy-title {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--muted);
-  font-family: var(--sans);
-  font-size: 10.5px;
-  font-weight: 680;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
+      .hero-facts span,
+      .card-label,
+      .note-kicker,
+      .policy-title {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 10.5px;
+        font-weight: 680;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
 
-.hero-facts p, .hero-facts a { margin-bottom: 0; font-size: 14px; }
-.external-mark { display: inline; margin-left: 4px; font-size: 0.75em; }
+      .hero-facts p,
+      .hero-facts a {
+        margin-bottom: 0;
+        font-size: 14px;
+      }
+      .external-mark {
+        display: inline;
+        margin-left: 4px;
+        font-size: 0.75em;
+      }
 
-.site-nav {
-  display: flex;
-  gap: 30px;
-  border-top: 1px solid var(--hairline);
-  padding: 15px 0;
-  font-family: var(--sans);
-  font-size: 11.5px;
-  font-weight: 650;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+      .site-nav {
+        display: flex;
+        gap: 30px;
+        border-top: 1px solid var(--hairline);
+        padding: 15px 0;
+        font-family: var(--sans);
+        font-size: 11.5px;
+        font-weight: 650;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
 
-.site-nav a { color: var(--nav); }
-.site-nav a:hover { color: var(--teal); }
-.section { padding-top: 78px; }
+      .site-nav a {
+        color: var(--nav);
+      }
+      .site-nav a:hover {
+        color: var(--teal);
+      }
+      .section {
+        padding-top: 78px;
+      }
 
-.section-label {
-  display: grid;
-  grid-template-columns: 86px 1fr;
-  align-items: center;
-  margin-bottom: 38px;
-  font-family: var(--sans);
-}
+      .section-label {
+        display: grid;
+        grid-template-columns: 86px 1fr;
+        align-items: center;
+        margin-bottom: 38px;
+        font-family: var(--sans);
+      }
 
-.section-label span { color: var(--teal); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
-.section-label h2 { margin-bottom: 0; color: var(--ink-deep); font-size: 13px; font-weight: 730; letter-spacing: 0.13em; text-transform: uppercase; }
-.about-section { display: grid; grid-template-columns: 1fr 260px; gap: 0 86px; }
-.about-section .section-label { grid-column: 1 / -1; }
-.lead-copy p { max-width: 74ch; margin-bottom: 20px; font-size: 20px; line-height: 1.62; }
+      .section-label span {
+        color: var(--teal);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+      .section-label h2 {
+        margin-bottom: 0;
+        color: var(--ink-deep);
+        font-size: 13px;
+        font-weight: 730;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .about-section {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        gap: 0 86px;
+      }
+      .about-section .section-label {
+        grid-column: 1 / -1;
+      }
+      .lead-copy p {
+        max-width: 74ch;
+        margin-bottom: 20px;
+        font-size: 20px;
+        line-height: 1.62;
+      }
 
-.prereq-note { align-self: start; border-top: 2px solid var(--teal); background: var(--teal-pale); padding: 20px; }
-.prereq-note p:last-child { margin-bottom: 0; color: var(--text-secondary); font-family: var(--sans); font-size: 13.5px; line-height: 1.6; }
+      .prereq-note {
+        align-self: start;
+        border-top: 2px solid var(--teal);
+        background: var(--teal-pale);
+        padding: 20px;
+      }
+      .prereq-note p:last-child {
+        margin-bottom: 0;
+        color: var(--text-secondary);
+        font-family: var(--sans);
+        font-size: 13.5px;
+        line-height: 1.6;
+      }
 
-.information-grid { display: grid; grid-template-columns: 1.05fr 1fr 1.05fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.info-card { min-height: 260px; padding: 28px 30px; border-right: 1px solid var(--hairline); }
-.info-card:first-child { padding-left: 0; }
-.info-card:last-child { border-right: 0; padding-right: 0; }
-.info-card h3, .resource-grid h3 { margin-bottom: 10px; color: var(--ink-deep); font-size: 23px; font-weight: 560; line-height: 1.24; }
-.info-card > p:not(.card-label) { margin-bottom: 6px; color: var(--text-secondary); font-family: var(--sans); font-size: 13px; }
-.faculty-entry + .faculty-entry { margin-top: 22px; border-top: 1px solid var(--hairline); padding-top: 20px; }
-.faculty-entry h3 { margin-bottom: 8px; font-size: 20px; }
-.faculty-entry p { margin-bottom: 5px; color: var(--text-secondary); font-family: var(--sans); font-size: 13px; }
-.people-list, .recitation-list, .resource-grid ul { margin: 14px 0 0; padding: 0; list-style: none; }
-.people-list li { display: flex; flex-direction: column; margin-bottom: 15px; font-family: var(--sans); font-size: 13px; line-height: 1.45; }
-.people-list span { color: var(--muted); }
-.recitation-list li { display: grid; grid-template-columns: 56px 1fr; gap: 10px; border-bottom: 1px solid var(--hairline); padding: 10px 0; font-family: var(--sans); font-size: 12.5px; }
-.recitation-list li > span { color: var(--muted); }
+      .information-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr 1.05fr;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .info-card {
+        min-height: 260px;
+        padding: 28px 30px;
+        border-right: 1px solid var(--hairline);
+      }
+      .info-card:first-child {
+        padding-left: 0;
+      }
+      .info-card:last-child {
+        border-right: 0;
+        padding-right: 0;
+      }
+      .info-card h3,
+      .resource-grid h3 {
+        margin-bottom: 10px;
+        color: var(--ink-deep);
+        font-size: 23px;
+        font-weight: 560;
+        line-height: 1.24;
+      }
+      .info-card > p:not(.card-label) {
+        margin-bottom: 6px;
+        color: var(--text-secondary);
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+      .faculty-entry + .faculty-entry {
+        margin-top: 22px;
+        border-top: 1px solid var(--hairline);
+        padding-top: 20px;
+      }
+      .faculty-entry h3 {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+      .faculty-entry p {
+        margin-bottom: 5px;
+        color: var(--text-secondary);
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+      .people-list,
+      .recitation-list,
+      .resource-grid ul {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .people-list li {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        font-family: var(--sans);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .people-list span {
+        color: var(--muted);
+      }
+      .recitation-list li {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 10px;
+        border-bottom: 1px solid var(--hairline);
+        padding: 10px 0;
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
+      .recitation-list li > span {
+        color: var(--muted);
+      }
 
-.assignments-band { margin-top: 88px; background: var(--night); color: #eef5f5; padding-bottom: 82px; }
-.light-label h2 { color: #f7fbfb; }
-.light-label span { color: #8cc3ca; }
-.grading-intro { display: grid; grid-template-columns: 1.55fr 0.8fr; gap: 90px; margin-bottom: 42px; }
-.grading-intro > p:first-child { max-width: 700px; margin-bottom: 0; font-size: 19px; }
-.submission-note { margin-bottom: 0; border-left: 1px solid #517079; padding-left: 22px; color: #b9cacc; font-family: var(--sans); font-size: 12.5px; }
-.assignment-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid #426069; border-bottom: 1px solid #426069; }
-.assignment-card { padding: 22px 18px; border-right: 1px solid #36535b; }
-.assignment-card:first-child { padding-left: 0; }
-.assignment-card:last-child { border-right: 0; padding-right: 0; }
-.assignment-topline { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; }
-.assignment-topline p { margin-bottom: 0; color: #96adb2; font-family: var(--sans); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
-.assignment-topline span { color: #85c1c9; font-family: var(--sans); font-size: 24px; }
-.assignment-card dl { margin: 0 0 28px; }
-.assignment-card dl div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid #314b52; padding: 6px 0; font-family: var(--sans); font-size: 11.5px; }
-.assignment-card dt { color: #8fa6aa; }
-.assignment-card dd { margin: 0; }
-.assignment-links { display: flex; gap: 14px; font-family: var(--sans); font-size: 12px; }
-.assignment-links a { color: #91d1d8; }
-.policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; margin-top: 44px; }
-.policy-grid > div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; }
-.policy-title { color: #91c1c7; }
-.policy-grid p:last-child { margin-bottom: 0; color: #c2d0d2; font-family: var(--sans); font-size: 12.5px; }
+      .assignments-band {
+        margin-top: 88px;
+        background: var(--night);
+        color: #eef5f5;
+        padding-bottom: 82px;
+      }
+      .light-label h2 {
+        color: #f7fbfb;
+      }
+      .light-label span {
+        color: #8cc3ca;
+      }
+      .grading-intro {
+        display: grid;
+        grid-template-columns: 1.55fr 0.8fr;
+        gap: 90px;
+        margin-bottom: 42px;
+      }
+      .grading-intro > p:first-child {
+        max-width: 700px;
+        margin-bottom: 0;
+        font-size: 19px;
+      }
+      .submission-note {
+        margin-bottom: 0;
+        border-left: 1px solid #517079;
+        padding-left: 22px;
+        color: #b9cacc;
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
+      .assignment-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        border-top: 1px solid #426069;
+        border-bottom: 1px solid #426069;
+      }
+      .assignment-card {
+        padding: 22px 18px;
+        border-right: 1px solid #36535b;
+      }
+      .assignment-card:first-child {
+        padding-left: 0;
+      }
+      .assignment-card:last-child {
+        border-right: 0;
+        padding-right: 0;
+      }
+      .assignment-topline {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .assignment-topline p {
+        margin-bottom: 0;
+        color: #96adb2;
+        font-family: var(--sans);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .assignment-topline span {
+        color: #85c1c9;
+        font-family: var(--sans);
+        font-size: 24px;
+      }
+      .assignment-card dl {
+        margin: 0 0 28px;
+      }
+      .assignment-card dl div {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        border-bottom: 1px solid #314b52;
+        padding: 6px 0;
+        font-family: var(--sans);
+        font-size: 11.5px;
+      }
+      .assignment-card dt {
+        color: #8fa6aa;
+      }
+      .assignment-card dd {
+        margin: 0;
+      }
+      .assignment-links {
+        display: flex;
+        gap: 14px;
+        font-family: var(--sans);
+        font-size: 12px;
+      }
+      .assignment-links a {
+        color: #91d1d8;
+      }
+      .policy-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 90px;
+        margin-top: 44px;
+      }
+      .policy-grid > div {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 20px;
+      }
+      .policy-title {
+        color: #91c1c7;
+      }
+      .policy-grid p:last-child {
+        margin-bottom: 0;
+        color: #c2d0d2;
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
 
-.schedule-section { padding-bottom: 26px; }
-.schedule-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin: -12px 0 46px 86px; font-family: var(--sans); font-size: 13px; }
-.schedule-heading p { margin-bottom: 0; color: var(--muted); }
-.schedule-links { display: flex; gap: 18px; flex-shrink: 0; }
-.module { margin-bottom: 76px; scroll-margin-top: 24px; }
-.module-header { display: grid; grid-template-columns: 150px 1fr; gap: 26px; border-top: 2px solid var(--ink-deep); padding: 24px 0 28px; }
-.module-header > p { margin-bottom: 0; color: var(--teal); font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
-.module-header h3 { margin-bottom: 6px; color: var(--ink-deep); font-size: 27px; font-weight: 560; letter-spacing: -0.015em; line-height: 1.2; }
-.module-header div p { max-width: 700px; margin-bottom: 0; color: var(--muted); font-family: var(--sans); font-size: 13px; }
-.lecture-row, .schedule-event { display: grid; grid-template-columns: 150px minmax(0, 1fr) 112px; gap: 26px; border-top: 1px solid var(--hairline); padding: 20px 0; }
-.lecture-date { font-family: var(--sans); }
-.lecture-date span { display: block; margin-bottom: 2px; color: var(--muted); font-size: 9.5px; font-weight: 680; letter-spacing: 0.12em; text-transform: uppercase; }
-.lecture-date p { margin-bottom: 0; font-size: 12.5px; }
-.lecture-topic h4 { margin-bottom: 5px; color: var(--ink-deep); font-size: 17px; font-weight: 600; line-height: 1.35; }
-.lecture-topic > p { max-width: 690px; margin-bottom: 0; color: var(--text-tertiary); font-family: var(--sans); font-size: 12.5px; }
-.milestone { display: inline-block; margin-top: 9px; border-radius: 2px; background: var(--teal-pale); color: var(--teal-dark); padding: 3px 7px; font-family: var(--sans); font-size: 9.5px; font-weight: 670; letter-spacing: 0.075em; text-transform: uppercase; }
-.lecture-materials { justify-self: end; font-family: var(--sans); font-size: 11.5px; }
-.lecture-materials > span { color: #a8b0b3; }
-.schedule-event { grid-template-columns: 150px 1fr; background: var(--soft-surface); color: var(--muted); padding-right: 18px; padding-left: 18px; font-family: var(--sans); font-size: 12px; }
-.schedule-event > p { margin-bottom: 0; }
-.schedule-event div { display: flex; justify-content: space-between; gap: 24px; }
-.schedule-event strong { color: var(--ink); font-weight: 650; }
-.exam-event { background: var(--teal-pale); }
+      .schedule-section {
+        padding-bottom: 26px;
+      }
+      .schedule-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 30px;
+        margin: -12px 0 46px 86px;
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+      .schedule-heading p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+      .schedule-links {
+        display: flex;
+        gap: 18px;
+        flex-shrink: 0;
+      }
+      .module {
+        margin-bottom: 76px;
+        scroll-margin-top: 24px;
+      }
+      .module-header {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 26px;
+        border-top: 2px solid var(--ink-deep);
+        padding: 24px 0 28px;
+      }
+      .module-header > p {
+        margin-bottom: 0;
+        color: var(--teal);
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .module-header h3 {
+        margin-bottom: 6px;
+        color: var(--ink-deep);
+        font-size: 27px;
+        font-weight: 560;
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+      .module-header div p {
+        max-width: 700px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+      .lecture-row,
+      .schedule-event {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) 112px;
+        gap: 26px;
+        border-top: 1px solid var(--hairline);
+        padding: 20px 0;
+      }
+      .lecture-date {
+        font-family: var(--sans);
+      }
+      .lecture-date span {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--muted);
+        font-size: 9.5px;
+        font-weight: 680;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .lecture-date p {
+        margin-bottom: 0;
+        font-size: 12.5px;
+      }
+      .lecture-topic h4 {
+        margin-bottom: 5px;
+        color: var(--ink-deep);
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 1.35;
+      }
+      .lecture-topic > p {
+        max-width: 690px;
+        margin-bottom: 0;
+        color: var(--text-tertiary);
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
+      .milestone {
+        display: inline-block;
+        margin-top: 9px;
+        border-radius: 2px;
+        background: var(--teal-pale);
+        color: var(--teal-dark);
+        padding: 3px 7px;
+        font-family: var(--sans);
+        font-size: 9.5px;
+        font-weight: 670;
+        letter-spacing: 0.075em;
+        text-transform: uppercase;
+      }
+      .lecture-materials {
+        justify-self: end;
+        font-family: var(--sans);
+        font-size: 11.5px;
+      }
+      .lecture-materials > span {
+        color: #a8b0b3;
+      }
+      .schedule-event {
+        grid-template-columns: 150px 1fr;
+        background: var(--soft-surface);
+        color: var(--muted);
+        padding-right: 18px;
+        padding-left: 18px;
+        font-family: var(--sans);
+        font-size: 12px;
+      }
+      .schedule-event > p {
+        margin-bottom: 0;
+      }
+      .schedule-event div {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .schedule-event strong {
+        color: var(--ink);
+        font-weight: 650;
+      }
+      .exam-event {
+        background: var(--teal-pale);
+      }
 
-.resources-section { padding-bottom: 92px; }
-.resource-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; border-top: 1px solid var(--rule); }
-.resource-grid article { min-height: 265px; border-right: 1px solid var(--hairline); padding: 28px 32px; }
-.resource-grid article:first-child { padding-left: 0; }
-.resource-grid article:last-child { border-right: 0; padding-right: 0; }
-.resource-grid article > p:not(.card-label) { color: var(--muted); font-family: var(--sans); font-size: 13px; }
-.resource-grid article > a { font-family: var(--sans); font-size: 12.5px; }
-.resource-grid li { border-bottom: 1px solid var(--hairline); padding: 9px 0; font-family: var(--sans); font-size: 12.5px; }
+      .resources-section {
+        padding-bottom: 92px;
+      }
+      .resource-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr 1fr;
+        border-top: 1px solid var(--rule);
+      }
+      .resource-grid article {
+        min-height: 265px;
+        border-right: 1px solid var(--hairline);
+        padding: 28px 32px;
+      }
+      .resource-grid article:first-child {
+        padding-left: 0;
+      }
+      .resource-grid article:last-child {
+        border-right: 0;
+        padding-right: 0;
+      }
+      .resource-grid article > p:not(.card-label) {
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+      .resource-grid article > a {
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
+      .resource-grid li {
+        border-bottom: 1px solid var(--hairline);
+        padding: 9px 0;
+        font-family: var(--sans);
+        font-size: 12.5px;
+      }
 
-footer { border-top: 1px solid var(--rule); padding: 22px 0 28px; color: var(--muted); font-family: var(--sans); font-size: 11.5px; }
-.footer-inner { display: flex; justify-content: space-between; gap: 24px; }
-.footer-inner p { margin-bottom: 0; }
+      footer {
+        border-top: 1px solid var(--rule);
+        padding: 22px 0 28px;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 11.5px;
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .footer-inner p {
+        margin-bottom: 0;
+      }
 
-@media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr 230px; gap: 48px; }
-  .about-section { grid-template-columns: 1fr 240px; gap: 0 44px; }
-  .information-grid { grid-template-columns: 1fr 1fr; }
-  .info-card:nth-child(2) { border-right: 0; padding-right: 0; }
-  .info-card:nth-child(3) { grid-column: 1 / -1; min-height: 0; border-top: 1px solid var(--hairline); padding-left: 0; }
-  .recitation-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .assignment-grid { grid-template-columns: repeat(3, 1fr); }
-  .assignment-card:nth-child(3) { border-right: 0; padding-right: 0; }
-  .assignment-card:nth-child(4), .assignment-card:nth-child(5) { border-top: 1px solid #36535b; }
-  .assignment-card:nth-child(4) { padding-left: 0; }
-  .policy-grid { gap: 50px; }
-  .policy-grid > div { grid-template-columns: 1fr; gap: 8px; }
-}
+      @media (max-width: 900px) {
+        .hero-grid {
+          grid-template-columns: 1fr 230px;
+          gap: 48px;
+        }
+        .about-section {
+          grid-template-columns: 1fr 240px;
+          gap: 0 44px;
+        }
+        .information-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .info-card:nth-child(2) {
+          border-right: 0;
+          padding-right: 0;
+        }
+        .info-card:nth-child(3) {
+          grid-column: 1 / -1;
+          min-height: 0;
+          border-top: 1px solid var(--hairline);
+          padding-left: 0;
+        }
+        .recitation-list {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+        .assignment-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .assignment-card:nth-child(3) {
+          border-right: 0;
+          padding-right: 0;
+        }
+        .assignment-card:nth-child(4),
+        .assignment-card:nth-child(5) {
+          border-top: 1px solid #36535b;
+        }
+        .assignment-card:nth-child(4) {
+          padding-left: 0;
+        }
+        .policy-grid {
+          gap: 50px;
+        }
+        .policy-grid > div {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+      }
 
-@media (max-width: 700px) {
-  .wrap { width: min(100% - 36px, 1100px); }
-  .course-header { padding-top: 18px; }
-  .eyebrow-row { flex-direction: column; gap: 8px; }
-  .header-actions { justify-content: space-between; }
-  .hero-grid { grid-template-columns: 1fr; gap: 42px; padding: 58px 0 44px; }
-  h1 { font-size: clamp(42px, 14vw, 64px); }
-  .hero-facts { width: 100%; }
-  .site-nav { gap: 18px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; white-space: nowrap; }
-  .site-nav::-webkit-scrollbar { display: none; }
-  .section { padding-top: 58px; }
-  .section-label { grid-template-columns: 48px 1fr; margin-bottom: 28px; }
-  .about-section { grid-template-columns: 1fr; }
-  .about-section .section-label { grid-column: 1; }
-  .lead-copy p { font-size: 18px; }
-  .prereq-note { margin-top: 18px; }
-  .information-grid { display: block; }
-  .info-card, .info-card:first-child, .info-card:last-child, .info-card:nth-child(2), .info-card:nth-child(3) { min-height: 0; border-right: 0; border-top: 1px solid var(--hairline); padding: 24px 0; }
-  .information-grid .info-card:first-child { border-top: 0; }
-  .recitation-list { display: block; }
-  .assignments-band { margin-top: 66px; padding-bottom: 58px; }
-  .grading-intro { grid-template-columns: 1fr; gap: 24px; }
-  .submission-note { border-left: 0; border-top: 1px solid #517079; padding: 16px 0 0; }
-  .assignment-grid { grid-template-columns: 1fr 1fr; }
-  .assignment-card, .assignment-card:first-child, .assignment-card:last-child, .assignment-card:nth-child(3), .assignment-card:nth-child(4) { border-right: 1px solid #36535b; border-top: 1px solid #36535b; padding: 20px 14px; }
-  .assignment-card:nth-child(odd) { padding-left: 0; }
-  .assignment-card:nth-child(even) { border-right: 0; padding-right: 0; }
-  .assignment-card:nth-child(1), .assignment-card:nth-child(2) { border-top: 0; }
-  .assignment-card:nth-child(5) { border-right: 0; }
-  .policy-grid { grid-template-columns: 1fr; gap: 32px; }
-  .schedule-heading { align-items: flex-start; flex-direction: column; margin: -8px 0 34px 48px; }
-  .schedule-links { flex-direction: column; gap: 6px; }
-  .module { margin-bottom: 58px; }
-  .module-header { grid-template-columns: 1fr; gap: 8px; }
-  .lecture-row { grid-template-columns: 100px 1fr; gap: 18px; }
-  .lecture-materials { grid-column: 2; justify-self: start; margin-top: -8px; }
-  .schedule-event { grid-template-columns: 100px 1fr; gap: 18px; padding-inline: 12px; }
-  .schedule-event div { flex-direction: column; gap: 2px; }
-  .resource-grid { display: block; }
-  .resource-grid article, .resource-grid article:first-child, .resource-grid article:last-child { min-height: 0; border-right: 0; border-bottom: 1px solid var(--hairline); padding: 26px 0; }
-  .footer-inner { flex-direction: column; gap: 5px; }
-}
+      @media (max-width: 700px) {
+        .wrap {
+          width: min(100% - 36px, 1100px);
+        }
+        .course-header {
+          padding-top: 18px;
+        }
+        .eyebrow-row {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .header-actions {
+          justify-content: space-between;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 42px;
+          padding: 58px 0 44px;
+        }
+        h1 {
+          font-size: clamp(42px, 14vw, 64px);
+        }
+        .hero-facts {
+          width: 100%;
+        }
+        .site-nav {
+          gap: 18px;
+          overflow-x: auto;
+          padding-bottom: 14px;
+          scrollbar-width: none;
+          white-space: nowrap;
+        }
+        .site-nav::-webkit-scrollbar {
+          display: none;
+        }
+        .section {
+          padding-top: 58px;
+        }
+        .section-label {
+          grid-template-columns: 48px 1fr;
+          margin-bottom: 28px;
+        }
+        .about-section {
+          grid-template-columns: 1fr;
+        }
+        .about-section .section-label {
+          grid-column: 1;
+        }
+        .lead-copy p {
+          font-size: 18px;
+        }
+        .prereq-note {
+          margin-top: 18px;
+        }
+        .information-grid {
+          display: block;
+        }
+        .info-card,
+        .info-card:first-child,
+        .info-card:last-child,
+        .info-card:nth-child(2),
+        .info-card:nth-child(3) {
+          min-height: 0;
+          border-right: 0;
+          border-top: 1px solid var(--hairline);
+          padding: 24px 0;
+        }
+        .information-grid .info-card:first-child {
+          border-top: 0;
+        }
+        .recitation-list {
+          display: block;
+        }
+        .assignments-band {
+          margin-top: 66px;
+          padding-bottom: 58px;
+        }
+        .grading-intro {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .submission-note {
+          border-left: 0;
+          border-top: 1px solid #517079;
+          padding: 16px 0 0;
+        }
+        .assignment-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .assignment-card,
+        .assignment-card:first-child,
+        .assignment-card:last-child,
+        .assignment-card:nth-child(3),
+        .assignment-card:nth-child(4) {
+          border-right: 1px solid #36535b;
+          border-top: 1px solid #36535b;
+          padding: 20px 14px;
+        }
+        .assignment-card:nth-child(odd) {
+          padding-left: 0;
+        }
+        .assignment-card:nth-child(even) {
+          border-right: 0;
+          padding-right: 0;
+        }
+        .assignment-card:nth-child(1),
+        .assignment-card:nth-child(2) {
+          border-top: 0;
+        }
+        .assignment-card:nth-child(5) {
+          border-right: 0;
+        }
+        .policy-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .schedule-heading {
+          align-items: flex-start;
+          flex-direction: column;
+          margin: -8px 0 34px 48px;
+        }
+        .schedule-links {
+          flex-direction: column;
+          gap: 6px;
+        }
+        .module {
+          margin-bottom: 58px;
+        }
+        .module-header {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .lecture-row {
+          grid-template-columns: 100px 1fr;
+          gap: 18px;
+        }
+        .lecture-materials {
+          grid-column: 2;
+          justify-self: start;
+          margin-top: -8px;
+        }
+        .schedule-event {
+          grid-template-columns: 100px 1fr;
+          gap: 18px;
+          padding-inline: 12px;
+        }
+        .schedule-event div {
+          flex-direction: column;
+          gap: 2px;
+        }
+        .resource-grid {
+          display: block;
+        }
+        .resource-grid article,
+        .resource-grid article:first-child,
+        .resource-grid article:last-child {
+          min-height: 0;
+          border-right: 0;
+          border-bottom: 1px solid var(--hairline);
+          padding: 26px 0;
+        }
+        .footer-inner {
+          flex-direction: column;
+          gap: 5px;
+        }
+      }
 
-@media (max-width: 420px) {
-  .assignment-grid { display: block; }
-  .assignment-card, .assignment-card:first-child, .assignment-card:last-child, .assignment-card:nth-child(3), .assignment-card:nth-child(4), .assignment-card:nth-child(5) { border-right: 0; border-top: 1px solid #36535b; padding: 20px 0; }
-  .assignment-card:first-child { border-top: 0; }
-  .lecture-row, .schedule-event { grid-template-columns: 1fr; gap: 8px; }
-  .lecture-materials { grid-column: 1; }
-}
+      @media (max-width: 420px) {
+        .assignment-grid {
+          display: block;
+        }
+        .assignment-card,
+        .assignment-card:first-child,
+        .assignment-card:last-child,
+        .assignment-card:nth-child(3),
+        .assignment-card:nth-child(4),
+        .assignment-card:nth-child(5) {
+          border-right: 0;
+          border-top: 1px solid #36535b;
+          padding: 20px 0;
+        }
+        .assignment-card:first-child {
+          border-top: 0;
+        }
+        .lecture-row,
+        .schedule-event {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .lecture-materials {
+          grid-column: 1;
+        }
+      }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
 
-@media print {
-  .site-nav, .assignment-links, footer { display: none; }
-  .assignments-band { background: white; color: var(--ink); }
-  .lecture-row { break-inside: avoid; }
-}
+      @media print {
+        .site-nav,
+        .assignment-links,
+        footer {
+          display: none;
+        }
+        .assignments-band {
+          background: white;
+          color: var(--ink);
+        }
+        .lecture-row {
+          break-inside: avoid;
+        }
+      }
+    </style>
+    <script>
+      (() => {
+        const storageKey = "mit-65620-theme";
+        const root = document.documentElement;
+        const saved = localStorage.getItem(storageKey);
+        const initial =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
 
-  </style>
-  <script>
-(() => {
-  const storageKey = "mit-65620-theme";
-  const root = document.documentElement;
-  const saved = localStorage.getItem(storageKey);
-  const initial = saved === "light" || saved === "dark"
-    ? saved
-    : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        function apply(theme) {
+          root.dataset.theme = theme;
+          const button = document.querySelector(".theme-toggle");
+          if (!button) return;
+          const target = theme === "dark" ? "Day" : "Night";
+          button.innerHTML =
+            '<span aria-hidden="true">' +
+            (theme === "dark" ? "☀" : "☾") +
+            "</span>" +
+            target;
+          button.setAttribute(
+            "aria-label",
+            "Switch to " + target.toLowerCase() + " mode",
+          );
+          button.setAttribute(
+            "title",
+            "Switch to " + target.toLowerCase() + " mode",
+          );
+        }
 
-  function apply(theme) {
-    root.dataset.theme = theme;
-    const button = document.querySelector(".theme-toggle");
-    if (!button) return;
-    const target = theme === "dark" ? "Day" : "Night";
-    button.innerHTML = '<span aria-hidden="true">' + (theme === "dark" ? "☀" : "☾") + "</span>" + target;
-    button.setAttribute("aria-label", "Switch to " + target.toLowerCase() + " mode");
-    button.setAttribute("title", "Switch to " + target.toLowerCase() + " mode");
-  }
-
-  apply(initial);
-  addEventListener("DOMContentLoaded", () => {
-    apply(initial);
-    document.querySelector(".theme-toggle")?.addEventListener("click", () => {
-      const next = root.dataset.theme === "dark" ? "light" : "dark";
-      localStorage.setItem(storageKey, next);
-      apply(next);
-    });
-  });
-})();</script>
-</head>
-<body>
-<main><header class="course-header" id="top"><div class="wrap"><div class="eyebrow-row"><p>Massachusetts Institute of Technology</p><div class="header-actions"><p>Fall 2026 · Graduate course</p><button class="theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode"><span aria-hidden="true">☾</span>Night</button></div></div><div class="hero-grid"><div><p class="course-number">MIT 6.5620 / 6.875 / 18.425</p><h1>Foundations of Cryptography</h1></div><aside class="hero-facts" aria-label="Course at a glance"><div class="hero-instructors"><span>Instructors</span><a href="https://people.csail.mit.edu/vinodv/" target="_blank" rel="noreferrer">Vinod Vaikuntanathan<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://www.csail.mit.edu/person/shafi-goldwasser" target="_blank" rel="noreferrer">Shafi Goldwasser<span class="external-mark" aria-hidden="true">↗</span></a></div><div><span>Meets</span><p>Mon &amp; Wed · 1:00–2:30 PM</p></div><div><span>Location</span><p>Room 1-190</p></div></aside></div><nav class="site-nav" aria-label="Course sections"><a href="#about">About</a><a href="#information">Information</a><a href="#assignments">Assignments</a><a href="#schedule">Schedule</a><a href="#resources">Resources</a></nav></div></header><section id="about" class="wrap section about-section"><div class="section-label"><span>01</span><h2>About the course</h2></div><div class="prose lead-copy"><p>Cryptography gives us a precise technical language for security, privacy, and integrity; a mathematical toolkit for encryption, digital signatures, zero-knowledge proofs, homomorphic encryption, and secure multiparty computation; and a complexity-theoretic framework for proving security by reduction.</p><p>This fast-paced graduate course travels from the classical foundations to recent developments. The emphasis is not only on constructing mechanisms, but on learning how to state what security means—and how to prove that a construction achieves it.</p></div><aside class="prereq-note"><p class="note-kicker">Prerequisites</p><p>Fluency in algorithms (6.046), complexity theory (6.045), and discrete probability (6.042). Mathematical maturity and comfort writing proofs are assumed from the first lecture.</p></aside></section><section id="information" class="wrap section"><div class="section-label"><span>02</span><h2>Course information</h2></div><div class="information-grid"><article class="info-card featured-card"><p class="card-label">Instructors</p><div class="faculty-entry"><h3>Vinod Vaikuntanathan</h3><p>vinodv at csail dot mit dot edu</p><p>Office hours: Fridays, 4:00–5:00 PM · 32-G696</p></div><div class="faculty-entry"><h3>Shafi Goldwasser</h3><p>shafi at csail dot mit dot edu</p><p>Office hours: TBD</p><p><a href="https://www.csail.mit.edu/person/shafi-goldwasser" target="_blank" rel="noreferrer">MIT CSAIL profile<span class="external-mark" aria-hidden="true">↗</span></a></p></div></article><article class="info-card"><p class="card-label">Teaching assistants</p><ul class="people-list"><li><strong>Chirag Falor</strong><span>Sun 11–12 · 24-307</span></li><li><strong>Neekon Vafa</strong><span>Tue 5:30–7:30 · 36-155</span></li><li><strong>Hanshen Xiao</strong><span>Mon 4–6 · 36-155</span></li></ul></article><article class="info-card"><p class="card-label">Review recitations</p><ul class="recitation-list"><li><span>Sep 08</span><a href="https://mit6875.github.io/FA23HANDOUTS/probability.pdf" target="_blank" rel="noreferrer">Probability review<span class="external-mark" aria-hidden="true">↗</span></a></li><li><span>Sep 15</span><a href="https://mit6875.github.io/FA23HANDOUTS/complexity-updated.pdf" target="_blank" rel="noreferrer">Complexity &amp; reductions<span class="external-mark" aria-hidden="true">↗</span></a></li><li><span>Oct 06</span><a href="https://mit6875.github.io/HANDOUTS/numbertheory.pdf" target="_blank" rel="noreferrer">Number theory review<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article></div></section><section id="assignments" class="assignments-band"><div class="wrap section"><div class="section-label light-label"><span>03</span><h2>Assignments &amp; grading</h2></div><div class="grading-intro"><p>Grading is based on problem sets, a midterm exam, and class participation. There are six problem sets; the top five scores count. Students have ten total late days, with at most five used on any one set.</p><p class="submission-note">Solutions should be typeset in LaTeX and submitted as PDF by 11:59:59 PM ET on the due date.</p></div><div class="assignment-grid"><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>01</span></div><dl><div><dt>Released</dt><dd>Sep 09</dd></div><div><dt>Due</dt><dd>Sep 23</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw1.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw1source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>02</span></div><dl><div><dt>Released</dt><dd>Sep 23</dd></div><div><dt>Due</dt><dd>Oct 07</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw_2.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw2_source.tex" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>03</span></div><dl><div><dt>Released</dt><dd>Oct 07</dd></div><div><dt>Due</dt><dd>Oct 19</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw3.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw3source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>04</span></div><dl><div><dt>Released</dt><dd>Oct 19</dd></div><div><dt>Due</dt><dd>Nov 04</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw4.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw4source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>05</span></div><dl><div><dt>Released</dt><dd>Nov 04</dd></div><div><dt>Due</dt><dd>Nov 18</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw5.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw5source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div><div class="policy-grid"><div><p class="policy-title">Collaboration</p><p>Discussion in groups of up to three is encouraged. Every student must write their own solution and name all collaborators. The final write-up must be entirely in your own words.</p></div><div><p class="policy-title">Attribution</p><p>Published material may be used when acknowledged. Looking for or using solutions from previous years is not permitted.</p></div></div></div></section><section id="schedule" class="wrap section schedule-section"><div class="section-label"><span>04</span><h2>Schedule</h2></div><div class="schedule-heading"><p>Five modules, twenty-six class meetings. Fall classes begin September 9; this course’s final meeting is December 9. Topics remain tentative.</p><div class="schedule-links"><a href="https://registrar.mit.edu/calendar" target="_blank" rel="noreferrer">MIT academic calendar<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/fall2023.html" target="_blank" rel="noreferrer">Original course page<span class="external-mark" aria-hidden="true">↗</span></a></div></div><div class="schedule"><section class="module" aria-labelledby="module-01"><header class="module-header"><p>Module 01</p><div><h3 id="module-01">Basics &amp; private-key cryptography</h3><p>Perfect secrecy, computational security, pseudorandomness, and the foundations of symmetric encryption.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 01</span><p>Wed · Sep 09</p></div><div class="lecture-topic"><h4>Introduction &amp; perfect secrecy</h4><p>Secure communication, Shannon’s definition, the one-time pad, and Shannon’s lower bound.</p><span class="milestone">Pset 1 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec1.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 02</span><p>Mon · Sep 14</p></div><div class="lecture-topic"><h4>Computational security &amp; PRGs</h4><p>Computational adversaries, pseudorandom generators, and stateful secret-key encryption.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec2.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 03</span><p>Wed · Sep 16</p></div><div class="lecture-topic"><h4>Hybrids, PRGs &amp; PRFs</h4><p>The hybrid argument, PRG length extension, pseudorandom functions, and encryption from PRFs.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec3.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 04</span><p>Mon · Sep 21</p></div><div class="lecture-topic"><h4>Pseudorandom functions</h4><p>Formal PRF security, the GGM construction, and the definition of IND-CPA security.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec4.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 05</span><p>Wed · Sep 23</p></div><div class="lecture-topic"><h4>Authentication &amp; chosen-ciphertext security</h4><p>Identification protocols, message-authentication codes, and CCA-secure symmetric encryption.</p><span class="milestone">Pset 1 due · Pset 2 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec5.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 06</span><p>Mon · Sep 28</p></div><div class="lecture-topic"><h4>One-way functions</h4><p>Hard-core bits, pseudorandom generators, and the Goldreich–Levin theorem.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec6.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 07</span><p>Wed · Sep 30</p></div><div class="lecture-topic"><h4>Goldreich–Levin, continued</h4><p>A complexity-theoretic view of Goldreich–Levin through local list decoding.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec7.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div></section><section class="module" aria-labelledby="module-02"><header class="module-header"><p>Module 02</p><div><h3 id="module-02">Public-key cryptography</h3><p>Key exchange, public-key encryption, signatures, and collision-resistant hashing.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 08</span><p>Mon · Oct 05</p></div><div class="lecture-topic"><h4>Public-key cryptography I</h4><p>Key exchange and the number-theoretic ideas behind it.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec8.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 09</span><p>Wed · Oct 07</p></div><div class="lecture-topic"><h4>Public-key cryptography II</h4><p>Key exchange, continued, and the hardness assumptions that support it.</p><span class="milestone">Pset 2 due · Pset 3 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec9.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event"><p>Mon · Oct 12</p><div><strong>No lecture · Indigenous Peoples’ Day</strong><span>Monday schedule held Tue · Oct 13</span></div></div><article class="lecture-row"><div class="lecture-date"><span>Lecture 10</span><p>Tue · Oct 13</p></div><div class="lecture-topic"><h4>Public-key cryptography III</h4><p>From key exchange to probabilistic public-key encryption. Monday schedule of classes held Tuesday.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec10.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 11</span><p>Wed · Oct 14</p></div><div class="lecture-topic"><h4>Digital signatures I</h4><p>Signature syntax, security, and the leftover hash lemma.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec11.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 12</span><p>Mon · Oct 19</p></div><div class="lecture-topic"><h4>Digital signatures II</h4><p>Signature constructions and collision-resistant hash functions.</p><span class="milestone">Pset 3 due · Pset 4 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec12.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 13</span><p>Wed · Oct 21</p></div><div class="lecture-topic"><h4>Digital signatures III</h4><p>Hash-and-sign, random oracles, and compact signature schemes.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec13.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event exam-event"><p>Date · TBD</p><div><strong>Midterm exam</strong><span>Time and location to be announced</span></div></div></div></section><section class="module" aria-labelledby="module-03"><header class="module-header"><p>Module 03</p><div><h3 id="module-03">Zero knowledge</h3><p>Proofs that reveal nothing beyond validity, from interactive definitions to non-interactive systems.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 14</span><p>Mon · Oct 26</p></div><div class="lecture-topic"><h4>Zero knowledge I</h4><p>Definitions, examples, simulation, and the knowledge-complexity viewpoint.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec14.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 15</span><p>Wed · Oct 28</p></div><div class="lecture-topic"><h4>Zero knowledge II</h4><p>Placing NP in zero knowledge and the GMW paradigm.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec15.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 16</span><p>Mon · Nov 02</p></div><div class="lecture-topic"><h4>Zero knowledge III</h4><p>Non-interactive zero knowledge, non-malleability, and applications.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec16.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div></section><section class="module" aria-labelledby="module-04"><header class="module-header"><p>Module 04</p><div><h3 id="module-04">Secure computation</h3><p>How mutually distrustful parties compute together: from secret sharing to fully homomorphic encryption.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 17</span><p>Wed · Nov 04</p></div><div class="lecture-topic"><h4>Secure computation: the toolkit</h4><p>Secret sharing and oblivious transfer.</p><span class="milestone">Pset 4 due · Pset 5 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec17.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 18</span><p>Mon · Nov 09</p></div><div class="lecture-topic"><h4>The GMW protocol</h4><p>Secure two-party and multi-party computation in the semi-honest setting.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec18.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event"><p>Wed · Nov 11</p><div><strong>No lecture</strong><span>Veterans Day · Institute holiday</span></div></div><article class="lecture-row"><div class="lecture-date"><span>Lecture 19</span><p>Mon · Nov 16</p></div><div class="lecture-topic"><h4>Malicious security</h4><p>Secure two-party computation, continued, against malicious adversaries.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec19.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 20</span><p>Wed · Nov 18</p></div><div class="lecture-topic"><h4>Yao’s garbled circuits</h4><span class="milestone">Pset 5 due · Pset 6 out</span></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 21</span><p>Mon · Nov 23</p></div><div class="lecture-topic"><h4>Merkle trees &amp; oblivious RAM</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 22</span><p>Wed · Nov 25</p></div><div class="lecture-topic"><h4>Fully homomorphic encryption</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 23</span><p>Mon · Nov 30</p></div><div class="lecture-topic"><h4>Security against malicious adversaries</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 24</span><p>Wed · Dec 02</p></div><div class="lecture-topic"><h4>The BGW protocol</h4><p>Information-theoretic multi-party computation.</p><span class="milestone">Pset 6 due</span></div><div class="lecture-materials"><span>—</span></div></article></div></section><section class="module" aria-labelledby="module-05"><header class="module-header"><p>Module 05</p><div><h3 id="module-05">Advanced topics</h3><p>A view toward the frontier: obfuscation, quantum cryptography, and complexity-theoretic foundations.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 25</span><p>Mon · Dec 07</p></div><div class="lecture-topic"><h4>Program obfuscation</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 26</span><p>Wed · Dec 09</p></div><div class="lecture-topic"><h4>Quantum cryptography &amp; complexity-theoretic foundations</h4><p>Guest lectures by Tina Zhang and Rahul Ilango.</p></div><div class="lecture-materials"><span>—</span></div></article></div></section></div></section><section id="resources" class="wrap section resources-section"><div class="section-label"><span>05</span><h2>Resources</h2></div><div class="resource-grid"><article><p class="card-label">Course communication</p><h3>Questions belong in the open.</h3><p>Use Piazza so that the whole class can benefit from questions and answers.</p><a href="https://piazza.com/mit/fall2023/65620" target="_blank" rel="noreferrer">Open Piazza<span class="external-mark" aria-hidden="true">↗</span></a></article><article><p class="card-label">Lecture notes</p><ul><li><a href="https://mit6875.github.io/fall2022.html" target="_blank" rel="noreferrer">Fall 2022 course<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/" target="_blank" rel="noreferrer">The Joy of Cryptography<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://www.wisdom.weizmann.ac.il/~oded/foc-book.html" target="_blank" rel="noreferrer">Goldreich, Volumes 1 &amp; 2<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article><article><p class="card-label">Textbooks</p><ul><li><a href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513" target="_blank" rel="noreferrer">Katz–Lindell<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://toc.cryptobook.us/book.pdf" target="_blank" rel="noreferrer">Boneh–Shoup<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf" target="_blank" rel="noreferrer">Pass–Shelat<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article></div></section><footer><div class="wrap footer-inner"><p>MIT 6.5620 · Foundations of Cryptography · Fall 2026</p><a href="#top">Back to top ↑</a></div></footer></main>
-</body>
+        apply(initial);
+        addEventListener("DOMContentLoaded", () => {
+          apply(initial);
+          document
+            .querySelector(".theme-toggle")
+            ?.addEventListener("click", () => {
+              const next = root.dataset.theme === "dark" ? "light" : "dark";
+              localStorage.setItem(storageKey, next);
+              apply(next);
+            });
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <main>
+      <header class="course-header" id="top">
+        <div class="wrap">
+          <div class="eyebrow-row">
+            <p>Massachusetts Institute of Technology</p>
+            <div class="header-actions">
+              <p>Fall 2026 · Graduate course</p>
+              <button
+                class="theme-toggle"
+                type="button"
+                aria-label="Switch to night mode"
+                title="Switch to night mode"
+              >
+                <span aria-hidden="true">☾</span>Night
+              </button>
+            </div>
+          </div>
+          <div class="hero-grid">
+            <div>
+              <p class="course-number">MIT 6.5620 / 6.875 / 18.425</p>
+              <h1>Foundations of Cryptography</h1>
+            </div>
+            <aside class="hero-facts" aria-label="Course at a glance">
+              <div class="hero-instructors">
+                <span>Instructors</span
+                ><a
+                  href="https://people.csail.mit.edu/vinodv/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Vinod Vaikuntanathan<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://www.csail.mit.edu/person/shafi-goldwasser"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Shafi Goldwasser<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+              <div>
+                <span>Meets</span>
+                <p>Mon &amp; Wed · 1:00–2:30 PM</p>
+              </div>
+              <div>
+                <span>Location</span>
+                <p>Room 1-190</p>
+              </div>
+            </aside>
+          </div>
+          <nav class="site-nav" aria-label="Course sections">
+            <a href="#about">About</a><a href="#information">Information</a
+            ><a href="#assignments">Assignments</a
+            ><a href="#schedule">Schedule</a><a href="#resources">Resources</a>
+          </nav>
+        </div>
+      </header>
+      <section id="about" class="wrap section about-section">
+        <div class="section-label">
+          <span>01</span>
+          <h2>About the course</h2>
+        </div>
+        <div class="prose lead-copy">
+          <p>
+            Cryptography gives us a precise technical language for security,
+            privacy, and integrity; a mathematical toolkit for encryption,
+            digital signatures, zero-knowledge proofs, homomorphic encryption,
+            and secure multiparty computation; and a complexity-theoretic
+            framework for proving security by reduction.
+          </p>
+          <p>
+            This fast-paced graduate course travels from the classical
+            foundations to recent developments. The emphasis is not only on
+            constructing mechanisms, but on learning how to state what security
+            means—and how to prove that a construction achieves it.
+          </p>
+        </div>
+        <aside class="prereq-note">
+          <p class="note-kicker">Prerequisites</p>
+          <p>
+            Fluency in algorithms (6.046), complexity theory (6.045), and
+            discrete probability (6.042). Mathematical maturity and comfort
+            writing proofs are assumed from the first lecture.
+          </p>
+        </aside>
+      </section>
+      <section id="information" class="wrap section">
+        <div class="section-label">
+          <span>02</span>
+          <h2>Course information</h2>
+        </div>
+        <div class="information-grid">
+          <article class="info-card featured-card">
+            <p class="card-label">Instructors</p>
+            <div class="faculty-entry">
+              <h3>Vinod Vaikuntanathan</h3>
+              <p>vinodv at csail dot mit dot edu</p>
+              <p>Office hours: Fridays, 4:00–5:00 PM · 32-G696</p>
+            </div>
+            <div class="faculty-entry">
+              <h3>Shafi Goldwasser</h3>
+              <p>shafi at csail dot mit dot edu</p>
+              <p>Office hours: TBD</p>
+              <p>
+                <a
+                  href="https://www.csail.mit.edu/person/shafi-goldwasser"
+                  target="_blank"
+                  rel="noreferrer"
+                  >MIT CSAIL profile<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </p>
+            </div>
+          </article>
+          <article class="info-card">
+            <p class="card-label">Teaching assistants</p>
+            <ul class="people-list">
+              <li>
+                <strong>Chirag Falor</strong><span>Sun 11–12 · 24-307</span>
+              </li>
+              <li>
+                <strong>Neekon Vafa</strong><span>Tue 5:30–7:30 · 36-155</span>
+              </li>
+              <li>
+                <strong>Hanshen Xiao</strong><span>Mon 4–6 · 36-155</span>
+              </li>
+            </ul>
+          </article>
+          <article class="info-card">
+            <p class="card-label">Review recitations</p>
+            <ul class="recitation-list">
+              <li>
+                <span>Sep 08</span
+                ><a
+                  href="https://mit6875.github.io/FA23HANDOUTS/probability.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Probability review<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <span>Sep 15</span
+                ><a
+                  href="https://mit6875.github.io/FA23HANDOUTS/complexity-updated.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Complexity &amp; reductions<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <span>Oct 06</span
+                ><a
+                  href="https://mit6875.github.io/HANDOUTS/numbertheory.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Number theory review<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <section id="assignments" class="assignments-band">
+        <div class="wrap section">
+          <div class="section-label light-label">
+            <span>03</span>
+            <h2>Assignments &amp; grading</h2>
+          </div>
+          <div class="grading-intro">
+            <p>
+              Grading is based on problem sets, a midterm exam, and class
+              participation. There are six problem sets; the top five scores
+              count. Students have ten total late days, with at most five used
+              on any one set.
+            </p>
+            <p class="submission-note">
+              Solutions should be typeset in LaTeX and submitted as PDF by
+              11:59:59 PM ET on the due date.
+            </p>
+          </div>
+          <div class="assignment-grid">
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>01</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Sep 09</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Sep 23</dd>
+                </div>
+              </dl>
+              <div class="assignment-links">
+                <a
+                  href="https://mit6875.github.io/PSETS/hw1.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >PDF<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://mit6875.github.io/PSETS/hw1source.zip"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Source<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+            </article>
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>02</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Sep 23</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Oct 07</dd>
+                </div>
+              </dl>
+              <div class="assignment-links">
+                <a
+                  href="https://mit6875.github.io/PSETS/hw_2.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >PDF<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://mit6875.github.io/PSETS/hw2_source.tex"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Source<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+            </article>
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>03</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Oct 07</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Oct 19</dd>
+                </div>
+              </dl>
+              <div class="assignment-links">
+                <a
+                  href="https://mit6875.github.io/PSETS/hw3.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >PDF<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://mit6875.github.io/PSETS/hw3source.zip"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Source<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+            </article>
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>04</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Oct 19</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Nov 04</dd>
+                </div>
+              </dl>
+              <div class="assignment-links">
+                <a
+                  href="https://mit6875.github.io/PSETS/hw4.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >PDF<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://mit6875.github.io/PSETS/hw4source.zip"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Source<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+            </article>
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>05</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Nov 04</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Nov 18</dd>
+                </div>
+              </dl>
+              <div class="assignment-links">
+                <a
+                  href="https://mit6875.github.io/PSETS/hw5.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >PDF<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                ><a
+                  href="https://mit6875.github.io/PSETS/hw5source.zip"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Source<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </div>
+            </article>
+          </div>
+          <div class="policy-grid">
+            <div>
+              <p class="policy-title">Collaboration</p>
+              <p>
+                Discussion in groups of up to three is encouraged. Every student
+                must write their own solution and name all collaborators. The
+                final write-up must be entirely in your own words.
+              </p>
+            </div>
+            <div>
+              <p class="policy-title">Attribution</p>
+              <p>
+                Published material may be used when acknowledged. Looking for or
+                using solutions from previous years is not permitted.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="schedule" class="wrap section schedule-section">
+        <div class="section-label">
+          <span>04</span>
+          <h2>Schedule</h2>
+        </div>
+        <div class="schedule-heading">
+          <p>
+            Five modules, twenty-six class meetings. Fall classes begin
+            September 9; this course’s final meeting is December 9. Topics
+            remain tentative.
+          </p>
+          <div class="schedule-links">
+            <a
+              href="https://registrar.mit.edu/calendar"
+              target="_blank"
+              rel="noreferrer"
+              >MIT academic calendar<span
+                class="external-mark"
+                aria-hidden="true"
+                >↗</span
+              ></a
+            ><a
+              href="https://mit6875.github.io/fall2023.html"
+              target="_blank"
+              rel="noreferrer"
+              >Original course page<span
+                class="external-mark"
+                aria-hidden="true"
+                >↗</span
+              ></a
+            >
+          </div>
+        </div>
+        <div class="schedule">
+          <section class="module" aria-labelledby="module-01">
+            <header class="module-header">
+              <p>Module 01</p>
+              <div>
+                <h3 id="module-01">Basics &amp; private-key cryptography</h3>
+                <p>
+                  Perfect secrecy, computational security, pseudorandomness, and
+                  the foundations of symmetric encryption.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 01</span>
+                  <p>Wed · Sep 09</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Introduction &amp; perfect secrecy</h4>
+                  <p>
+                    Secure communication, Shannon’s definition, the one-time
+                    pad, and Shannon’s lower bound.
+                  </p>
+                  <span class="milestone">Pset 1 out</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec1.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 02</span>
+                  <p>Mon · Sep 14</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Computational security &amp; PRGs</h4>
+                  <p>
+                    Computational adversaries, pseudorandom generators, and
+                    stateful secret-key encryption.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec2.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 03</span>
+                  <p>Wed · Sep 16</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Hybrids, PRGs &amp; PRFs</h4>
+                  <p>
+                    The hybrid argument, PRG length extension, pseudorandom
+                    functions, and encryption from PRFs.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec3.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 04</span>
+                  <p>Mon · Sep 21</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Pseudorandom functions</h4>
+                  <p>
+                    Formal PRF security, the GGM construction, and the
+                    definition of IND-CPA security.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec4.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 05</span>
+                  <p>Wed · Sep 23</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Authentication &amp; chosen-ciphertext security</h4>
+                  <p>
+                    Identification protocols, message-authentication codes, and
+                    CCA-secure symmetric encryption.
+                  </p>
+                  <span class="milestone">Pset 1 due · Pset 2 out</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec5.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 06</span>
+                  <p>Mon · Sep 28</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>One-way functions</h4>
+                  <p>
+                    Hard-core bits, pseudorandom generators, and the
+                    Goldreich–Levin theorem.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec6.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 07</span>
+                  <p>Wed · Sep 30</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Goldreich–Levin, continued</h4>
+                  <p>
+                    A complexity-theoretic view of Goldreich–Levin through local
+                    list decoding.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec7.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+            </div>
+          </section>
+          <section class="module" aria-labelledby="module-02">
+            <header class="module-header">
+              <p>Module 02</p>
+              <div>
+                <h3 id="module-02">Public-key cryptography</h3>
+                <p>
+                  Key exchange, public-key encryption, signatures, and
+                  collision-resistant hashing.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 08</span>
+                  <p>Mon · Oct 05</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Public-key cryptography I</h4>
+                  <p>Key exchange and the number-theoretic ideas behind it.</p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec8.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 09</span>
+                  <p>Wed · Oct 07</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Public-key cryptography II</h4>
+                  <p>
+                    Key exchange, continued, and the hardness assumptions that
+                    support it.
+                  </p>
+                  <span class="milestone">Pset 2 due · Pset 3 out</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec9.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <div class="schedule-event">
+                <p>Mon · Oct 12</p>
+                <div>
+                  <strong>No lecture · Indigenous Peoples’ Day</strong
+                  ><span>Monday schedule held Tue · Oct 13</span>
+                </div>
+              </div>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 10</span>
+                  <p>Tue · Oct 13</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Public-key cryptography III</h4>
+                  <p>
+                    From key exchange to probabilistic public-key encryption.
+                    Monday schedule of classes held Tuesday.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec10.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 11</span>
+                  <p>Wed · Oct 14</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Digital signatures I</h4>
+                  <p>
+                    Signature syntax, security, and the leftover hash lemma.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec11.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 12</span>
+                  <p>Mon · Oct 19</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Digital signatures II</h4>
+                  <p>
+                    Signature constructions and collision-resistant hash
+                    functions.
+                  </p>
+                  <span class="milestone">Pset 3 due · Pset 4 out</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec12.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 13</span>
+                  <p>Wed · Oct 21</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Digital signatures III</h4>
+                  <p>
+                    Hash-and-sign, random oracles, and compact signature
+                    schemes.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec13.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <div class="schedule-event exam-event">
+                <p>Date · TBD</p>
+                <div>
+                  <strong>Midterm exam</strong
+                  ><span>Time and location to be announced</span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="module" aria-labelledby="module-03">
+            <header class="module-header">
+              <p>Module 03</p>
+              <div>
+                <h3 id="module-03">Zero knowledge</h3>
+                <p>
+                  Proofs that reveal nothing beyond validity, from interactive
+                  definitions to non-interactive systems.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 14</span>
+                  <p>Mon · Oct 26</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Zero knowledge I</h4>
+                  <p>
+                    Definitions, examples, simulation, and the
+                    knowledge-complexity viewpoint.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec14.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 15</span>
+                  <p>Wed · Oct 28</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Zero knowledge II</h4>
+                  <p>Placing NP in zero knowledge and the GMW paradigm.</p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec15.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 16</span>
+                  <p>Mon · Nov 02</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Zero knowledge III</h4>
+                  <p>
+                    Non-interactive zero knowledge, non-malleability, and
+                    applications.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec16.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+            </div>
+          </section>
+          <section class="module" aria-labelledby="module-04">
+            <header class="module-header">
+              <p>Module 04</p>
+              <div>
+                <h3 id="module-04">Secure computation</h3>
+                <p>
+                  How mutually distrustful parties compute together: from secret
+                  sharing to fully homomorphic encryption.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 17</span>
+                  <p>Wed · Nov 04</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Secure computation: the toolkit</h4>
+                  <p>Secret sharing and oblivious transfer.</p>
+                  <span class="milestone">Pset 4 due · Pset 5 out</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec17.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 18</span>
+                  <p>Mon · Nov 09</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>The GMW protocol</h4>
+                  <p>
+                    Secure two-party and multi-party computation in the
+                    semi-honest setting.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec18.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <div class="schedule-event">
+                <p>Wed · Nov 11</p>
+                <div>
+                  <strong>No lecture</strong
+                  ><span>Veterans Day · Institute holiday</span>
+                </div>
+              </div>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 19</span>
+                  <p>Mon · Nov 16</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Malicious security</h4>
+                  <p>
+                    Secure two-party computation, continued, against malicious
+                    adversaries.
+                  </p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec19.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 20</span>
+                  <p>Wed · Nov 18</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Yao’s garbled circuits</h4>
+                  <span class="milestone">Pset 5 due · Pset 6 out</span>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 21</span>
+                  <p>Mon · Nov 23</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Merkle trees &amp; oblivious RAM</h4>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 22</span>
+                  <p>Wed · Nov 25</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Fully homomorphic encryption</h4>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 23</span>
+                  <p>Mon · Nov 30</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Security against malicious adversaries</h4>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 24</span>
+                  <p>Wed · Dec 02</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>The BGW protocol</h4>
+                  <p>Information-theoretic multi-party computation.</p>
+                  <span class="milestone">Pset 6 due</span>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+            </div>
+          </section>
+          <section class="module" aria-labelledby="module-05">
+            <header class="module-header">
+              <p>Module 05</p>
+              <div>
+                <h3 id="module-05">Advanced topics</h3>
+                <p>
+                  A view toward the frontier: obfuscation, quantum cryptography,
+                  and complexity-theoretic foundations.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 25</span>
+                  <p>Mon · Dec 07</p>
+                </div>
+                <div class="lecture-topic"><h4>Program obfuscation</h4></div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 26</span>
+                  <p>Wed · Dec 09</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>
+                    Quantum cryptography &amp; complexity-theoretic foundations
+                  </h4>
+                  <p>Guest lectures by Tina Zhang and Rahul Ilango.</p>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+      <section id="resources" class="wrap section resources-section">
+        <div class="section-label">
+          <span>05</span>
+          <h2>Resources</h2>
+        </div>
+        <div class="resource-grid">
+          <article>
+            <p class="card-label">Course communication</p>
+            <h3>Questions belong in the open.</h3>
+            <p>
+              Use Piazza so that the whole class can benefit from questions and
+              answers.
+            </p>
+            <a
+              href="https://piazza.com/mit/fall2023/65620"
+              target="_blank"
+              rel="noreferrer"
+              >Open Piazza<span class="external-mark" aria-hidden="true"
+                >↗</span
+              ></a
+            >
+          </article>
+          <article>
+            <p class="card-label">Lecture notes</p>
+            <ul>
+              <li>
+                <a
+                  href="https://mit6875.github.io/fall2022.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Fall 2022 course<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://web.engr.oregonstate.edu/~rosulekm/crypto/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >The Joy of Cryptography<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.wisdom.weizmann.ac.il/~oded/foc-book.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Goldreich, Volumes 1 &amp; 2<span
+                    class="external-mark"
+                    aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </article>
+          <article>
+            <p class="card-label">Textbooks</p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Katz–Lindell<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://toc.cryptobook.us/book.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Boneh–Shoup<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Pass–Shelat<span class="external-mark" aria-hidden="true"
+                    >↗</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <footer>
+        <div class="wrap footer-inner">
+          <p>MIT 6.5620 · Foundations of Cryptography · Fall 2026</p>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </footer>
+    </main>
+  </body>
 </html>
