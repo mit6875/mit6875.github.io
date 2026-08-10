@@ -1,1007 +1,369 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fall 2026 course information, assignments, and lecture schedule for MIT 6.5620 Foundations of Cryptography.">
+  <title>MIT 6.5620 · Foundations of Cryptography · Fall 2026</title>
+  <style>
+:root {
+  --paper: #fcfcfa;
+  --ink: #243038;
+  --ink-deep: #172128;
+  --muted: #66737b;
+  --teal: #176f7d;
+  --teal-dark: #105763;
+  --teal-pale: #e8f3f4;
+  --hairline: #e3e8e8;
+  --rule: #cfd8d9;
+  --night: #18333a;
+  --nav: #4d5c63;
+  --text-secondary: #516068;
+  --text-tertiary: #617077;
+  --soft-surface: #f4f6f5;
+  color-scheme: light;
+  --serif: Charter, "Bitstream Charter", Georgia, Cambria, "Times New Roman", serif;
+  --sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" ><title>MIT 6.5620/6.875/18.425 Foundations of Cryptography (Fall 2025)</title>
+:root[data-theme="dark"] {
+  --paper: #111719;
+  --ink: #dce6e8;
+  --ink-deep: #f3f7f7;
+  --muted: #9cabad;
+  --teal: #72c2ca;
+  --teal-dark: #a0d8dd;
+  --teal-pale: #18343a;
+  --hairline: #2a3639;
+  --rule: #3a494d;
+  --night: #0b2429;
+  --nav: #b3c0c2;
+  --text-secondary: #b7c5c7;
+  --text-tertiary: #a5b4b7;
+  --soft-surface: #182023;
+  color-scheme: dark;
+}
 
-    <link rel="icon" href="http://www.mit.edu/%7Evinodv/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="StyleSheet" href="st3.css" type="text/css"></head>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+}
 
-    <style>
-        #top-table tr td:first-of-type {
-            width: 25%;
-        }
+::selection { background: #cfe6e8; }
+a { color: var(--teal); text-decoration: none; text-underline-offset: 3px; }
+a:hover { color: var(--teal-dark); text-decoration: underline; }
+a:focus-visible { border-radius: 2px; outline: 2px solid var(--teal); outline-offset: 3px; }
+p, h1, h2, h3, h4 { margin-top: 0; }
 
-        #title {
-            font-size: 24pt;
-        }
+.wrap { width: min(1100px, calc(100% - 48px)); margin-inline: auto; }
 
-	.important {
-	    font-weight: bold;
-	    color: #c00;
-	}
+.course-header {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  padding-top: 26px;
+}
 
-        .maroon {
-            color: maroon;
-        }
+.eyebrow-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 560;
+  letter-spacing: 0.085em;
+  text-transform: uppercase;
+}
 
-        .black {
-            color: black;
-        }
+.eyebrow-row p { margin-bottom: 0; }
+.header-actions { display: flex; align-items: center; gap: 18px; }
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--nav);
+  padding: 5px 9px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 680;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--teal); color: var(--teal); }
+.theme-toggle:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+.theme-toggle span { font-size: 13px; line-height: 1; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 92px; padding: 82px 0 76px; }
 
-        #inner {
-            margin-left: 50px;
-            margin-right: 50px
-        }
-        table {
-            width: 100%;
-        }
-    </style>
+.course-number {
+  margin-bottom: 18px;
+  color: var(--teal);
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 680;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 770px;
+  margin-bottom: 24px;
+  color: var(--ink-deep);
+  font-size: clamp(48px, 7vw, 82px);
+  font-weight: 520;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.hero-facts { align-self: end; border-top: 1px solid var(--ink); font-family: var(--sans); }
+.hero-facts > div { border-bottom: 1px solid var(--hairline); padding: 14px 0; }
+.hero-instructors > a, .hero-instructors > p { display: block; }
+
+.hero-facts span,
+.card-label,
+.note-kicker,
+.policy-title {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 680;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero-facts p, .hero-facts a { margin-bottom: 0; font-size: 14px; }
+.external-mark { display: inline; margin-left: 4px; font-size: 0.75em; }
+
+.site-nav {
+  display: flex;
+  gap: 30px;
+  border-top: 1px solid var(--hairline);
+  padding: 15px 0;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.site-nav a { color: var(--nav); }
+.site-nav a:hover { color: var(--teal); }
+.section { padding-top: 78px; }
+
+.section-label {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  align-items: center;
+  margin-bottom: 38px;
+  font-family: var(--sans);
+}
+
+.section-label span { color: var(--teal); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+.section-label h2 { margin-bottom: 0; color: var(--ink-deep); font-size: 13px; font-weight: 730; letter-spacing: 0.13em; text-transform: uppercase; }
+.about-section { display: grid; grid-template-columns: 1fr 260px; gap: 0 86px; }
+.about-section .section-label { grid-column: 1 / -1; }
+.lead-copy p { max-width: 74ch; margin-bottom: 20px; font-size: 20px; line-height: 1.62; }
+
+.prereq-note { align-self: start; border-top: 2px solid var(--teal); background: var(--teal-pale); padding: 20px; }
+.prereq-note p:last-child { margin-bottom: 0; color: var(--text-secondary); font-family: var(--sans); font-size: 13.5px; line-height: 1.6; }
+
+.information-grid { display: grid; grid-template-columns: 1.05fr 1fr 1.05fr; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.info-card { min-height: 260px; padding: 28px 30px; border-right: 1px solid var(--hairline); }
+.info-card:first-child { padding-left: 0; }
+.info-card:last-child { border-right: 0; padding-right: 0; }
+.info-card h3, .resource-grid h3 { margin-bottom: 10px; color: var(--ink-deep); font-size: 23px; font-weight: 560; line-height: 1.24; }
+.info-card > p:not(.card-label) { margin-bottom: 6px; color: var(--text-secondary); font-family: var(--sans); font-size: 13px; }
+.faculty-entry + .faculty-entry { margin-top: 22px; border-top: 1px solid var(--hairline); padding-top: 20px; }
+.faculty-entry h3 { margin-bottom: 8px; font-size: 20px; }
+.faculty-entry p { margin-bottom: 5px; color: var(--text-secondary); font-family: var(--sans); font-size: 13px; }
+.people-list, .recitation-list, .resource-grid ul { margin: 14px 0 0; padding: 0; list-style: none; }
+.people-list li { display: flex; flex-direction: column; margin-bottom: 15px; font-family: var(--sans); font-size: 13px; line-height: 1.45; }
+.people-list span { color: var(--muted); }
+.recitation-list li { display: grid; grid-template-columns: 56px 1fr; gap: 10px; border-bottom: 1px solid var(--hairline); padding: 10px 0; font-family: var(--sans); font-size: 12.5px; }
+.recitation-list li > span { color: var(--muted); }
+
+.assignments-band { margin-top: 88px; background: var(--night); color: #eef5f5; padding-bottom: 82px; }
+.light-label h2 { color: #f7fbfb; }
+.light-label span { color: #8cc3ca; }
+.grading-intro { display: grid; grid-template-columns: 1.55fr 0.8fr; gap: 90px; margin-bottom: 42px; }
+.grading-intro > p:first-child { max-width: 700px; margin-bottom: 0; font-size: 19px; }
+.submission-note { margin-bottom: 0; border-left: 1px solid #517079; padding-left: 22px; color: #b9cacc; font-family: var(--sans); font-size: 12.5px; }
+.assignment-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid #426069; border-bottom: 1px solid #426069; }
+.assignment-card { padding: 22px 18px; border-right: 1px solid #36535b; }
+.assignment-card:first-child { padding-left: 0; }
+.assignment-card:last-child { border-right: 0; padding-right: 0; }
+.assignment-topline { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 30px; }
+.assignment-topline p { margin-bottom: 0; color: #96adb2; font-family: var(--sans); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.assignment-topline span { color: #85c1c9; font-family: var(--sans); font-size: 24px; }
+.assignment-card dl { margin: 0 0 28px; }
+.assignment-card dl div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid #314b52; padding: 6px 0; font-family: var(--sans); font-size: 11.5px; }
+.assignment-card dt { color: #8fa6aa; }
+.assignment-card dd { margin: 0; }
+.assignment-links { display: flex; gap: 14px; font-family: var(--sans); font-size: 12px; }
+.assignment-links a { color: #91d1d8; }
+.policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; margin-top: 44px; }
+.policy-grid > div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; }
+.policy-title { color: #91c1c7; }
+.policy-grid p:last-child { margin-bottom: 0; color: #c2d0d2; font-family: var(--sans); font-size: 12.5px; }
+
+.schedule-section { padding-bottom: 26px; }
+.schedule-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin: -12px 0 46px 86px; font-family: var(--sans); font-size: 13px; }
+.schedule-heading p { margin-bottom: 0; color: var(--muted); }
+.schedule-links { display: flex; gap: 18px; flex-shrink: 0; }
+.module { margin-bottom: 76px; scroll-margin-top: 24px; }
+.module-header { display: grid; grid-template-columns: 150px 1fr; gap: 26px; border-top: 2px solid var(--ink-deep); padding: 24px 0 28px; }
+.module-header > p { margin-bottom: 0; color: var(--teal); font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+.module-header h3 { margin-bottom: 6px; color: var(--ink-deep); font-size: 27px; font-weight: 560; letter-spacing: -0.015em; line-height: 1.2; }
+.module-header div p { max-width: 700px; margin-bottom: 0; color: var(--muted); font-family: var(--sans); font-size: 13px; }
+.lecture-row, .schedule-event { display: grid; grid-template-columns: 150px minmax(0, 1fr) 112px; gap: 26px; border-top: 1px solid var(--hairline); padding: 20px 0; }
+.lecture-date { font-family: var(--sans); }
+.lecture-date span { display: block; margin-bottom: 2px; color: var(--muted); font-size: 9.5px; font-weight: 680; letter-spacing: 0.12em; text-transform: uppercase; }
+.lecture-date p { margin-bottom: 0; font-size: 12.5px; }
+.lecture-topic h4 { margin-bottom: 5px; color: var(--ink-deep); font-size: 17px; font-weight: 600; line-height: 1.35; }
+.lecture-topic > p { max-width: 690px; margin-bottom: 0; color: var(--text-tertiary); font-family: var(--sans); font-size: 12.5px; }
+.milestone { display: inline-block; margin-top: 9px; border-radius: 2px; background: var(--teal-pale); color: var(--teal-dark); padding: 3px 7px; font-family: var(--sans); font-size: 9.5px; font-weight: 670; letter-spacing: 0.075em; text-transform: uppercase; }
+.lecture-materials { justify-self: end; font-family: var(--sans); font-size: 11.5px; }
+.lecture-materials > span { color: #a8b0b3; }
+.schedule-event { grid-template-columns: 150px 1fr; background: var(--soft-surface); color: var(--muted); padding-right: 18px; padding-left: 18px; font-family: var(--sans); font-size: 12px; }
+.schedule-event > p { margin-bottom: 0; }
+.schedule-event div { display: flex; justify-content: space-between; gap: 24px; }
+.schedule-event strong { color: var(--ink); font-weight: 650; }
+.exam-event { background: var(--teal-pale); }
+
+.resources-section { padding-bottom: 92px; }
+.resource-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; border-top: 1px solid var(--rule); }
+.resource-grid article { min-height: 265px; border-right: 1px solid var(--hairline); padding: 28px 32px; }
+.resource-grid article:first-child { padding-left: 0; }
+.resource-grid article:last-child { border-right: 0; padding-right: 0; }
+.resource-grid article > p:not(.card-label) { color: var(--muted); font-family: var(--sans); font-size: 13px; }
+.resource-grid article > a { font-family: var(--sans); font-size: 12.5px; }
+.resource-grid li { border-bottom: 1px solid var(--hairline); padding: 9px 0; font-family: var(--sans); font-size: 12.5px; }
+
+footer { border-top: 1px solid var(--rule); padding: 22px 0 28px; color: var(--muted); font-family: var(--sans); font-size: 11.5px; }
+.footer-inner { display: flex; justify-content: space-between; gap: 24px; }
+.footer-inner p { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr 230px; gap: 48px; }
+  .about-section { grid-template-columns: 1fr 240px; gap: 0 44px; }
+  .information-grid { grid-template-columns: 1fr 1fr; }
+  .info-card:nth-child(2) { border-right: 0; padding-right: 0; }
+  .info-card:nth-child(3) { grid-column: 1 / -1; min-height: 0; border-top: 1px solid var(--hairline); padding-left: 0; }
+  .recitation-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .assignment-grid { grid-template-columns: repeat(3, 1fr); }
+  .assignment-card:nth-child(3) { border-right: 0; padding-right: 0; }
+  .assignment-card:nth-child(4), .assignment-card:nth-child(5) { border-top: 1px solid #36535b; }
+  .assignment-card:nth-child(4) { padding-left: 0; }
+  .policy-grid { gap: 50px; }
+  .policy-grid > div { grid-template-columns: 1fr; gap: 8px; }
+}
+
+@media (max-width: 700px) {
+  .wrap { width: min(100% - 36px, 1100px); }
+  .course-header { padding-top: 18px; }
+  .eyebrow-row { flex-direction: column; gap: 8px; }
+  .header-actions { justify-content: space-between; }
+  .hero-grid { grid-template-columns: 1fr; gap: 42px; padding: 58px 0 44px; }
+  h1 { font-size: clamp(42px, 14vw, 64px); }
+  .hero-facts { width: 100%; }
+  .site-nav { gap: 18px; overflow-x: auto; padding-bottom: 14px; scrollbar-width: none; white-space: nowrap; }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .section { padding-top: 58px; }
+  .section-label { grid-template-columns: 48px 1fr; margin-bottom: 28px; }
+  .about-section { grid-template-columns: 1fr; }
+  .about-section .section-label { grid-column: 1; }
+  .lead-copy p { font-size: 18px; }
+  .prereq-note { margin-top: 18px; }
+  .information-grid { display: block; }
+  .info-card, .info-card:first-child, .info-card:last-child, .info-card:nth-child(2), .info-card:nth-child(3) { min-height: 0; border-right: 0; border-top: 1px solid var(--hairline); padding: 24px 0; }
+  .information-grid .info-card:first-child { border-top: 0; }
+  .recitation-list { display: block; }
+  .assignments-band { margin-top: 66px; padding-bottom: 58px; }
+  .grading-intro { grid-template-columns: 1fr; gap: 24px; }
+  .submission-note { border-left: 0; border-top: 1px solid #517079; padding: 16px 0 0; }
+  .assignment-grid { grid-template-columns: 1fr 1fr; }
+  .assignment-card, .assignment-card:first-child, .assignment-card:last-child, .assignment-card:nth-child(3), .assignment-card:nth-child(4) { border-right: 1px solid #36535b; border-top: 1px solid #36535b; padding: 20px 14px; }
+  .assignment-card:nth-child(odd) { padding-left: 0; }
+  .assignment-card:nth-child(even) { border-right: 0; padding-right: 0; }
+  .assignment-card:nth-child(1), .assignment-card:nth-child(2) { border-top: 0; }
+  .assignment-card:nth-child(5) { border-right: 0; }
+  .policy-grid { grid-template-columns: 1fr; gap: 32px; }
+  .schedule-heading { align-items: flex-start; flex-direction: column; margin: -8px 0 34px 48px; }
+  .schedule-links { flex-direction: column; gap: 6px; }
+  .module { margin-bottom: 58px; }
+  .module-header { grid-template-columns: 1fr; gap: 8px; }
+  .lecture-row { grid-template-columns: 100px 1fr; gap: 18px; }
+  .lecture-materials { grid-column: 2; justify-self: start; margin-top: -8px; }
+  .schedule-event { grid-template-columns: 100px 1fr; gap: 18px; padding-inline: 12px; }
+  .schedule-event div { flex-direction: column; gap: 2px; }
+  .resource-grid { display: block; }
+  .resource-grid article, .resource-grid article:first-child, .resource-grid article:last-child { min-height: 0; border-right: 0; border-bottom: 1px solid var(--hairline); padding: 26px 0; }
+  .footer-inner { flex-direction: column; gap: 5px; }
+}
+
+@media (max-width: 420px) {
+  .assignment-grid { display: block; }
+  .assignment-card, .assignment-card:first-child, .assignment-card:last-child, .assignment-card:nth-child(3), .assignment-card:nth-child(4), .assignment-card:nth-child(5) { border-right: 0; border-top: 1px solid #36535b; padding: 20px 0; }
+  .assignment-card:first-child { border-top: 0; }
+  .lecture-row, .schedule-event { grid-template-columns: 1fr; gap: 8px; }
+  .lecture-materials { grid-column: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+@media print {
+  .site-nav, .assignment-links, footer { display: none; }
+  .assignments-band { background: white; color: var(--ink); }
+  .lecture-row { break-inside: avoid; }
+}
+
+  </style>
+  <script>
+(() => {
+  const storageKey = "mit-65620-theme";
+  const root = document.documentElement;
+  const saved = localStorage.getItem(storageKey);
+  const initial = saved === "light" || saved === "dark"
+    ? saved
+    : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+  function apply(theme) {
+    root.dataset.theme = theme;
+    const button = document.querySelector(".theme-toggle");
+    if (!button) return;
+    const target = theme === "dark" ? "Day" : "Night";
+    button.innerHTML = '<span aria-hidden="true">' + (theme === "dark" ? "☀" : "☾") + "</span>" + target;
+    button.setAttribute("aria-label", "Switch to " + target.toLowerCase() + " mode");
+    button.setAttribute("title", "Switch to " + target.toLowerCase() + " mode");
+  }
+
+  apply(initial);
+  addEventListener("DOMContentLoaded", () => {
+    apply(initial);
+    document.querySelector(".theme-toggle")?.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      localStorage.setItem(storageKey, next);
+      apply(next);
+    });
+  });
+})();</script>
 </head>
-
 <body>
-<div id="main">
-<div id="title">
-    <span class="blue">MIT 6.5620/6.875/18.425 (Fall 2025)</span> <br />
-    <span class="maroon">Foundations of Cryptography</span>
-</div>
-
-<br />
-
-<div id="inner">
-<h1>Course Description</h1>
-
-    The field of cryptography gives us a technical language to <i>define</i> important real-world problems such as security, privacy and integrity, a mathematical toolkit to <i>construct</i> mechanisms such as encryption, digital signatures, zero-knowledge proofs, homomorphic encryption and secure multiparty computation, and a complexity-theoretic framework to <i>prove</i> security using reductions. Together, they help us <i>enforce the rules of the road</i> in digital interactions. <br><br>
-
-    The last few years have witnessed dramatic developments in the foundations of cryptography, as well as its applications to real-world privacy and security problems. For example, cryptography is abuzz with solutions to long-standing open problems such as fully homomorphic encryption and software obfuscation that use an abundance of data for public good without compromising security.<br><br>
-
-    The course will explore the rich theory of cryptography all the way from the basics to the recent developments.
-
-    <br /><br />
-
-    <b>Prerequisites: </b>
-    This is an introductory, but fast-paced, graduate course, intended for beginning graduate students and upper level undergraduates in CS and Math. We will assume fluency in algorithms (equivalent to 6.046), complexity theory (equivalent to 6.045) and discrete probability (equivalent to 6.042). Mathematical maturity and an ease with writing mathematical proofs will be assumed starting from the first lecture.
-
-    <br /><br />
-
-    <h1>Course Information</h1>
-
-    <table id="top-table" cellpadding="4"> <tbody>
-        <tr>
-            <td valign="top" halign="left" width="50%">
-                <b>INSTRUCTOR</b>
-            </td>
-            <td>
-                <a href="https://www.csail.mit.edu/person/yael-kalai">Yael Kalai</a> <br />
-                Email: yaelism at gmail dot com <br />
-                Office hours: By appointment (send an email). <b>Location</b>: 32-G682.
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top" halign="left">
-                <b>LOCATION AND TIME</b>
-            </td>
-            <td>
-                <strong>Monday and Wednesday 1:00-2:30pm</strong> in <strong>2-190</strong>
-            </td>
-        </tr>
-
-
-        <tr>
-            <td valign="top" halign="left" width="50%">
-                <b>TAs</b>
-            </td>
-            <td>
-                <strong>Aparna Gupte</strong> <br />
-                Email: agupte at mit dot edu <br />
-                Office hours: Thursdays 4:00-5:30pm. <b>Location</b>: 34-304
-                <br /><br />
-                <strong>Andrew Huang</strong> <br />
-                Email: ahuang at mit dot edu <br />
-                Office hours: Tuesdays 4:00-5:30pm. <b>Location</b>: 34-304
-                <br /><br />
-            </td>
-        </tr>
-
-		<tr>
-            <td valign="top" halign="left" width="50%">
-                <b>COURSE STAFF EMAIL</b>
-            </td>
-            <td>
-                6.5620_staff at mit dot edu
-            </td>
-        </tr>
-        
-        <tr>
-            <td valign="top" halign="left">
-                <b>REVIEW MATERIALS AND HANDOUTS</b>
-            </td>
-            <td>
-	            Probability review: <a href="HANDOUTS/probability.pdf">Probability theory handout</a> | <a href="https://mit.zoom.us/rec/share/etkHcabC5wB-GmjR2O_U9yjk8Sa143fa-T-jSdu-G8KATzK40K3oamqVKnf72dU.JFCruhXf5BUcJQ2U?startTime=1694203806000">Video</a><br/>
-                Complexity and reductions review: <a href="FA23HANDOUTS/complexity-updated.pdf">Complexity theory and reductions handout, updated</a> | <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=808f6936-619e-44fa-95ac-b07a01088b97">Video</a><br/>
-                Handout on non-uniform adversaries: <a href="HANDOUTS/Non-Uniform-Computation.pdf">Non-Uniform Computation</a>
-            </td>
-        </tr>
-        <tr>
-            <td valign="top" halign="left">
-                <b>RECITATION</b>
-            </td>
-            <td>
-	            Number theory review: <b>Monday, September 29th in 4-237 from 3-5pm.</b><br/>
-                <a href="HANDOUTS/numbertheory.pdf">Number theory handout</a> | <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7c103e3e-6544-4b3c-8fcd-b362013386fe"> Recording </a> | <a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Dana Angluin's notes</a> | <a href = FA23HANDOUTS/cyclicmodp.pdf>Keith Conrad's note on the cyclicity of Zp*</a>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top" halign="left">
-                <b>RESOURCES</b>
-            </td>
-            <td>
-                The main references will be the course materials including lecture notes, slides and/or videos.
-                We will also post relevant papers after every lecture.
-                Here are a few supplementary references for the entire course material.
-
-                <br /><br/>
-
-                <b> Lecture notes </b>
-                <ol>
-                    <li><a href="fall2023.html">Fall 2023 course website</a> </li>
-                    <li><a href="https://www.noahsd.com/crypto_lecture_notes.html">Noah Stephens-Davidowitz's lecture notes</a> </li>
-                </ol>
-                <b> Textbooks </b>
-                <ol>
-                    <li><a href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513">Katz-Lindell</a></li>
-                    <li><a href="http://toc.cryptobook.us/book.pdf">Boneh-Shoup</a></li>
-                    <li><a href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf">Pass-Shelat book</a> </li>
-                    <li><a href="http://www.wisdom.weizmann.ac.il/~oded/MC/219.html">Lindell</a>'s advanced tutorial on the foundations of crypto.</li>
-                    <li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/">Mike Rosulek's book "The Joy of Cryptography"</a></li>
-                    <li><a href="http://www.wisdom.weizmann.ac.il/~oded/foc-book.html">Goldreich's "Foundations of Cryptography" Volumes 1 and 2</a></li>
-                </ol>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top" halign="left">
-                <b>PIAZZA</b>
-            </td>
-            <td>
-                We will use Piazza for class communication.
-                Our class Piazza is <a href="https://piazza.com/mit/fall2025/6562018425">here</a>. The access code will be posted on the first day of lecture; if you miss lecture, you can watch the beginning of the recording. 
-                Please ask your questions there, so that other students can see the questions and answers.
-            </td>
-        </tr>
-
-
-        <tr valign="top" halign="left">
-            <td><b>ASSIGNMENTS AND GRADING</b></td>
-            <td>
-                Grading will be based on the problem sets and midterm exam.
-                There will be 5 problem sets and your top 4 scores will count towards your grade.
-                If you need a short extension on an assignment, we will automatically grant you a 72-hour extension; simply send an email to the course staff at 6.5620_staff at mit dot edu before the assignment is due (preferably earlier, if you can). <br/>
-                If you need more than a 72-hour extension on any assignment, please follow these steps:
-                <ul>
-                    <li>If you are an undergraduate, please contact S^3 first.</li>
-                    <li>If you are a graduate student, please contact your graduate advisor first.</li>
-                </ul>
-                If your S^3 dean or advisor supports the extension request, please have them email the course staff so that we can figure out a plan.
-
-                <br /> <br />
-
-                <b>Submitting psets:</b>
-                <ul>
-					<li> Psets will be posted on Piazza and on this website. Both a source file and PDF version will be made available for use. </li>
-                    <li> All pset writeups should be typeset in LaTeX and compiled into a PDF file for submission. </li>
-                    <li> PDFs are to be submitted via <a href="https://www.gradescope.com/courses/1100460">Gradescope</a> on or before 11:59:59pm ET on the due date. The Gradescope access code is available on the course information page on Piazza. </li>
-                </ul>
-              <br />
-
-            
-                <b>Released problem sets:</b>
-                <ul>
-                    <li>
-                        <a href="PSETS_FALL25/6_5620_Problem_Set_1.pdf">PSET 1 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_1.zip">Source</a>) | Released: Sep 5 | Due: Sep 19, 11:59pm ET <br />
-                    </li>
-                    <li>
-		                <a href="PSETS_FALL25/6_5620_Problem_Set_2.pdf">PSET 2 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_2.tex">Source</a>) | Released: Sep 26 | Due: Oct 10, 11:59pm ET <br />
-                    </li>
-                    <li>
-                        <a href="PSETS_FALL25/6_5620_Problem_Set_3.pdf">PSET 3 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_3.tex">Source</a>) | Released: Oct 10 | Due: Oct 24, 11:59pm ET <br />
-                    </li>
-                    <li>
-                        <a href="PSETS_FALL25/6_5620_Problem_Set_4.pdf">PSET 4 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_4.tex">Source</a>) | Released: Nov 10 | Due: Nov 24, 11:59pm ET <br/>
-                    </li>
-		            <li>
-                        <a href="PSETS_FALL25/6_5620_Problem_Set_5.pdf">PSET 5 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_5.tex">Source</a>) | Released: Nov 24 | Due: Dec 8, 11:59pm ET <br/>
-                    </li>
-                </ul>
-        </tr>
-
-        <tr valign="top" halign="left">
-            <td><b>COLLABORATION POLICY</b></td>
-            <td>
-                Collaboration is permitted and encouraged in small groups of at most three students.
-                You are free to collaborate in discussing answers,
-                but you <b>must</b> write up solutions on your own, and <b>must</b> specify in your submission the names of any collaborators.
-                Do not copy any text from your collaborators; the writeup must be entirely your work.
-                Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution.
-                <b>Solutions should be typeset in LaTeX.</b>
-                You may make use of published material, provided that you clearly acknowledge all sources/tools used.
-                Of course, scavenging for solutions from prior years is forbidden.
-            </td>
-        </tr>
-        <tr valign="top" halign="left">
-            <td><b>USE OF LLMS</b></td>
-            <td>
-		You may use AI however you wish to deepen your understanding of the lecture material.  Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine.
-		<b>You may not use LLMs in any way to work on your homework.</b> You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI generated content whatsoever in your homework submissions.
-        	If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
-	    </td>
-        </tr>
-    </tbody> </table>
-
-    <br />
-
-<h1>Schedule</h1>
-
-    <table class="schedule">
-        <tr>
-            <td class="top" width="20%"> <font color="white">Lecture</font> </td>
-            <td class="top" width="60%"> <font color="white"> Topic</font> </td>
-        </tr>
-
-    <tr style="background-color:#d3d3d3">
-        <td valign="top"> </td>
-        <td valign="top"> <strong>Module 1: Private-Key Cryptography</strong> </td>
-    </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 1 (Wed Sep 3) <br />
-            </td>
-
-            <td valign="top">
-                Perfectly Secure Encryption
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec1.pdf"> Lecture Notes (PDF)</a>
-                <b> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7a017169-a072-4fdd-bc34-b33f00f59c11">Lecture Recording</a></b>
-
-                <br /> <br />
-
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Introduction to cryptography. </li>
-                    <li> Definition of perfectly secure encryption. </li>
-                    <li> The one-time pad construction. </li>
-                    <li> Impossibility for many-time security. </li>
-                </ul> 
-
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="PAPERS/shannon-secrecy.pdf">Communication Theory of Secrecy Systems</a> by Claude Shannon </li>
-                    <li><a href="https://www.youtube.com/watch?v=ZQBIs0BUVh4"> The Cryptographic Lens: Visions  of our Past and Future </a> by Shafi Goldwasser | <a href="https://simons.berkeley.edu/sites/default/files/docs/407/goldwassershafi.pdf"> Slides </a></li>
-                    <li><a href="https://www.youtube.com/watch?v=w704skq5q_8"> 2011 Kilian Prize Lecture at MIT: "The Growth of Cryptography" </a> by Ron Rivest </li>
-		        </ul>
-            </td>
-        </tr>
-
-        <tr> 
-            <td valign="top">
-                Fri Sep 5: <em><font color=blue>HW #1 out</font></em>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 2 (Mon Sep 8)
-            </td>
-
-            <td valign="top">
-                Computational Security 
-				<br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec2.pdf"> Lecture Notes (PDF)</a>
-                <b> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1b637030-608e-42d4-9234-b33f00f6d44b">Lecture Recording</a></b>
-
-
-                <br /> <br />
-
-                <b>Topics covered:</b>
-                <ul>
-                    <li> How to circumvent Shannon’s lower bound: the computational adversary. </li>
-                    <li> Definition of computational security and negligible functions. </li>
-                    <li> Definition of CPA-secure encryption. </li>
-					<li> Definition of one-way functions. </li>
-                    <li> Introduction to pseudorandom generators. </li>
-                </ul> 
-
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
-		            <li> Chapter 3 of Goldreich's "Foundations of Cryptography".  </li>
-                </ul> 
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 3 (Wed Sep 10)
-            </td>
-
-            <td valign="top">
-                Pseudorandom Generators (PRGs)
-                <br/>  <br />
-		        <b>Resources:</b> <br />
-                <a href="LECNOTES/lec3.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=602a6fe5-08eb-43db-8c9c-b33f00f6d461"> Lecture Recording </a>
-
-                <br /> <br/>
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Definition of PRG. </li>
-		            <li> Stateful encryption from PRGs. </li>
-                    <li> PRG length extension. </li>
-                </ul>
-		
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 4 (Mon Sep 15)
-            </td>
-
-            <td valign="top">
-                Constructing PRGs
-                <br><br>
-                <b>Resources:</b> <br />
-				<a href="LECNOTES/lec4.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=579067a8-8747-4a5e-90e6-b33f00f6d489"> Lecture Recording </a>
-				
-                <br /> <br/>
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Increasing PRG stretch. </li>
-					<li> Constructing PRGs from one-way permutations. </li>
-		            <li> Definition of hardcore predicates. </li>
-                    <li> The Goldreich-Levin hardcore predicate. </li>
-                </ul>
-		
-                <b> Advanced reading </b>
-                <ul>
-                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. <br>(See Page 3 for a construction of hardcore predicates from any list-decodable code.)
-                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <td valign="top">
-                Lecture 5 (Wed Sep 17)
-            </td>
-
-            <td valign="top">
-                Goldreich-Levin, cont.
-                <br><br>
-                <b>Resources:</b> <br />
-				<a href="LECNOTES/lec5.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=fd6a666d-6597-499f-a5ef-b33f00f6d4a5">Lecture Recording</a>
-				
-                <br /> <br/>
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Proof of Goldreich-Levin. </li>
-                </ul>
-            
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_6___The_Goldreich_Levin_Theorem__hardcore_bits_from_any_OWF.pdf">Notes on the Goldreich-Levin Theorem</a> by Noah Stephens-Davidowitz</li>
-                </ul>
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
-                    <li> <a href = "https://eccc.weizmann.ac.il/report/2023/143/">Counting Unpredictable Bits: A Simple PRG from One-way Functions</a> by Noam Mazor and Rafael Pass.</li>
-                    <li> <a href="https://salil.seas.harvard.edu/files/salil/files/p817vadhan.pdf"> Characterizing Pseudoentropy and Simplifying Pseudorandom Generator Constructions </a> by Salil Vadhan and Colin Jia Zheng. </li>
-                </ul>  
-            </td>
-        </tr>
-
-        <tr> 
-            <td valign="top">
-                Fri Sep 19: <em><font color=red>HW #1 due</font></em>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 6 (Mon Sep 22) <br />
-				
-            </td>
-
-            <td valign="top">
-                Pseudorandom Functions (PRFs)
-				<br><br>
-                <b>Resources:</b> <br />
-				<a href="LECNOTES/lec6.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ae8a5a2c-54ae-47d5-9b15-b33f00f6d4bd"> Lecture Recording </a>
-				
-                <br /> <br/>
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> IND-CPA encryption. </li>
-					<li> PRF definition. </li>
-					<li> Constructing PRFs from PRGs. </li>
-                </ul>
-                <br>
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali </li>
-                </ul>         
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
-                </ul>     
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 7 (Wed Sep 24)
-            </td>
-            <br /> <br />
-            <td valign="top">
-                Message Authentication Codes (MACs)
-                <br><br>
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec7.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d7b1c8ea-86d1-4881-b534-b33f00f6d4e5">Lecture Recording</a>
-                <br /> <br />
-
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> GGM construction of PRFs, cont. </li>
-                    <li> Definition of MACs </li>
-                    <li> Construction of MACs from PRFs </li>
-                </ul>
-
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr> 
-            <td valign="top">
-                Fri Sep 26: <em><font color=blue>HW #2 out</font></em>
-            </td>
-            <td>
-                <b> Related reading: </b>
-                <ul>
-                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 8 (Mon Sep 29)
-            </td>
-
-            <td valign="top">
-                Construction of CCA-secure Encryption <br/> <br/>
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec8.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=920cfc11-602b-42d9-9be3-b33f00f6d501">Lecture Recording</a>
-                <br/> <br/>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Security Proof for MACs from PRFs </li>
-                    <li> Authenticated Encryption </li>
-                    <li> Definition of CCA security </li>
-                    <li> Encrypt-then-MAC is CCA-secure </li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr style="background-color:#d3d3d3">
-            <td valign="top"> </td>
-            <td valign="top"> <strong>Module 2: Public-Key Cryptography </strong> </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 9 (Wed Oct 1)
-            </td>
-
-            <td valign="top">
-                Digital Signatures <br/> <br/>
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec9.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d78f2fd2-6c84-4627-b695-b33f00f6d51d">Lecture Recording</a>
-                <br/> <br/>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Introduction to public key cryptography </li>
-                    <li> Definition of digital signatures </li>
-                    <li> Lamport's one-time signature scheme </li>
-                    <li> Hash-then-sign </li>
-                </ul>
-				<b>Recommended reading:</b>
-                <ul>
-                <li> <a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_12___Signatures.pdf">Lecture notes</a> by Noah Stephens-Davidowitz.</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 10 (Mon Oct 6) <br />
-            </td>
-
-            <td valign="top">
-                Digital Signatures II<br/> <br/>
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec10.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4047c68b-4e65-491c-bcc6-b33f00f6d53f">Lecture Recording</a>
-                <br/> <br/>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Many-time secure signature scheme.</li>
-                </ul>
-				<b>Recommended reading:</b>
-                <ul>
-                <li> <a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_12___Signatures.pdf">Lecture notes</a> by Noah Stephens-Davidowitz.</li>
-                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
-                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
-                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 11 (Wed Oct 8)
-            </td>
-            <td valign="top">
-                Key Agreement and Public Key Encryption<br/> <br/>
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec11.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=67f49c73-d697-4ae4-86fd-b33f00f6d55e">Lecture Recording</a>
-                <br/> <br/>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Key agreement.</li>
-					<li> Diffie Hellman key exchange.</li>
-					<li> Public key encryption.</li>
-					<li> El Gamal encryption scheme.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                <li> <a href="FA23HANDOUTS/adam-kalai-generating-factored-numbers.pdf">Generating Random Factored Numbers, Easily </a> by Adam Kalai. </li>
-                </ul>
-            </td>
-        </tr>
-        
-        <tr> 
-            <td valign="top">
-                Fri Oct 10: <em><font color=red>HW #2 due</font>, <em><font color=blue>HW #3 out</font></em>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                No lecture (Mon Oct 13) <br />
-                <em>Indigenous Peoples' Day</em>
-            </td>
-
-            <td valign="top">
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 12 (Wed Oct 15) <br>
-            </td>
-            <td valign="top">
-                Public-Key Encryption Schemes and Trapdoor Permutations
-                <br /> <br />
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec12.pdf">Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a19ed21a-6e1c-4a62-9375-b33f00f6d5c4">Lecture Recording</a>
-        
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> El Gamal encryption.</li>
-                    <li> Definition of trapdoor permutations. </li>
-                    <li> Construction of PKE from trapdoor permutations. </li>
-                </ul>
-            </td>
-        </tr>
-
-  	    <tr>
-            <td valign="top">
-                Lecture 13 (Mon Oct 20) <br/>
-            </td>
-            <td valign="top">
-                Trapdoor OWFs and Public-Key Encryption
-				<br /> <br />
-                <b>Resources:</b> <br/>
-                <a href="LECNOTES/lec13.pdf">Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=84cdac2a-b52e-4416-9abe-b33f00f6d5e0"> Lecture Recording </a>
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Trapdoor OWF definition.</li>
-                    <li> Number theory review. </li>
-                    <li> Rabin's function. </li>
-					<li> The Goldwasser-Micali Public-Key Encryption Scheme. </li>
-					<li> The RSA Trapdoor Permutation. </li>
-                </ul>
-                <b> Recommended reading: </b> <br> <br>
-                    <li><a href="PAPERS/probabilistic_encryption.pdf">Probabilistic Encryption</a>  by Shafi Goldwasser and Silvio Micali.</li>         
-                <br />
-                <b>Advanced reading:</b>
-                <ul>
-                    <li><a href="https://arxiv.org/pdf/2106.08121.pdf">A Minimalist Proof of the Law of Quadratic Reciprocity</a> by Bogdan Veklych.</li>
-                    <li> <a href="FA23HANDOUTS/rsa-hardcore-bit.pdf">RSA and Rabin Functions: Certain Parts Are as Hard as the Whole </a> by Werner Alexi, Benny Chor, Oded Goldreich, and Claus P. Schnorr. </li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 14 (Wed Oct 22) <br/>
-            </td>
-            <td valign="top">
-                Construction of Public-Key Encryption from LWE 
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec14.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6dd1d892-c969-4c40-bccc-b33f00f6d5fe"> Lecture Recording </a>
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Learning with Errors (LWE) assumption </li>
-                    <li> Secret-Key Encryption from LWE </li>
-                    <li> Public-Key Encryption from LWE </li>
-                </ul>
-                <b> Recommended reading: </b>
-                <ul>
-                    <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
-                </ul>  
-            </td>
-        </tr>
-
-        <tr> 
-            <td valign="top">
-                Fri Oct 24: <em><font color=red>HW #3 due</font></em>
-            </td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 15 (Mon Oct 27) <br/>
-            </td>
-            <td valign="top">
-                Fully Homomorphic Encryption I
-                 <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec15.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3bc46a8c-8d2a-4720-856c-b33f00f6d629">Lecture Recording</a>
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> Fully Homomorphic Encryption (FHE) definition.</li>
-                    <li> GSW FHE scheme from LWE.</li>
-                </ul> 
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 16 (Wed Oct 29) <br/>
-            </td>
-            <td valign="top">
-                Fully Homomorphic Encryption II
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec16.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=954b137b-af5f-4c32-97cd-b33f00f6d646"> Lecture Recording </a>
-                <br><br>
-                <b>Topics covered:</b> </br>
-                <ul>
-                    <li> GSW FHE scheme (continued).</li>
-                    <li> Leveled FHE.</li>
-					<li> Bootstrapping from leveled to unleveled FHE.</li>
-                </ul> 
-                <b>Recommended/advanced reading: </b>
-                <ul>
-                    <li> <a href="https://crypto.stanford.edu/craig/craig-thesis.pdf">A Fully Homomorphic Encryption Scheme</a> by Craig Gentry. </li>
-                    <li> <a href="https://eprint.iacr.org/2011/344.pdf"> Efficient Fully Homomorphic Encryption from (Standard) LWE </a> by Zvika Brakerski and Vinod Vaikuntanathan. </li>
-                    <li> <a href="https://eprint.iacr.org/2013/340.pdf"> Homomorphic Encryption from Learning with Errors: Conceptually-Simpler, Asymptotically-Faster, Attribute-Based </a> by Craig Gentry, Amit Sahai, and Brent Waters. </li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr style="background-color:#d1ffbd">
-            <td valign="top">
-                Midterm (Mon Nov 3) <br />
-            </td>
-            <td></td>
-        </tr>
-
-        <tr  style="background-color:#d3d3d3">
-            <td valign="top"> </td>
-            <td valign="top"> <strong>Module 3: Proofs </strong> </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 17 (Wed Nov 5)
-            </td>
-
-            <td valign="top">
-                Zero-Knowledge Proofs I
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec17.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=407e0495-c402-439f-b198-b33f00f6d680">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Interactive proofs. </li>
-                    <li> Zero Knowledge and ZK-IPs. </li>
-                    <li> Commitment schemes and a construction. </li>
-                </ul> 
-                <b>Recommended reading:</b>
-                <ul>
-                    <li> <a href="FA23HANDOUTS/GMR-zero-knowledge.pdf">The knowledge complexity of interactive proof-systems</a> by Shafi Goldwasser, Silvio Micali, and Charles Rackoff.</li>
-                    <li> Chapters 4.1-4.3 of Oded Goldreich's "Foundations of Cryptography" (Volume 1).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                No lecture (Mon Nov 10) <br />
-                <em>Student holiday, <font color=blue>HW #4 out</font></em>
-            </td>
-
-            <td valign="top">
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 18 (Wed Nov 12) <br>
-
-            </td>
-            <td valign="top">
-                Zero-Knowledge Proofs II
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec18.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=75c7c437-b37b-4175-9a98-b33f00f6d6ba">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Zero-Knowledge Proof for QR. </li>
-                    <li> Zero-Knowledge Proofs for all of NP. </li>
-                    <li> Commitment schemes from OWFs. </li>
-                </ul> 
-                <b>Recommended reading:</b>
-                <ul>
-                    <li> <a href="FA23HANDOUTS/GMW-zero-knowledge.pdf">Proofs that Yield Nothing But Their Validity or All Langauges in NP Have Zero-Knowledge Proof Systems</a> by Oded Goldreich, Silvio Micali, and Avi Wigderson.</li>
-                    <li> Chapters 4.4 of Oded Goldreich's "Foundations of Cryptography" (Volume 1).</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 19 (Mon Nov 17)
-            </td>
-            <td valign="top">
-                Non-Interactive ZK (NIZK)
-                <br /> <br />
-                <b>Resources:</b> <br />
-                    <a href="LECNOTES/lec19.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f1bfcdf6-ee7b-49a9-ba35-b33f00f6d6d7">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Constructions of commitment scheme. </li>
-                    <li> Define non-interactive zero-knowledge. </li>
-                    <li> Construction of NIZK for NP in the Random Oracle Model. </li>
-                </ul> 
-                <b>Recommended reading:</b>
-                <ul>
-                    <li> <a href="https://people.csail.mit.edu/silvio/Selected%20Scientific%20Papers/Zero%20Knowledge/Noninteractive_Zero-Knowkedge.pdf">Non-interactive Zero Knowldege </a> by Manuel Blum, Alfredo De Santis and Silvio Micali.</li>
-                    <li> <a href="https://www.wisdom.weizmann.ac.il/~naor/PAPERS/nmc_abs.html">Non-Malleable Cryptography </a> by Danny Dolev, Cynthia Dwork and Moni Naor.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 20 (Wed Nov 19) <br />
-            </td>
-
-            <td valign="top">
-                Succinct Proofs I
-                <br><br>
-                <b>Resources:</b> <br />
-                    <a href="LECNOTES/lec20.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8c9c1cfd-6139-42a7-bce8-b33f00f6d6fd">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Motivation for succinct/interactive proofs. </li>
-                    <li> The sum-check protocol. </li>
-                </ul> 
-                <b>Recommended reading:</b>
-                <ul>
-                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/146585.146605">Algebraic Methods for Interactive Proof Systems </a> by Carsten Lund, Lance Fortnow, Howard Karloff, and Noam Nisan.</li>
-                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/2699436">Delegating Computation: Interactive Proofs for Muggles </a> by Shafi Goldwasser, Yael Kalai, and Guy Rothblum.</li>
-                </ul>
-                <b>Advanced reading:</b>
-                <ul>
-                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 21 (Mon Nov 24) <br>
-                <em><font color=red>HW #4 due</font>, <font color=blue>HW #5 out</font></em>
-            </td>
-
-            <td valign="top">
-                Succinct Proofs II
-                <br><br>
-                <b>Resources:</b> <br />
-                    <a href="LECNOTES/lec21.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=70b48281-d7ee-462f-9b3e-b33f00f6d727">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Warmup for the GKR protocol. </li>
-                    <li> Low-degree Extension. </li>
-                    <li> The GKR protocol. </li>
-                </ul> 
-                <b>Advanced reading:</b>
-                <ul>
-                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 22 (Wed Nov 26) <br>
-            </td>
-
-            <td valign="top">
-                Succinct Proofs III
-                <br /> <br />
-                <b>Resources:</b> <br />
-                    <a href="LECNOTES/lec22.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ee281b9a-0865-42a7-9a2a-b33f00f6d757">Lecture Recording</a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Recap of GKR protocol. </li>
-                    <li> SNARGs for NP. </li>
-                </ul> 
-                <b>Advanced reading:</b>
-                <ul>
-                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr style="background-color:#d3d3d3">
-        <td valign="top"> </td>
-        <td valign="top"> <strong>Module 4: Secure Computation </strong> </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 23 (Mon Dec 1) <br />
-            </td>
-
-            <td valign="top">
-                Secure Multi-Party Computation I
-		        <br /> <br />
-                <b>Resources:</b> <br />
-                    <a href="LECNOTES/lec23.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9a27def5-1a7b-4c61-b97d-b33f00f6d77c"> Lecture Recording </a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> Secret Sharing. </li>
-                    <li> Definition of Secure Multi-Party Computation. </li>
-                </ul> 
-                <b> Recommended reading: </b>
-                <ul>
-                    <li>Chapter 7 of Oded Goldreich's "Foundations of Cryptography" (Volume 2)</li>
-                </ul>
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="https://u.cs.biu.ac.il/~lindell/mpcschool.html">Bar-Ilan Winter School on MPC</a></li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 24 (Wed Dec 3) <br>
-            </td>
-
-            <td valign="top">
-                Secure Multi-Party Computation II
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="LECNOTES/lec24.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a624368a-1061-48c9-a747-b33f00f6d793"> Lecture Recording </a>
-                <br /> <br />
-                <b>Topics covered:</b>
-                <ul>
-                    <li> BGW MPC Protocol. </li>
-                </ul> 
-                <b> Recommended reading: </b>
-                <ul>
-                    <li>Additional material on garbled circuits from last year's class (from Matthew Hong): <a href="FA23HANDOUTS/GarbledCircuitsMattHong.pptx">Slides</a>, <a href="FA23HANDOUTS/GarbledCircuitsMattHong.pdf">PDF</a></li>
-                    <li>Andrew Yao's <a href="FA23HANDOUTS/yao-garbled-circuits.pdf">original paper on garbled circuits</a> and Yehuda Lindell and Benny Pinkas' <a href="FA23HANDOUTS/yao-garbled-circuits-proof.pdf">formal proof of security</a>.</li>
-                </ul>
-                <b> Advanced reading: </b>
-                <ul>
-                    <li><a href="https://kodu.ut.ee/~swen/courses/crypto-ii/2008/cleve1986.pdf">Limits on the Security of Coin Flips When Half the Processors are Faulty</a></li>
-                    <li><a href="https://dl.acm.org/doi/pdf/10.1145/28395.28420">  How to play any mental game </a></li>
-                </ul>
-            </td>
-        </tr>
-
-        <tr style="background-color:#d3d3d3">
-        <td valign="top"> </td>
-        <td valign="top"> <strong>Module 5: Special Topics </strong> </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 25 (Mon Dec 8) <br>
-                <em><font color=red>HW #5 due</font></em>
-            </td>
-
-            <td valign="top">
-                Quantum Cryptography
-                <br /> <br />
-                <b>Resources:</b> <br />
-                <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9bd1e427-1c17-410a-902e-b33f00f6d7b4">Lecture Recording</a>
-                <br /> <br>
-            </td>
-        </tr>
-
-        <tr>
-            <td valign="top">
-                Lecture 26 (Wed Dec 10)
-            </td>
-
-            <td valign="top">
-                Summary and LLMs
-                <br /> <br/>
-                <b>Resources:</b> <br />
-                <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e1090b2b-25d1-489d-bb04-b33f00f6d7d5">Lecture Recording</a>
-                <br /> <br>
-            </td>
-        </tr>
-
-    </table>
+<main><header class="course-header" id="top"><div class="wrap"><div class="eyebrow-row"><p>Massachusetts Institute of Technology</p><div class="header-actions"><p>Fall 2026 · Graduate course</p><button class="theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode"><span aria-hidden="true">☾</span>Night</button></div></div><div class="hero-grid"><div><p class="course-number">MIT 6.5620 / 6.875 / 18.425</p><h1>Foundations of Cryptography</h1></div><aside class="hero-facts" aria-label="Course at a glance"><div class="hero-instructors"><span>Instructors</span><a href="https://people.csail.mit.edu/vinodv/" target="_blank" rel="noreferrer">Vinod Vaikuntanathan<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://www.csail.mit.edu/person/shafi-goldwasser" target="_blank" rel="noreferrer">Shafi Goldwasser<span class="external-mark" aria-hidden="true">↗</span></a></div><div><span>Meets</span><p>Mon &amp; Wed · 1:00–2:30 PM</p></div><div><span>Location</span><p>Room 1-190</p></div></aside></div><nav class="site-nav" aria-label="Course sections"><a href="#about">About</a><a href="#information">Information</a><a href="#assignments">Assignments</a><a href="#schedule">Schedule</a><a href="#resources">Resources</a></nav></div></header><section id="about" class="wrap section about-section"><div class="section-label"><span>01</span><h2>About the course</h2></div><div class="prose lead-copy"><p>Cryptography gives us a precise technical language for security, privacy, and integrity; a mathematical toolkit for encryption, digital signatures, zero-knowledge proofs, homomorphic encryption, and secure multiparty computation; and a complexity-theoretic framework for proving security by reduction.</p><p>This fast-paced graduate course travels from the classical foundations to recent developments. The emphasis is not only on constructing mechanisms, but on learning how to state what security means—and how to prove that a construction achieves it.</p></div><aside class="prereq-note"><p class="note-kicker">Prerequisites</p><p>Fluency in algorithms (6.046), complexity theory (6.045), and discrete probability (6.042). Mathematical maturity and comfort writing proofs are assumed from the first lecture.</p></aside></section><section id="information" class="wrap section"><div class="section-label"><span>02</span><h2>Course information</h2></div><div class="information-grid"><article class="info-card featured-card"><p class="card-label">Instructors</p><div class="faculty-entry"><h3>Vinod Vaikuntanathan</h3><p>vinodv at csail dot mit dot edu</p><p>Office hours: Fridays, 4:00–5:00 PM · 32-G696</p></div><div class="faculty-entry"><h3>Shafi Goldwasser</h3><p>shafi at csail dot mit dot edu</p><p>Office hours: TBD</p><p><a href="https://www.csail.mit.edu/person/shafi-goldwasser" target="_blank" rel="noreferrer">MIT CSAIL profile<span class="external-mark" aria-hidden="true">↗</span></a></p></div></article><article class="info-card"><p class="card-label">Teaching assistants</p><ul class="people-list"><li><strong>Chirag Falor</strong><span>Sun 11–12 · 24-307</span></li><li><strong>Neekon Vafa</strong><span>Tue 5:30–7:30 · 36-155</span></li><li><strong>Hanshen Xiao</strong><span>Mon 4–6 · 36-155</span></li></ul></article><article class="info-card"><p class="card-label">Review recitations</p><ul class="recitation-list"><li><span>Sep 08</span><a href="https://mit6875.github.io/FA23HANDOUTS/probability.pdf" target="_blank" rel="noreferrer">Probability review<span class="external-mark" aria-hidden="true">↗</span></a></li><li><span>Sep 15</span><a href="https://mit6875.github.io/FA23HANDOUTS/complexity-updated.pdf" target="_blank" rel="noreferrer">Complexity &amp; reductions<span class="external-mark" aria-hidden="true">↗</span></a></li><li><span>Oct 06</span><a href="https://mit6875.github.io/HANDOUTS/numbertheory.pdf" target="_blank" rel="noreferrer">Number theory review<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article></div></section><section id="assignments" class="assignments-band"><div class="wrap section"><div class="section-label light-label"><span>03</span><h2>Assignments &amp; grading</h2></div><div class="grading-intro"><p>Grading is based on problem sets, a midterm exam, and class participation. There are six problem sets; the top five scores count. Students have ten total late days, with at most five used on any one set.</p><p class="submission-note">Solutions should be typeset in LaTeX and submitted as PDF by 11:59:59 PM ET on the due date.</p></div><div class="assignment-grid"><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>01</span></div><dl><div><dt>Released</dt><dd>Sep 09</dd></div><div><dt>Due</dt><dd>Sep 23</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw1.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw1source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>02</span></div><dl><div><dt>Released</dt><dd>Sep 23</dd></div><div><dt>Due</dt><dd>Oct 07</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw_2.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw2_source.tex" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>03</span></div><dl><div><dt>Released</dt><dd>Oct 07</dd></div><div><dt>Due</dt><dd>Oct 19</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw3.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw3source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>04</span></div><dl><div><dt>Released</dt><dd>Oct 19</dd></div><div><dt>Due</dt><dd>Nov 04</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw4.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw4source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="assignment-card"><div class="assignment-topline"><p>Problem set</p><span>05</span></div><dl><div><dt>Released</dt><dd>Nov 04</dd></div><div><dt>Due</dt><dd>Nov 18</dd></div></dl><div class="assignment-links"><a href="https://mit6875.github.io/PSETS/hw5.pdf" target="_blank" rel="noreferrer">PDF<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/PSETS/hw5source.zip" target="_blank" rel="noreferrer">Source<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div><div class="policy-grid"><div><p class="policy-title">Collaboration</p><p>Discussion in groups of up to three is encouraged. Every student must write their own solution and name all collaborators. The final write-up must be entirely in your own words.</p></div><div><p class="policy-title">Attribution</p><p>Published material may be used when acknowledged. Looking for or using solutions from previous years is not permitted.</p></div></div></div></section><section id="schedule" class="wrap section schedule-section"><div class="section-label"><span>04</span><h2>Schedule</h2></div><div class="schedule-heading"><p>Five modules, twenty-six class meetings. Fall classes begin September 9; this course’s final meeting is December 9. Topics remain tentative.</p><div class="schedule-links"><a href="https://registrar.mit.edu/calendar" target="_blank" rel="noreferrer">MIT academic calendar<span class="external-mark" aria-hidden="true">↗</span></a><a href="https://mit6875.github.io/fall2023.html" target="_blank" rel="noreferrer">Original course page<span class="external-mark" aria-hidden="true">↗</span></a></div></div><div class="schedule"><section class="module" aria-labelledby="module-01"><header class="module-header"><p>Module 01</p><div><h3 id="module-01">Basics &amp; private-key cryptography</h3><p>Perfect secrecy, computational security, pseudorandomness, and the foundations of symmetric encryption.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 01</span><p>Wed · Sep 09</p></div><div class="lecture-topic"><h4>Introduction &amp; perfect secrecy</h4><p>Secure communication, Shannon’s definition, the one-time pad, and Shannon’s lower bound.</p><span class="milestone">Pset 1 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec1.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 02</span><p>Mon · Sep 14</p></div><div class="lecture-topic"><h4>Computational security &amp; PRGs</h4><p>Computational adversaries, pseudorandom generators, and stateful secret-key encryption.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec2.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 03</span><p>Wed · Sep 16</p></div><div class="lecture-topic"><h4>Hybrids, PRGs &amp; PRFs</h4><p>The hybrid argument, PRG length extension, pseudorandom functions, and encryption from PRFs.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec3.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 04</span><p>Mon · Sep 21</p></div><div class="lecture-topic"><h4>Pseudorandom functions</h4><p>Formal PRF security, the GGM construction, and the definition of IND-CPA security.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec4.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 05</span><p>Wed · Sep 23</p></div><div class="lecture-topic"><h4>Authentication &amp; chosen-ciphertext security</h4><p>Identification protocols, message-authentication codes, and CCA-secure symmetric encryption.</p><span class="milestone">Pset 1 due · Pset 2 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec5.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 06</span><p>Mon · Sep 28</p></div><div class="lecture-topic"><h4>One-way functions</h4><p>Hard-core bits, pseudorandom generators, and the Goldreich–Levin theorem.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec6.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 07</span><p>Wed · Sep 30</p></div><div class="lecture-topic"><h4>Goldreich–Levin, continued</h4><p>A complexity-theoretic view of Goldreich–Levin through local list decoding.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec7.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div></section><section class="module" aria-labelledby="module-02"><header class="module-header"><p>Module 02</p><div><h3 id="module-02">Public-key cryptography</h3><p>Key exchange, public-key encryption, signatures, and collision-resistant hashing.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 08</span><p>Mon · Oct 05</p></div><div class="lecture-topic"><h4>Public-key cryptography I</h4><p>Key exchange and the number-theoretic ideas behind it.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec8.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 09</span><p>Wed · Oct 07</p></div><div class="lecture-topic"><h4>Public-key cryptography II</h4><p>Key exchange, continued, and the hardness assumptions that support it.</p><span class="milestone">Pset 2 due · Pset 3 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec9.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event"><p>Mon · Oct 12</p><div><strong>No lecture · Indigenous Peoples’ Day</strong><span>Monday schedule held Tue · Oct 13</span></div></div><article class="lecture-row"><div class="lecture-date"><span>Lecture 10</span><p>Tue · Oct 13</p></div><div class="lecture-topic"><h4>Public-key cryptography III</h4><p>From key exchange to probabilistic public-key encryption. Monday schedule of classes held Tuesday.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec10.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 11</span><p>Wed · Oct 14</p></div><div class="lecture-topic"><h4>Digital signatures I</h4><p>Signature syntax, security, and the leftover hash lemma.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec11.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 12</span><p>Mon · Oct 19</p></div><div class="lecture-topic"><h4>Digital signatures II</h4><p>Signature constructions and collision-resistant hash functions.</p><span class="milestone">Pset 3 due · Pset 4 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec12.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 13</span><p>Wed · Oct 21</p></div><div class="lecture-topic"><h4>Digital signatures III</h4><p>Hash-and-sign, random oracles, and compact signature schemes.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec13.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event exam-event"><p>Date · TBD</p><div><strong>Midterm exam</strong><span>Time and location to be announced</span></div></div></div></section><section class="module" aria-labelledby="module-03"><header class="module-header"><p>Module 03</p><div><h3 id="module-03">Zero knowledge</h3><p>Proofs that reveal nothing beyond validity, from interactive definitions to non-interactive systems.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 14</span><p>Mon · Oct 26</p></div><div class="lecture-topic"><h4>Zero knowledge I</h4><p>Definitions, examples, simulation, and the knowledge-complexity viewpoint.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec14.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 15</span><p>Wed · Oct 28</p></div><div class="lecture-topic"><h4>Zero knowledge II</h4><p>Placing NP in zero knowledge and the GMW paradigm.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec15.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 16</span><p>Mon · Nov 02</p></div><div class="lecture-topic"><h4>Zero knowledge III</h4><p>Non-interactive zero knowledge, non-malleability, and applications.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec16.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article></div></section><section class="module" aria-labelledby="module-04"><header class="module-header"><p>Module 04</p><div><h3 id="module-04">Secure computation</h3><p>How mutually distrustful parties compute together: from secret sharing to fully homomorphic encryption.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 17</span><p>Wed · Nov 04</p></div><div class="lecture-topic"><h4>Secure computation: the toolkit</h4><p>Secret sharing and oblivious transfer.</p><span class="milestone">Pset 4 due · Pset 5 out</span></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec17.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 18</span><p>Mon · Nov 09</p></div><div class="lecture-topic"><h4>The GMW protocol</h4><p>Secure two-party and multi-party computation in the semi-honest setting.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec18.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><div class="schedule-event"><p>Wed · Nov 11</p><div><strong>No lecture</strong><span>Veterans Day · Institute holiday</span></div></div><article class="lecture-row"><div class="lecture-date"><span>Lecture 19</span><p>Mon · Nov 16</p></div><div class="lecture-topic"><h4>Malicious security</h4><p>Secure two-party computation, continued, against malicious adversaries.</p></div><div class="lecture-materials"><a href="https://mit6875.github.io/FA23SLIDES/lec19.pdf" target="_blank" rel="noreferrer">Slides<span class="external-mark" aria-hidden="true">↗</span></a></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 20</span><p>Wed · Nov 18</p></div><div class="lecture-topic"><h4>Yao’s garbled circuits</h4><span class="milestone">Pset 5 due · Pset 6 out</span></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 21</span><p>Mon · Nov 23</p></div><div class="lecture-topic"><h4>Merkle trees &amp; oblivious RAM</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 22</span><p>Wed · Nov 25</p></div><div class="lecture-topic"><h4>Fully homomorphic encryption</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 23</span><p>Mon · Nov 30</p></div><div class="lecture-topic"><h4>Security against malicious adversaries</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 24</span><p>Wed · Dec 02</p></div><div class="lecture-topic"><h4>The BGW protocol</h4><p>Information-theoretic multi-party computation.</p><span class="milestone">Pset 6 due</span></div><div class="lecture-materials"><span>—</span></div></article></div></section><section class="module" aria-labelledby="module-05"><header class="module-header"><p>Module 05</p><div><h3 id="module-05">Advanced topics</h3><p>A view toward the frontier: obfuscation, quantum cryptography, and complexity-theoretic foundations.</p></div></header><div class="lecture-list"><article class="lecture-row"><div class="lecture-date"><span>Lecture 25</span><p>Mon · Dec 07</p></div><div class="lecture-topic"><h4>Program obfuscation</h4></div><div class="lecture-materials"><span>—</span></div></article><article class="lecture-row"><div class="lecture-date"><span>Lecture 26</span><p>Wed · Dec 09</p></div><div class="lecture-topic"><h4>Quantum cryptography &amp; complexity-theoretic foundations</h4><p>Guest lectures by Tina Zhang and Rahul Ilango.</p></div><div class="lecture-materials"><span>—</span></div></article></div></section></div></section><section id="resources" class="wrap section resources-section"><div class="section-label"><span>05</span><h2>Resources</h2></div><div class="resource-grid"><article><p class="card-label">Course communication</p><h3>Questions belong in the open.</h3><p>Use Piazza so that the whole class can benefit from questions and answers.</p><a href="https://piazza.com/mit/fall2023/65620" target="_blank" rel="noreferrer">Open Piazza<span class="external-mark" aria-hidden="true">↗</span></a></article><article><p class="card-label">Lecture notes</p><ul><li><a href="https://mit6875.github.io/fall2022.html" target="_blank" rel="noreferrer">Fall 2022 course<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/" target="_blank" rel="noreferrer">The Joy of Cryptography<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://www.wisdom.weizmann.ac.il/~oded/foc-book.html" target="_blank" rel="noreferrer">Goldreich, Volumes 1 &amp; 2<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article><article><p class="card-label">Textbooks</p><ul><li><a href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513" target="_blank" rel="noreferrer">Katz–Lindell<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://toc.cryptobook.us/book.pdf" target="_blank" rel="noreferrer">Boneh–Shoup<span class="external-mark" aria-hidden="true">↗</span></a></li><li><a href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf" target="_blank" rel="noreferrer">Pass–Shelat<span class="external-mark" aria-hidden="true">↗</span></a></li></ul></article></div></section><footer><div class="wrap footer-inner"><p>MIT 6.5620 · Foundations of Cryptography · Fall 2026</p><a href="#top">Back to top ↑</a></div></footer></main>
+</body>
+</html>
