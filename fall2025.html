@@ -1,0 +1,1007 @@
+<html>
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" ><title>MIT 6.5620/6.875/18.425 Foundations of Cryptography (Fall 2025)</title>
+
+    <link rel="icon" href="http://www.mit.edu/%7Evinodv/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="StyleSheet" href="st3.css" type="text/css"></head>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        #top-table tr td:first-of-type {
+            width: 25%;
+        }
+
+        #title {
+            font-size: 24pt;
+        }
+
+	.important {
+	    font-weight: bold;
+	    color: #c00;
+	}
+
+        .maroon {
+            color: maroon;
+        }
+
+        .black {
+            color: black;
+        }
+
+        #inner {
+            margin-left: 50px;
+            margin-right: 50px
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="main">
+<div id="title">
+    <span class="blue">MIT 6.5620/6.875/18.425 (Fall 2025)</span> <br />
+    <span class="maroon">Foundations of Cryptography</span>
+</div>
+
+<br />
+
+<div id="inner">
+<h1>Course Description</h1>
+
+    The field of cryptography gives us a technical language to <i>define</i> important real-world problems such as security, privacy and integrity, a mathematical toolkit to <i>construct</i> mechanisms such as encryption, digital signatures, zero-knowledge proofs, homomorphic encryption and secure multiparty computation, and a complexity-theoretic framework to <i>prove</i> security using reductions. Together, they help us <i>enforce the rules of the road</i> in digital interactions. <br><br>
+
+    The last few years have witnessed dramatic developments in the foundations of cryptography, as well as its applications to real-world privacy and security problems. For example, cryptography is abuzz with solutions to long-standing open problems such as fully homomorphic encryption and software obfuscation that use an abundance of data for public good without compromising security.<br><br>
+
+    The course will explore the rich theory of cryptography all the way from the basics to the recent developments.
+
+    <br /><br />
+
+    <b>Prerequisites: </b>
+    This is an introductory, but fast-paced, graduate course, intended for beginning graduate students and upper level undergraduates in CS and Math. We will assume fluency in algorithms (equivalent to 6.046), complexity theory (equivalent to 6.045) and discrete probability (equivalent to 6.042). Mathematical maturity and an ease with writing mathematical proofs will be assumed starting from the first lecture.
+
+    <br /><br />
+
+    <h1>Course Information</h1>
+
+    <table id="top-table" cellpadding="4"> <tbody>
+        <tr>
+            <td valign="top" halign="left" width="50%">
+                <b>INSTRUCTOR</b>
+            </td>
+            <td>
+                <a href="https://www.csail.mit.edu/person/yael-kalai">Yael Kalai</a> <br />
+                Email: yaelism at gmail dot com <br />
+                Office hours: By appointment (send an email). <b>Location</b>: 32-G682.
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>LOCATION AND TIME</b>
+            </td>
+            <td>
+                <strong>Monday and Wednesday 1:00-2:30pm</strong> in <strong>2-190</strong>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td valign="top" halign="left" width="50%">
+                <b>TAs</b>
+            </td>
+            <td>
+                <strong>Aparna Gupte</strong> <br />
+                Email: agupte at mit dot edu <br />
+                Office hours: Thursdays 4:00-5:30pm. <b>Location</b>: 34-304
+                <br /><br />
+                <strong>Andrew Huang</strong> <br />
+                Email: ahuang at mit dot edu <br />
+                Office hours: Tuesdays 4:00-5:30pm. <b>Location</b>: 34-304
+                <br /><br />
+            </td>
+        </tr>
+
+		<tr>
+            <td valign="top" halign="left" width="50%">
+                <b>COURSE STAFF EMAIL</b>
+            </td>
+            <td>
+                6.5620_staff at mit dot edu
+            </td>
+        </tr>
+        
+        <tr>
+            <td valign="top" halign="left">
+                <b>REVIEW MATERIALS AND HANDOUTS</b>
+            </td>
+            <td>
+	            Probability review: <a href="HANDOUTS/probability.pdf">Probability theory handout</a> | <a href="https://mit.zoom.us/rec/share/etkHcabC5wB-GmjR2O_U9yjk8Sa143fa-T-jSdu-G8KATzK40K3oamqVKnf72dU.JFCruhXf5BUcJQ2U?startTime=1694203806000">Video</a><br/>
+                Complexity and reductions review: <a href="FA23HANDOUTS/complexity-updated.pdf">Complexity theory and reductions handout, updated</a> | <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=808f6936-619e-44fa-95ac-b07a01088b97">Video</a><br/>
+                Handout on non-uniform adversaries: <a href="HANDOUTS/Non-Uniform-Computation.pdf">Non-Uniform Computation</a>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" halign="left">
+                <b>RECITATION</b>
+            </td>
+            <td>
+	            Number theory review: <b>Monday, September 29th in 4-237 from 3-5pm.</b><br/>
+                <a href="HANDOUTS/numbertheory.pdf">Number theory handout</a> | <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=7c103e3e-6544-4b3c-8fcd-b362013386fe"> Recording </a> | <a href="https://people.csail.mit.edu/vinodv/6892-Fall2013/Angluin.pdf">Dana Angluin's notes</a> | <a href = FA23HANDOUTS/cyclicmodp.pdf>Keith Conrad's note on the cyclicity of Zp*</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>RESOURCES</b>
+            </td>
+            <td>
+                The main references will be the course materials including lecture notes, slides and/or videos.
+                We will also post relevant papers after every lecture.
+                Here are a few supplementary references for the entire course material.
+
+                <br /><br/>
+
+                <b> Lecture notes </b>
+                <ol>
+                    <li><a href="fall2023.html">Fall 2023 course website</a> </li>
+                    <li><a href="https://www.noahsd.com/crypto_lecture_notes.html">Noah Stephens-Davidowitz's lecture notes</a> </li>
+                </ol>
+                <b> Textbooks </b>
+                <ol>
+                    <li><a href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513">Katz-Lindell</a></li>
+                    <li><a href="http://toc.cryptobook.us/book.pdf">Boneh-Shoup</a></li>
+                    <li><a href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf">Pass-Shelat book</a> </li>
+                    <li><a href="http://www.wisdom.weizmann.ac.il/~oded/MC/219.html">Lindell</a>'s advanced tutorial on the foundations of crypto.</li>
+                    <li><a href="https://web.engr.oregonstate.edu/~rosulekm/crypto/">Mike Rosulek's book "The Joy of Cryptography"</a></li>
+                    <li><a href="http://www.wisdom.weizmann.ac.il/~oded/foc-book.html">Goldreich's "Foundations of Cryptography" Volumes 1 and 2</a></li>
+                </ol>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top" halign="left">
+                <b>PIAZZA</b>
+            </td>
+            <td>
+                We will use Piazza for class communication.
+                Our class Piazza is <a href="https://piazza.com/mit/fall2025/6562018425">here</a>. The access code will be posted on the first day of lecture; if you miss lecture, you can watch the beginning of the recording. 
+                Please ask your questions there, so that other students can see the questions and answers.
+            </td>
+        </tr>
+
+
+        <tr valign="top" halign="left">
+            <td><b>ASSIGNMENTS AND GRADING</b></td>
+            <td>
+                Grading will be based on the problem sets and midterm exam.
+                There will be 5 problem sets and your top 4 scores will count towards your grade.
+                If you need a short extension on an assignment, we will automatically grant you a 72-hour extension; simply send an email to the course staff at 6.5620_staff at mit dot edu before the assignment is due (preferably earlier, if you can). <br/>
+                If you need more than a 72-hour extension on any assignment, please follow these steps:
+                <ul>
+                    <li>If you are an undergraduate, please contact S^3 first.</li>
+                    <li>If you are a graduate student, please contact your graduate advisor first.</li>
+                </ul>
+                If your S^3 dean or advisor supports the extension request, please have them email the course staff so that we can figure out a plan.
+
+                <br /> <br />
+
+                <b>Submitting psets:</b>
+                <ul>
+					<li> Psets will be posted on Piazza and on this website. Both a source file and PDF version will be made available for use. </li>
+                    <li> All pset writeups should be typeset in LaTeX and compiled into a PDF file for submission. </li>
+                    <li> PDFs are to be submitted via <a href="https://www.gradescope.com/courses/1100460">Gradescope</a> on or before 11:59:59pm ET on the due date. The Gradescope access code is available on the course information page on Piazza. </li>
+                </ul>
+              <br />
+
+            
+                <b>Released problem sets:</b>
+                <ul>
+                    <li>
+                        <a href="PSETS_FALL25/6_5620_Problem_Set_1.pdf">PSET 1 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_1.zip">Source</a>) | Released: Sep 5 | Due: Sep 19, 11:59pm ET <br />
+                    </li>
+                    <li>
+		                <a href="PSETS_FALL25/6_5620_Problem_Set_2.pdf">PSET 2 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_2.tex">Source</a>) | Released: Sep 26 | Due: Oct 10, 11:59pm ET <br />
+                    </li>
+                    <li>
+                        <a href="PSETS_FALL25/6_5620_Problem_Set_3.pdf">PSET 3 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_3.tex">Source</a>) | Released: Oct 10 | Due: Oct 24, 11:59pm ET <br />
+                    </li>
+                    <li>
+                        <a href="PSETS_FALL25/6_5620_Problem_Set_4.pdf">PSET 4 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_4.tex">Source</a>) | Released: Nov 10 | Due: Nov 24, 11:59pm ET <br/>
+                    </li>
+		            <li>
+                        <a href="PSETS_FALL25/6_5620_Problem_Set_5.pdf">PSET 5 (PDF)</a>, (<a href="PSETS_FALL25/6_5620_Problem_Set_5.tex">Source</a>) | Released: Nov 24 | Due: Dec 8, 11:59pm ET <br/>
+                    </li>
+                </ul>
+        </tr>
+
+        <tr valign="top" halign="left">
+            <td><b>COLLABORATION POLICY</b></td>
+            <td>
+                Collaboration is permitted and encouraged in small groups of at most three students.
+                You are free to collaborate in discussing answers,
+                but you <b>must</b> write up solutions on your own, and <b>must</b> specify in your submission the names of any collaborators.
+                Do not copy any text from your collaborators; the writeup must be entirely your work.
+                Do not write down solutions on a board and copy it verbatim; again, the writeup must be entirely your own words and your own work and should demonstrate clear understanding of the solution.
+                <b>Solutions should be typeset in LaTeX.</b>
+                You may make use of published material, provided that you clearly acknowledge all sources/tools used.
+                Of course, scavenging for solutions from prior years is forbidden.
+            </td>
+        </tr>
+        <tr valign="top" halign="left">
+            <td><b>USE OF LLMS</b></td>
+            <td>
+		You may use AI however you wish to deepen your understanding of the lecture material.  Upload the notes, talk to your AI about them, ask for more explanation or examples; it's all fine.
+		<b>You may not use LLMs in any way to work on your homework.</b> You may not upload assignments, ask for hints, ask how certain concepts from the lectures might be applied to specific homework problems, or upload your assignments to check for correctness or clarity or anything else. You may not include any AI generated content whatsoever in your homework submissions.
+        	If it becomes clear that you have used an AI tool when working on your homework (either directly by making edits or to ask for hints/solutions), we may mark your grade down to reflect that.
+	    </td>
+        </tr>
+    </tbody> </table>
+
+    <br />
+
+<h1>Schedule</h1>
+
+    <table class="schedule">
+        <tr>
+            <td class="top" width="20%"> <font color="white">Lecture</font> </td>
+            <td class="top" width="60%"> <font color="white"> Topic</font> </td>
+        </tr>
+
+    <tr style="background-color:#d3d3d3">
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 1: Private-Key Cryptography</strong> </td>
+    </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 1 (Wed Sep 3) <br />
+            </td>
+
+            <td valign="top">
+                Perfectly Secure Encryption
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec1.pdf"> Lecture Notes (PDF)</a>
+                <b> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=7a017169-a072-4fdd-bc34-b33f00f59c11">Lecture Recording</a></b>
+
+                <br /> <br />
+
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Introduction to cryptography. </li>
+                    <li> Definition of perfectly secure encryption. </li>
+                    <li> The one-time pad construction. </li>
+                    <li> Impossibility for many-time security. </li>
+                </ul> 
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/shannon-secrecy.pdf">Communication Theory of Secrecy Systems</a> by Claude Shannon </li>
+                    <li><a href="https://www.youtube.com/watch?v=ZQBIs0BUVh4"> The Cryptographic Lens: Visions  of our Past and Future </a> by Shafi Goldwasser | <a href="https://simons.berkeley.edu/sites/default/files/docs/407/goldwassershafi.pdf"> Slides </a></li>
+                    <li><a href="https://www.youtube.com/watch?v=w704skq5q_8"> 2011 Kilian Prize Lecture at MIT: "The Growth of Cryptography" </a> by Ron Rivest </li>
+		        </ul>
+            </td>
+        </tr>
+
+        <tr> 
+            <td valign="top">
+                Fri Sep 5: <em><font color=blue>HW #1 out</font></em>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 2 (Mon Sep 8)
+            </td>
+
+            <td valign="top">
+                Computational Security 
+				<br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec2.pdf"> Lecture Notes (PDF)</a>
+                <b> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1b637030-608e-42d4-9234-b33f00f6d44b">Lecture Recording</a></b>
+
+
+                <br /> <br />
+
+                <b>Topics covered:</b>
+                <ul>
+                    <li> How to circumvent Shannon’s lower bound: the computational adversary. </li>
+                    <li> Definition of computational security and negligible functions. </li>
+                    <li> Definition of CPA-secure encryption. </li>
+					<li> Definition of one-way functions. </li>
+                    <li> Introduction to pseudorandom generators. </li>
+                </ul> 
+
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
+		            <li> Chapter 3 of Goldreich's "Foundations of Cryptography".  </li>
+                </ul> 
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 3 (Wed Sep 10)
+            </td>
+
+            <td valign="top">
+                Pseudorandom Generators (PRGs)
+                <br/>  <br />
+		        <b>Resources:</b> <br />
+                <a href="LECNOTES/lec3.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=602a6fe5-08eb-43db-8c9c-b33f00f6d461"> Lecture Recording </a>
+
+                <br /> <br/>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Definition of PRG. </li>
+		            <li> Stateful encryption from PRGs. </li>
+                    <li> PRG length extension. </li>
+                </ul>
+		
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 4 (Mon Sep 15)
+            </td>
+
+            <td valign="top">
+                Constructing PRGs
+                <br><br>
+                <b>Resources:</b> <br />
+				<a href="LECNOTES/lec4.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=579067a8-8747-4a5e-90e6-b33f00f6d489"> Lecture Recording </a>
+				
+                <br /> <br/>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Increasing PRG stretch. </li>
+					<li> Constructing PRGs from one-way permutations. </li>
+		            <li> Definition of hardcore predicates. </li>
+                    <li> The Goldreich-Levin hardcore predicate. </li>
+                </ul>
+		
+                <b> Advanced reading </b>
+                <ul>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049"> List Decoding: Algorithms and Applications </a> by Madhu Sudan. <br>(See Page 3 for a construction of hardcore predicates from any list-decodable code.)
+                    <li> <a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf"> A Pseudorandom Generator from any One-way Function </a> by Johan Hastad, Russell Impagliazzo, Leonid A. Levin, Michael Luby. </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Lecture 5 (Wed Sep 17)
+            </td>
+
+            <td valign="top">
+                Goldreich-Levin, cont.
+                <br><br>
+                <b>Resources:</b> <br />
+				<a href="LECNOTES/lec5.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Embed.aspx?id=fd6a666d-6597-499f-a5ef-b33f00f6d4a5">Lecture Recording</a>
+				
+                <br /> <br/>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Proof of Goldreich-Levin. </li>
+                </ul>
+            
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_6___The_Goldreich_Levin_Theorem__hardcore_bits_from_any_OWF.pdf">Notes on the Goldreich-Levin Theorem</a> by Noah Stephens-Davidowitz</li>
+                </ul>
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
+                    <li> <a href = "https://eccc.weizmann.ac.il/report/2023/143/">Counting Unpredictable Bits: A Simple PRG from One-way Functions</a> by Noam Mazor and Rafael Pass.</li>
+                    <li> <a href="https://salil.seas.harvard.edu/files/salil/files/p817vadhan.pdf"> Characterizing Pseudoentropy and Simplifying Pseudorandom Generator Constructions </a> by Salil Vadhan and Colin Jia Zheng. </li>
+                </ul>  
+            </td>
+        </tr>
+
+        <tr> 
+            <td valign="top">
+                Fri Sep 19: <em><font color=red>HW #1 due</font></em>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 6 (Mon Sep 22) <br />
+				
+            </td>
+
+            <td valign="top">
+                Pseudorandom Functions (PRFs)
+				<br><br>
+                <b>Resources:</b> <br />
+				<a href="LECNOTES/lec6.pdf"> Lecture Notes (PDF) </a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ae8a5a2c-54ae-47d5-9b15-b33f00f6d4bd"> Lecture Recording </a>
+				
+                <br /> <br/>
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> IND-CPA encryption. </li>
+					<li> PRF definition. </li>
+					<li> Constructing PRFs from PRGs. </li>
+                </ul>
+                <br>
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali </li>
+                </ul>         
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="https://eprint.iacr.org/2017/652.pdf">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen.</li>
+                </ul>     
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 7 (Wed Sep 24)
+            </td>
+            <br /> <br />
+            <td valign="top">
+                Message Authentication Codes (MACs)
+                <br><br>
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec7.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d7b1c8ea-86d1-4881-b534-b33f00f6d4e5">Lecture Recording</a>
+                <br /> <br />
+
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> GGM construction of PRFs, cont. </li>
+                    <li> Definition of MACs </li>
+                    <li> Construction of MACs from PRFs </li>
+                </ul>
+
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, Phillip Rogaway.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr> 
+            <td valign="top">
+                Fri Sep 26: <em><font color=blue>HW #2 out</font></em>
+            </td>
+            <td>
+                <b> Related reading: </b>
+                <ul>
+                    <li><a href="https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf">PRIMES in P</a> by Manindra Agrawal, Neeraj Kaya, and Nitin Saxena.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 8 (Mon Sep 29)
+            </td>
+
+            <td valign="top">
+                Construction of CCA-secure Encryption <br/> <br/>
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec8.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=920cfc11-602b-42d9-9be3-b33f00f6d501">Lecture Recording</a>
+                <br/> <br/>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Security Proof for MACs from PRFs </li>
+                    <li> Authenticated Encryption </li>
+                    <li> Definition of CCA security </li>
+                    <li> Encrypt-then-MAC is CCA-secure </li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr style="background-color:#d3d3d3">
+            <td valign="top"> </td>
+            <td valign="top"> <strong>Module 2: Public-Key Cryptography </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 9 (Wed Oct 1)
+            </td>
+
+            <td valign="top">
+                Digital Signatures <br/> <br/>
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec9.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d78f2fd2-6c84-4627-b695-b33f00f6d51d">Lecture Recording</a>
+                <br/> <br/>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Introduction to public key cryptography </li>
+                    <li> Definition of digital signatures </li>
+                    <li> Lamport's one-time signature scheme </li>
+                    <li> Hash-then-sign </li>
+                </ul>
+				<b>Recommended reading:</b>
+                <ul>
+                <li> <a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_12___Signatures.pdf">Lecture notes</a> by Noah Stephens-Davidowitz.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 10 (Mon Oct 6) <br />
+            </td>
+
+            <td valign="top">
+                Digital Signatures II<br/> <br/>
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec10.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4047c68b-4e65-491c-bcc6-b33f00f6d53f">Lecture Recording</a>
+                <br/> <br/>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Many-time secure signature scheme.</li>
+                </ul>
+				<b>Recommended reading:</b>
+                <ul>
+                <li> <a href="https://www.noahsd.com/crypto_lecture_notes/CS4830_Lecture_12___Signatures.pdf">Lecture notes</a> by Noah Stephens-Davidowitz.</li>
+                <li> <a href="https://shaih.github.io/pubs/ghr99.html">Secure Hash-and-Sign Signatures without the Random Oracle</a> by Rosario Gennaro, Shai Halevi and Tal Rabin.</li>
+                <li> <a href="FA23HANDOUTS/random-oracle.pdf">Random Oracles are Practical: A Paradigm for Designing Efficient Protocols</a> by Mihir Bellare and Phillip Rogaway.</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                <li> <a href="FA23HANDOUTS/boneh-lynn-shacham.pdf">Short signatures from the Weil pairing</a> by Dan Boneh, Ben Lynn, and Hovav Shacham.</li>
+                <li> <a href="FA23HANDOUTS/hohenberger-waters.pdf">Short and Stateless Signatures from the RSA Assumption </a> by Susan Hohenberger and Brent Waters.</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 11 (Wed Oct 8)
+            </td>
+            <td valign="top">
+                Key Agreement and Public Key Encryption<br/> <br/>
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec11.pdf">Lecture Notes (PDF)</a> and <a href = "https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=67f49c73-d697-4ae4-86fd-b33f00f6d55e">Lecture Recording</a>
+                <br/> <br/>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Key agreement.</li>
+					<li> Diffie Hellman key exchange.</li>
+					<li> Public key encryption.</li>
+					<li> El Gamal encryption scheme.</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                <li> <a href="FA23HANDOUTS/adam-kalai-generating-factored-numbers.pdf">Generating Random Factored Numbers, Easily </a> by Adam Kalai. </li>
+                </ul>
+            </td>
+        </tr>
+        
+        <tr> 
+            <td valign="top">
+                Fri Oct 10: <em><font color=red>HW #2 due</font>, <em><font color=blue>HW #3 out</font></em>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                No lecture (Mon Oct 13) <br />
+                <em>Indigenous Peoples' Day</em>
+            </td>
+
+            <td valign="top">
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 12 (Wed Oct 15) <br>
+            </td>
+            <td valign="top">
+                Public-Key Encryption Schemes and Trapdoor Permutations
+                <br /> <br />
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec12.pdf">Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a19ed21a-6e1c-4a62-9375-b33f00f6d5c4">Lecture Recording</a>
+        
+                <br><br>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> El Gamal encryption.</li>
+                    <li> Definition of trapdoor permutations. </li>
+                    <li> Construction of PKE from trapdoor permutations. </li>
+                </ul>
+            </td>
+        </tr>
+
+  	    <tr>
+            <td valign="top">
+                Lecture 13 (Mon Oct 20) <br/>
+            </td>
+            <td valign="top">
+                Trapdoor OWFs and Public-Key Encryption
+				<br /> <br />
+                <b>Resources:</b> <br/>
+                <a href="LECNOTES/lec13.pdf">Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=84cdac2a-b52e-4416-9abe-b33f00f6d5e0"> Lecture Recording </a>
+                <br><br>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Trapdoor OWF definition.</li>
+                    <li> Number theory review. </li>
+                    <li> Rabin's function. </li>
+					<li> The Goldwasser-Micali Public-Key Encryption Scheme. </li>
+					<li> The RSA Trapdoor Permutation. </li>
+                </ul>
+                <b> Recommended reading: </b> <br> <br>
+                    <li><a href="PAPERS/probabilistic_encryption.pdf">Probabilistic Encryption</a>  by Shafi Goldwasser and Silvio Micali.</li>         
+                <br />
+                <b>Advanced reading:</b>
+                <ul>
+                    <li><a href="https://arxiv.org/pdf/2106.08121.pdf">A Minimalist Proof of the Law of Quadratic Reciprocity</a> by Bogdan Veklych.</li>
+                    <li> <a href="FA23HANDOUTS/rsa-hardcore-bit.pdf">RSA and Rabin Functions: Certain Parts Are as Hard as the Whole </a> by Werner Alexi, Benny Chor, Oded Goldreich, and Claus P. Schnorr. </li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 14 (Wed Oct 22) <br/>
+            </td>
+            <td valign="top">
+                Construction of Public-Key Encryption from LWE 
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec14.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=6dd1d892-c969-4c40-bccc-b33f00f6d5fe"> Lecture Recording </a>
+                <br><br>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Learning with Errors (LWE) assumption </li>
+                    <li> Secret-Key Encryption from LWE </li>
+                    <li> Public-Key Encryption from LWE </li>
+                </ul>
+                <b> Recommended reading: </b>
+                <ul>
+                    <li><a href="FA23HANDOUTS/leftover-hash-lemma.pdf">Lecture Notes on the Leftover Hash Lemma</a> by Ronitt Rubinfeld.</li>
+                </ul>  
+            </td>
+        </tr>
+
+        <tr> 
+            <td valign="top">
+                Fri Oct 24: <em><font color=red>HW #3 due</font></em>
+            </td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 15 (Mon Oct 27) <br/>
+            </td>
+            <td valign="top">
+                Fully Homomorphic Encryption I
+                 <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec15.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=3bc46a8c-8d2a-4720-856c-b33f00f6d629">Lecture Recording</a>
+                <br><br>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> Fully Homomorphic Encryption (FHE) definition.</li>
+                    <li> GSW FHE scheme from LWE.</li>
+                </ul> 
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 16 (Wed Oct 29) <br/>
+            </td>
+            <td valign="top">
+                Fully Homomorphic Encryption II
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec16.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=954b137b-af5f-4c32-97cd-b33f00f6d646"> Lecture Recording </a>
+                <br><br>
+                <b>Topics covered:</b> </br>
+                <ul>
+                    <li> GSW FHE scheme (continued).</li>
+                    <li> Leveled FHE.</li>
+					<li> Bootstrapping from leveled to unleveled FHE.</li>
+                </ul> 
+                <b>Recommended/advanced reading: </b>
+                <ul>
+                    <li> <a href="https://crypto.stanford.edu/craig/craig-thesis.pdf">A Fully Homomorphic Encryption Scheme</a> by Craig Gentry. </li>
+                    <li> <a href="https://eprint.iacr.org/2011/344.pdf"> Efficient Fully Homomorphic Encryption from (Standard) LWE </a> by Zvika Brakerski and Vinod Vaikuntanathan. </li>
+                    <li> <a href="https://eprint.iacr.org/2013/340.pdf"> Homomorphic Encryption from Learning with Errors: Conceptually-Simpler, Asymptotically-Faster, Attribute-Based </a> by Craig Gentry, Amit Sahai, and Brent Waters. </li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr style="background-color:#d1ffbd">
+            <td valign="top">
+                Midterm (Mon Nov 3) <br />
+            </td>
+            <td></td>
+        </tr>
+
+        <tr  style="background-color:#d3d3d3">
+            <td valign="top"> </td>
+            <td valign="top"> <strong>Module 3: Proofs </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 17 (Wed Nov 5)
+            </td>
+
+            <td valign="top">
+                Zero-Knowledge Proofs I
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec17.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=407e0495-c402-439f-b198-b33f00f6d680">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Interactive proofs. </li>
+                    <li> Zero Knowledge and ZK-IPs. </li>
+                    <li> Commitment schemes and a construction. </li>
+                </ul> 
+                <b>Recommended reading:</b>
+                <ul>
+                    <li> <a href="FA23HANDOUTS/GMR-zero-knowledge.pdf">The knowledge complexity of interactive proof-systems</a> by Shafi Goldwasser, Silvio Micali, and Charles Rackoff.</li>
+                    <li> Chapters 4.1-4.3 of Oded Goldreich's "Foundations of Cryptography" (Volume 1).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                No lecture (Mon Nov 10) <br />
+                <em>Student holiday, <font color=blue>HW #4 out</font></em>
+            </td>
+
+            <td valign="top">
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 18 (Wed Nov 12) <br>
+
+            </td>
+            <td valign="top">
+                Zero-Knowledge Proofs II
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec18.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=75c7c437-b37b-4175-9a98-b33f00f6d6ba">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Zero-Knowledge Proof for QR. </li>
+                    <li> Zero-Knowledge Proofs for all of NP. </li>
+                    <li> Commitment schemes from OWFs. </li>
+                </ul> 
+                <b>Recommended reading:</b>
+                <ul>
+                    <li> <a href="FA23HANDOUTS/GMW-zero-knowledge.pdf">Proofs that Yield Nothing But Their Validity or All Langauges in NP Have Zero-Knowledge Proof Systems</a> by Oded Goldreich, Silvio Micali, and Avi Wigderson.</li>
+                    <li> Chapters 4.4 of Oded Goldreich's "Foundations of Cryptography" (Volume 1).</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 19 (Mon Nov 17)
+            </td>
+            <td valign="top">
+                Non-Interactive ZK (NIZK)
+                <br /> <br />
+                <b>Resources:</b> <br />
+                    <a href="LECNOTES/lec19.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f1bfcdf6-ee7b-49a9-ba35-b33f00f6d6d7">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Constructions of commitment scheme. </li>
+                    <li> Define non-interactive zero-knowledge. </li>
+                    <li> Construction of NIZK for NP in the Random Oracle Model. </li>
+                </ul> 
+                <b>Recommended reading:</b>
+                <ul>
+                    <li> <a href="https://people.csail.mit.edu/silvio/Selected%20Scientific%20Papers/Zero%20Knowledge/Noninteractive_Zero-Knowkedge.pdf">Non-interactive Zero Knowldege </a> by Manuel Blum, Alfredo De Santis and Silvio Micali.</li>
+                    <li> <a href="https://www.wisdom.weizmann.ac.il/~naor/PAPERS/nmc_abs.html">Non-Malleable Cryptography </a> by Danny Dolev, Cynthia Dwork and Moni Naor.</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 20 (Wed Nov 19) <br />
+            </td>
+
+            <td valign="top">
+                Succinct Proofs I
+                <br><br>
+                <b>Resources:</b> <br />
+                    <a href="LECNOTES/lec20.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=8c9c1cfd-6139-42a7-bce8-b33f00f6d6fd">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Motivation for succinct/interactive proofs. </li>
+                    <li> The sum-check protocol. </li>
+                </ul> 
+                <b>Recommended reading:</b>
+                <ul>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/146585.146605">Algebraic Methods for Interactive Proof Systems </a> by Carsten Lund, Lance Fortnow, Howard Karloff, and Noam Nisan.</li>
+                    <li> <a href="https://dl.acm.org/doi/pdf/10.1145/2699436">Delegating Computation: Interactive Proofs for Muggles </a> by Shafi Goldwasser, Yael Kalai, and Guy Rothblum.</li>
+                </ul>
+                <b>Advanced reading:</b>
+                <ul>
+                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 21 (Mon Nov 24) <br>
+                <em><font color=red>HW #4 due</font>, <font color=blue>HW #5 out</font></em>
+            </td>
+
+            <td valign="top">
+                Succinct Proofs II
+                <br><br>
+                <b>Resources:</b> <br />
+                    <a href="LECNOTES/lec21.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=70b48281-d7ee-462f-9b3e-b33f00f6d727">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Warmup for the GKR protocol. </li>
+                    <li> Low-degree Extension. </li>
+                    <li> The GKR protocol. </li>
+                </ul> 
+                <b>Advanced reading:</b>
+                <ul>
+                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 22 (Wed Nov 26) <br>
+            </td>
+
+            <td valign="top">
+                Succinct Proofs III
+                <br /> <br />
+                <b>Resources:</b> <br />
+                    <a href="LECNOTES/lec22.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=ee281b9a-0865-42a7-9a2a-b33f00f6d757">Lecture Recording</a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Recap of GKR protocol. </li>
+                    <li> SNARGs for NP. </li>
+                </ul> 
+                <b>Advanced reading:</b>
+                <ul>
+                    <li> Alex Lombardi's <a href="https://sites.google.com/view/alex-lombardi/home/6-876-fall-2019-mit">Course on Cryptographic Proofs</a> (Fall 2019).</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr style="background-color:#d3d3d3">
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 4: Secure Computation </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 23 (Mon Dec 1) <br />
+            </td>
+
+            <td valign="top">
+                Secure Multi-Party Computation I
+		        <br /> <br />
+                <b>Resources:</b> <br />
+                    <a href="LECNOTES/lec23.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9a27def5-1a7b-4c61-b97d-b33f00f6d77c"> Lecture Recording </a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> Secret Sharing. </li>
+                    <li> Definition of Secure Multi-Party Computation. </li>
+                </ul> 
+                <b> Recommended reading: </b>
+                <ul>
+                    <li>Chapter 7 of Oded Goldreich's "Foundations of Cryptography" (Volume 2)</li>
+                </ul>
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="https://u.cs.biu.ac.il/~lindell/mpcschool.html">Bar-Ilan Winter School on MPC</a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 24 (Wed Dec 3) <br>
+            </td>
+
+            <td valign="top">
+                Secure Multi-Party Computation II
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="LECNOTES/lec24.pdf"> Lecture Notes (PDF)</a> and <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=a624368a-1061-48c9-a747-b33f00f6d793"> Lecture Recording </a>
+                <br /> <br />
+                <b>Topics covered:</b>
+                <ul>
+                    <li> BGW MPC Protocol. </li>
+                </ul> 
+                <b> Recommended reading: </b>
+                <ul>
+                    <li>Additional material on garbled circuits from last year's class (from Matthew Hong): <a href="FA23HANDOUTS/GarbledCircuitsMattHong.pptx">Slides</a>, <a href="FA23HANDOUTS/GarbledCircuitsMattHong.pdf">PDF</a></li>
+                    <li>Andrew Yao's <a href="FA23HANDOUTS/yao-garbled-circuits.pdf">original paper on garbled circuits</a> and Yehuda Lindell and Benny Pinkas' <a href="FA23HANDOUTS/yao-garbled-circuits-proof.pdf">formal proof of security</a>.</li>
+                </ul>
+                <b> Advanced reading: </b>
+                <ul>
+                    <li><a href="https://kodu.ut.ee/~swen/courses/crypto-ii/2008/cleve1986.pdf">Limits on the Security of Coin Flips When Half the Processors are Faulty</a></li>
+                    <li><a href="https://dl.acm.org/doi/pdf/10.1145/28395.28420">  How to play any mental game </a></li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr style="background-color:#d3d3d3">
+        <td valign="top"> </td>
+        <td valign="top"> <strong>Module 5: Special Topics </strong> </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 25 (Mon Dec 8) <br>
+                <em><font color=red>HW #5 due</font></em>
+            </td>
+
+            <td valign="top">
+                Quantum Cryptography
+                <br /> <br />
+                <b>Resources:</b> <br />
+                <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9bd1e427-1c17-410a-902e-b33f00f6d7b4">Lecture Recording</a>
+                <br /> <br>
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                Lecture 26 (Wed Dec 10)
+            </td>
+
+            <td valign="top">
+                Summary and LLMs
+                <br /> <br/>
+                <b>Resources:</b> <br />
+                <a href="https://mit.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e1090b2b-25d1-489d-bb04-b33f00f6d7d5">Lecture Recording</a>
+                <br /> <br>
+            </td>
+        </tr>
+
+    </table>
