@@ -581,7 +581,7 @@
         font-size: 12.5px;
       }
       .milestone {
-        display: inline-block;
+        display: none;
         margin-top: 9px;
         border-radius: 2px;
         background: var(--teal-pale);
@@ -1047,7 +1047,6 @@
           </div>
           <nav class="site-nav" aria-label="Course sections">
             <a href="#about">About</a><a href="#information">Information</a
-            ><a href="#assignments">Assignments</a
             ><a href="#schedule">Schedule</a><a href="#resources">Resources</a>
           </nav>
         </div>
@@ -1185,7 +1184,7 @@
           </article>
         </div>
       </section>
-      <section id="assignments" class="assignments-band">
+      <section id="assignments" class="assignments-band" hidden>
         <div class="wrap section">
           <div class="section-label light-label">
             <span>03</span>
@@ -1193,8 +1192,9 @@
           </div>
           <div class="grading-intro">
             <p>
-              Grading is based on problem sets (20%) two midterm exams (40%), a final (30%), and class
-              participation (10%). There are five problem sets. Students have ten total late days, with at most five used
+              Grading is based on problem sets (20%), two midterm exams (40%), a
+              final (35%), and class participation (5%). There are five problem
+              sets. Students have ten total late days, with at most five used
               on any one set.
             </p>
             <p class="submission-note">
@@ -1390,27 +1390,15 @@
       </section>
       <section id="schedule" class="wrap section schedule-section">
         <div class="section-label">
-          <span>04</span>
+          <span>03</span>
           <h2>Schedule</h2>
         </div>
         <div class="schedule-heading">
           <p>
-            Five modules, twenty-six class meetings. Fall classes begin
-            September 9; this course’s final meeting is December 9. Topics
-            remain tentative.
+            Five modules, twenty-five lectures, and one midterm exam. Fall
+            classes begin September 9; this course’s final meeting is December
+            9. Topics remain tentative.
           </p>
-          <div class="schedule-links">
-            <a
-              href="https://registrar.mit.edu/calendar"
-              target="_blank"
-              rel="noreferrer"
-              >MIT academic calendar<span
-                class="external-mark"
-                aria-hidden="true"
-                >↗</span
-              ></a
-            >
-          </div>
         </div>
         <div class="schedule">
           <section class="module" aria-labelledby="module-01">
@@ -1682,6 +1670,27 @@
                   <p>Wed · Oct 14</p>
                 </div>
                 <div class="lecture-topic">
+                  <h4>Public-key Encryption IV</h4>
+                  <p>
+                    Further constructions and security notions for public-key
+                    encryption.
+                  </p>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <div class="schedule-event exam-event">
+                <p>Mon · Oct 19</p>
+                <div>
+                  <strong>Midterm exam</strong
+                  ><span>Time and location to be announced</span>
+                </div>
+              </div>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 12</span>
+                  <p>Wed · Oct 21</p>
+                </div>
+                <div class="lecture-topic">
                   <h4>Digital signatures I</h4>
                   <p>
                     Signature syntax, security, and the leftover hash lemma.
@@ -1700,8 +1709,8 @@
               </article>
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 12</span>
-                  <p>Mon · Oct 19</p>
+                  <span>Lecture 13</span>
+                  <p>Mon · Oct 26</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Digital signatures II</h4>
@@ -1709,7 +1718,6 @@
                     Signature constructions and collision-resistant hash
                     functions.
                   </p>
-                  <span class="milestone">Pset 3 due · Pset 4 out</span>
                 </div>
                 <div class="lecture-materials">
                   <a
@@ -1722,10 +1730,24 @@
                   >
                 </div>
               </article>
+            </div>
+          </section>
+          <section class="module" aria-labelledby="module-03">
+            <header class="module-header">
+              <p>Module 03</p>
+              <div>
+                <h3 id="module-03">Zero knowledge</h3>
+                <p>
+                  Proofs that reveal nothing beyond validity, from interactive
+                  definitions to non-interactive systems.
+                </p>
+              </div>
+            </header>
+            <div class="lecture-list">
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 13</span>
-                  <p>Wed · Oct 21</p>
+                  <span>Lecture 14</span>
+                  <p>Wed · Oct 28</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Digital signatures III</h4>
@@ -1745,31 +1767,10 @@
                   >
                 </div>
               </article>
-              <div class="schedule-event exam-event">
-                <p>Date · TBD</p>
-                <div>
-                  <strong>Midterm exam</strong
-                  ><span>Time and location to be announced</span>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section class="module" aria-labelledby="module-03">
-            <header class="module-header">
-              <p>Module 03</p>
-              <div>
-                <h3 id="module-03">Zero knowledge</h3>
-                <p>
-                  Proofs that reveal nothing beyond validity, from interactive
-                  definitions to non-interactive systems.
-                </p>
-              </div>
-            </header>
-            <div class="lecture-list">
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 14</span>
-                  <p>Mon · Oct 26</p>
+                  <span>Lecture 15</span>
+                  <p>Mon · Nov 02</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Zero knowledge I</h4>
@@ -1791,39 +1792,17 @@
               </article>
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 15</span>
-                  <p>Wed · Oct 28</p>
+                  <span>Lecture 16</span>
+                  <p>Wed · Nov 04</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Zero knowledge II</h4>
                   <p>Placing NP in zero knowledge and the GMW paradigm.</p>
+                  <span class="milestone">Pset 4 due · Pset 5 out</span>
                 </div>
                 <div class="lecture-materials">
                   <a
                     href="https://mit6875.github.io/FA23SLIDES/lec15.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Slides<span class="external-mark" aria-hidden="true"
-                      >↗</span
-                    ></a
-                  >
-                </div>
-              </article>
-              <article class="lecture-row">
-                <div class="lecture-date">
-                  <span>Lecture 16</span>
-                  <p>Mon · Nov 02</p>
-                </div>
-                <div class="lecture-topic">
-                  <h4>Zero knowledge III</h4>
-                  <p>
-                    Non-interactive zero knowledge, non-malleability, and
-                    applications.
-                  </p>
-                </div>
-                <div class="lecture-materials">
-                  <a
-                    href="https://mit6875.github.io/FA23SLIDES/lec16.pdf"
                     target="_blank"
                     rel="noreferrer"
                     >Slides<span class="external-mark" aria-hidden="true"
@@ -1849,39 +1828,18 @@
               <article class="lecture-row">
                 <div class="lecture-date">
                   <span>Lecture 17</span>
-                  <p>Wed · Nov 04</p>
-                </div>
-                <div class="lecture-topic">
-                  <h4>Secure computation: the toolkit</h4>
-                  <p>Secret sharing and oblivious transfer.</p>
-                  <span class="milestone">Pset 4 due · Pset 5 out</span>
-                </div>
-                <div class="lecture-materials">
-                  <a
-                    href="https://mit6875.github.io/FA23SLIDES/lec17.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Slides<span class="external-mark" aria-hidden="true"
-                      >↗</span
-                    ></a
-                  >
-                </div>
-              </article>
-              <article class="lecture-row">
-                <div class="lecture-date">
-                  <span>Lecture 18</span>
                   <p>Mon · Nov 09</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>The GMW protocol</h4>
+                  <h4>Zero knowledge III</h4>
                   <p>
-                    Secure two-party and multi-party computation in the
-                    semi-honest setting.
+                    Non-interactive zero knowledge, non-malleability, and
+                    applications.
                   </p>
                 </div>
                 <div class="lecture-materials">
                   <a
-                    href="https://mit6875.github.io/FA23SLIDES/lec18.pdf"
+                    href="https://mit6875.github.io/FA23SLIDES/lec16.pdf"
                     target="_blank"
                     rel="noreferrer"
                     >Slides<span class="external-mark" aria-hidden="true"
@@ -1899,8 +1857,52 @@
               </div>
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 19</span>
+                  <span>Lecture 18</span>
                   <p>Mon · Nov 16</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Secure computation: the toolkit</h4>
+                  <p>Secret sharing and oblivious transfer.</p>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec17.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 19</span>
+                  <p>Wed · Nov 18</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>The GMW protocol</h4>
+                  <p>
+                    Secure two-party and multi-party computation in the
+                    semi-honest setting.
+                  </p>
+                  <span class="milestone">Pset 5 due</span>
+                </div>
+                <div class="lecture-materials">
+                  <a
+                    href="https://mit6875.github.io/FA23SLIDES/lec18.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Slides<span class="external-mark" aria-hidden="true"
+                      >↗</span
+                    ></a
+                  >
+                </div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
+                  <span>Lecture 20</span>
+                  <p>Mon · Nov 23</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Malicious security</h4>
@@ -1922,29 +1924,18 @@
               </article>
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 20</span>
-                  <p>Wed · Nov 18</p>
+                  <span>Lecture 21</span>
+                  <p>Wed · Nov 25</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Yao’s garbled circuits</h4>
-                  <span class="milestone">Pset 5 due · Pset 6 out</span>
-                </div>
-                <div class="lecture-materials"><span>—</span></div>
-              </article>
-              <article class="lecture-row">
-                <div class="lecture-date">
-                  <span>Lecture 21</span>
-                  <p>Mon · Nov 23</p>
-                </div>
-                <div class="lecture-topic">
-                  <h4>Merkle trees &amp; oblivious RAM</h4>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
               <article class="lecture-row">
                 <div class="lecture-date">
                   <span>Lecture 22</span>
-                  <p>Wed · Nov 25</p>
+                  <p>Mon · Nov 30</p>
                 </div>
                 <div class="lecture-topic">
                   <h4>Fully homomorphic encryption</h4>
@@ -1954,22 +1945,10 @@
               <article class="lecture-row">
                 <div class="lecture-date">
                   <span>Lecture 23</span>
-                  <p>Mon · Nov 30</p>
-                </div>
-                <div class="lecture-topic">
-                  <h4>Security against malicious adversaries</h4>
-                </div>
-                <div class="lecture-materials"><span>—</span></div>
-              </article>
-              <article class="lecture-row">
-                <div class="lecture-date">
-                  <span>Lecture 24</span>
                   <p>Wed · Dec 02</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>The BGW protocol</h4>
-                  <p>Information-theoretic multi-party computation.</p>
-                  <span class="milestone">Pset 6 due</span>
+                  <h4>Security against malicious adversaries</h4>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
@@ -1981,31 +1960,28 @@
               <div>
                 <h3 id="module-05">Advanced topics</h3>
                 <p>
-                  A view toward the frontier: obfuscation, quantum cryptography,
-                  and complexity-theoretic foundations.
+                  A view toward the frontiers of modern cryptography.
                 </p>
               </div>
             </header>
             <div class="lecture-list">
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 25</span>
+                  <span>Lecture 24</span>
                   <p>Mon · Dec 07</p>
                 </div>
-                <div class="lecture-topic"><h4>Program obfuscation</h4></div>
+                <div class="lecture-topic">
+                  <h4>The BGW protocol</h4>
+                  <p>Information-theoretic multi-party computation.</p>
+                </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
               <article class="lecture-row">
                 <div class="lecture-date">
-                  <span>Lecture 26</span>
+                  <span>Lecture 25</span>
                   <p>Wed · Dec 09</p>
                 </div>
-                <div class="lecture-topic">
-                  <h4>
-                    Quantum cryptography &amp; complexity-theoretic foundations
-                  </h4>
-                  <p>Guest lectures by Tina Zhang and Rahul Ilango.</p>
-                </div>
+                <div class="lecture-topic"><h4>The Frontiers</h4></div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
             </div>
@@ -2014,7 +1990,7 @@
       </section>
       <section id="resources" class="wrap section resources-section">
         <div class="section-label">
-          <span>05</span>
+          <span>04</span>
           <h2>Resources</h2>
         </div>
         <div class="resource-grid">
