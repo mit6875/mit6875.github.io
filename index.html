@@ -93,6 +93,11 @@
         margin-top: 0;
       }
 
+      a,
+      p {
+        overflow-wrap: anywhere;
+      }
+
       .wrap {
         width: min(1100px, calc(100% - 48px));
         margin-inline: auto;
@@ -546,6 +551,7 @@
       .schedule-event {
         display: grid;
         grid-template-columns: 150px minmax(0, 1fr) 112px;
+        grid-template-columns: 150px minmax(0, 1fr);
         gap: 26px;
         border-top: 1px solid var(--hairline);
         padding: 20px 0;
@@ -597,6 +603,7 @@
         justify-self: end;
         font-family: var(--sans);
         font-size: 11.5px;
+        display: none;
       }
       .lecture-materials > span {
         color: #a8b0b3;
@@ -731,6 +738,10 @@
       @media (max-width: 700px) {
         .wrap {
           width: min(100% - 36px, 1100px);
+          width: min(calc(100% - 32px), 1100px);
+        }
+        body {
+          font-size: 16px;
         }
         .course-header {
           padding-top: 18px;
@@ -741,30 +752,46 @@
         }
         .header-actions {
           justify-content: space-between;
+          width: 100%;
+        }
+        .theme-toggle {
+          min-height: 44px;
+          padding: 8px 12px;
         }
         .hero-grid {
           grid-template-columns: 1fr;
           gap: 42px;
           padding: 58px 0 44px;
+          gap: 32px;
+          padding: 44px 0 36px;
         }
         h1 {
           font-size: clamp(42px, 14vw, 64px);
+          font-size: clamp(38px, 13vw, 58px);
         }
         .hero-facts {
           width: 100%;
         }
         .site-nav {
           gap: 18px;
+          gap: 22px;
           overflow-x: auto;
           padding-bottom: 14px;
+          padding: 4px 0;
           scrollbar-width: none;
           white-space: nowrap;
+        }
+        .site-nav a {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
         }
         .site-nav::-webkit-scrollbar {
           display: none;
         }
         .section {
           padding-top: 58px;
+          padding-top: 50px;
         }
         .section-label {
           grid-template-columns: 48px 1fr;
@@ -848,6 +875,7 @@
           align-items: flex-start;
           flex-direction: column;
           margin: -8px 0 34px 48px;
+          margin: -8px 0 34px;
         }
         .schedule-links {
           flex-direction: column;
@@ -868,6 +896,7 @@
           grid-column: 2;
           justify-self: start;
           margin-top: -8px;
+          display: none;
         }
         .schedule-event {
           grid-template-columns: 100px 1fr;
@@ -896,6 +925,19 @@
       }
 
       @media (max-width: 420px) {
+        .wrap {
+          width: calc(100% - 28px);
+        }
+        .header-actions {
+          align-items: center;
+          gap: 12px;
+        }
+        .header-actions > p {
+          max-width: 160px;
+        }
+        .module-header h3 {
+          font-size: 24px;
+        }
         .assignment-grid {
           display: block;
         }
@@ -916,9 +958,14 @@
         .schedule-event {
           grid-template-columns: 1fr;
           gap: 8px;
+          padding-top: 16px;
+          padding-bottom: 16px;
         }
         .lecture-materials {
           grid-column: 1;
+        .schedule-event {
+          padding-right: 12px;
+          padding-left: 12px;
         }
       }
 
@@ -1412,6 +1459,9 @@
             Five modules, twenty-five lectures, and one midterm exam. Fall
             classes begin September 9; this course’s final meeting is December
             9. Topics remain tentative.
+            Five modules, twenty-five lectures, one midterm exam, and a final
+            exam. Fall classes begin September 9; this course’s final meeting
+            is December 9. Topics remain tentative.
           </p>
         </div>
         <div class="schedule">
@@ -1442,6 +1492,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec1.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1449,6 +1502,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1465,6 +1520,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec2.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1472,6 +1530,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1488,6 +1548,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec3.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1495,6 +1558,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1511,6 +1576,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec4.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1518,6 +1586,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1535,6 +1605,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec5.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1542,6 +1615,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1558,6 +1633,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec6.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1565,6 +1643,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1581,6 +1661,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec7.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1588,6 +1671,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
             </div>
@@ -1615,6 +1700,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec8.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1622,6 +1710,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1639,6 +1729,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec9.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1646,6 +1739,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <div class="schedule-event">
@@ -1669,6 +1764,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec10.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1676,6 +1774,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1712,6 +1812,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec11.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1719,6 +1822,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1735,6 +1840,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec12.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1742,6 +1850,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1758,6 +1868,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec13.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1765,6 +1878,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
             </div>
@@ -1795,6 +1910,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec14.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1802,6 +1920,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1816,6 +1936,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec15.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1823,6 +1946,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1839,6 +1964,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec16.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1846,6 +1974,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <div class="schedule-event">
@@ -1880,6 +2010,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec17.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1887,6 +2020,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1904,6 +2039,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec18.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1911,6 +2049,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1927,6 +2067,9 @@
                 </div>
                 <div class="lecture-materials">
                   <a
+                  <!--
+                    Slide link commented out:
+                    <a
                     href="https://mit6875.github.io/FA23SLIDES/lec19.pdf"
                     target="_blank"
                     rel="noreferrer"
@@ -1934,6 +2077,8 @@
                       >↗</span
                     ></a
                   >
+                -->
+                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -1998,6 +2143,13 @@
                 <div class="lecture-topic"><h4>The Frontiers</h4></div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
+              <div class="schedule-event exam-event">
+                <p>Date · TBA</p>
+                <div>
+                  <strong>Final exam</strong
+                  ><span>Date, time, and location to be announced</span>
+                </div>
+              </div>
             </div>
           </section>
         </div>
