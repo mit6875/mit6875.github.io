@@ -28,9 +28,7 @@
         --serif:
           Charter, "Bitstream Charter", Georgia, Cambria, "Times New Roman",
           serif;
-        --sans:
-          var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
+        --sans: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
 
       :root[data-theme="dark"] {
@@ -163,7 +161,7 @@
         display: grid;
         grid-template-columns: minmax(0, 1fr) 270px;
         gap: 92px;
-        padding: 82px 0 76px;
+        padding: 70px 0 38px;
       }
 
       .course-number {
@@ -180,7 +178,7 @@
         max-width: 770px;
         margin-bottom: 24px;
         color: var(--ink-deep);
-        font-size: clamp(48px, 7vw, 82px);
+        font-size: clamp(42px, 5vw, 64px);
         font-weight: 520;
         letter-spacing: -0.045em;
         line-height: 0.98;
@@ -219,7 +217,7 @@
         margin-bottom: 0;
         font-size: 14px;
       }
-      .external-mark {
+      .hero-facts .external-mark {
         display: inline;
         margin-left: 4px;
         font-size: 0.75em;
@@ -331,19 +329,39 @@
         font-size: 13px;
       }
       .faculty-entry + .faculty-entry {
-        margin-top: 22px;
+        margin-top: 24px;
         border-top: 1px solid var(--hairline);
-        padding-top: 20px;
+        padding-top: 22px;
       }
+      
       .faculty-entry h3 {
         margin-bottom: 8px;
+        color: var(--ink-deep);
         font-size: 20px;
+        font-weight: 560;
+        line-height: 1.25;
       }
+      
       .faculty-entry p {
-        margin-bottom: 5px;
+        margin-bottom: 3px;
         color: var(--text-secondary);
         font-family: var(--sans);
         font-size: 13px;
+        line-height: 1.5;
+      }
+      
+      .faculty-entry .faculty-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 7px;
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-size: 12.5px;
+      }
+      
+      .faculty-entry .faculty-links > span {
+        color: var(--muted);
       }
       .people-list,
       .recitation-list,
@@ -375,6 +393,20 @@
       .recitation-list li > span {
         color: var(--muted);
       }
+      .review-entry {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      
+      .review-title {
+        color: var(--teal);
+      }
+      
+      .review-details {
+        color: var(--muted);
+        font-size: 11.5px;
+      }
 
       .assignments-band {
         margin-top: 88px;
@@ -389,23 +421,26 @@
         color: #8cc3ca;
       }
       .grading-intro {
-        display: grid;
-        grid-template-columns: 1.55fr 0.8fr;
-        gap: 90px;
         margin-bottom: 42px;
       }
-      .grading-intro > p:first-child {
-        max-width: 700px;
+      
+      .grading-intro > p {
+        max-width: 760px;
         margin-bottom: 0;
         font-size: 19px;
       }
-      .submission-note {
+      .oral-review-note {
+        max-width: 760px;
+        margin: 0 0 42px;
+        border-top: 1px solid #517079;
+        padding-top: 20px;
+      }
+      .oral-review-note p:last-child {
         margin-bottom: 0;
-        border-left: 1px solid #517079;
-        padding-left: 22px;
-        color: #b9cacc;
+        color: #c2d0d2;
         font-family: var(--sans);
         font-size: 12.5px;
+        line-height: 1.6;
       }
       .assignment-grid {
         display: grid;
@@ -470,25 +505,47 @@
       .assignment-links a {
         color: #91d1d8;
       }
+      .assignment-links .placeholder-link {
+        color: #91d1d8;
+        opacity: 0.5;
+        cursor: default;
+      }
       .policy-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 90px;
+        column-gap: 70px;
+        row-gap: 30px;
         margin-top: 44px;
       }
+      
       .policy-grid > div {
         display: grid;
         grid-template-columns: 120px 1fr;
         gap: 20px;
       }
+      
       .policy-title {
         color: #91c1c7;
       }
+      
       .policy-grid p:last-child {
         margin-bottom: 0;
         color: #c2d0d2;
         font-family: var(--sans);
         font-size: 12.5px;
+      }
+      
+      .ai-policy-ref {
+        margin: 30px 0 0;
+        border-top: 1px solid #36535b;
+        padding-top: 18px;
+        color: #9fb3b7;
+        font-family: var(--sans);
+        font-size: 12px;
+      }
+      
+      .ai-policy-ref a {
+        color: #91d1d8;
       }
 
       .schedule-section {
@@ -587,7 +644,6 @@
         font-size: 12.5px;
       }
       .milestone {
-        display: none;
         margin-top: 9px;
         border-radius: 2px;
         background: var(--teal-pale);
@@ -731,7 +787,7 @@
         }
         .policy-grid > div {
           grid-template-columns: 1fr;
-          gap: 8px;
+          gap: 32px;
         }
       }
 
@@ -1091,8 +1147,11 @@
             </aside>
           </div>
           <nav class="site-nav" aria-label="Course sections">
-            <a href="#about">About</a><a href="#information">Information</a
-            ><a href="#schedule">Schedule</a><a href="#resources">Resources</a>
+            <a href="#about">About</a>
+            <a href="#information">Information</a>
+            <a href="#assignments">Assignments</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#resources">Resources</a>
           </nav>
         </div>
       </header>
@@ -1119,15 +1178,17 @@
             age of generative AI: both in the context of using AI to do cryptography, as well
             as using cryptographic thinking to solve problems in reliable, secure and trustworthy 
             AI. <br><br>
-            Pre-requisites: Fluency in algorithms (6.1220), complexity theory (6.1400), and
+            Prerequisites: Fluency in algorithms (6.1220), complexity theory (6.1400), and
             discrete probability (6.1200). Mathematical maturity and comfort
             writing proofs are assumed right from the first lecture.
           </p>
         </div>
-         <aside class="prereq-note">
+         <aside class="prereq-note" id="ai-policy">
           <p class="note-kicker">AI Use Policy</p>
           <p>
-            TBD.
+            Students may use AI tools when working on problem sets. Students are
+            responsible for understanding everything they submit and must be able to
+            explain and justify every part of their solution.
           </p>
         </aside>
       </section>
@@ -1139,40 +1200,31 @@
         <div class="information-grid">
           <article class="info-card featured-card">
             <p class="card-label">Instructors</p>
+          
             <div class="faculty-entry">
               <h3>Vinod Vaikuntanathan</h3>
               <p>vinodv at csail dot mit dot edu</p>
               <p>Office hours: Time TBD · 32-G696</p>
-              <p>
+              <p class="faculty-links">
                 <a
                   href="https://people.csail.mit.edu/vinodv/"
-                  href="https://math.mit.edu/directory/profile.html?pid=1088"
                   target="_blank"
                   rel="noreferrer"
-                  >Website<span
-                  >MIT Math profile<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
+                  >Website<span class="external-mark" aria-hidden="true">↗</span></a
                 >
               </p>
             </div>
+          
             <div class="faculty-entry">
               <h3>Shafi Goldwasser</h3>
               <p>shafi at csail dot mit dot edu</p>
               <p>Office hours: Time TBD · Location TBD</p>
+              <p class="faculty-links">
                 <a
                   href="https://math.mit.edu/directory/profile.html?pid=1088"
-                  href="https://people.csail.mit.edu/vinodv/"
                   target="_blank"
                   rel="noreferrer"
-                  >MIT Math profile<span
-                  >Website<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
+                  >Website<span class="external-mark" aria-hidden="true">↗</span></a
                 >
               </p>
             </div>
@@ -1190,50 +1242,34 @@
           <article class="info-card">
             <p class="card-label">Review Material</p>
             <ul class="recitation-list">
-              <li>
-                <span>Sep 08</span
-                ><a
-                  href="https://mit6875.github.io/FA23HANDOUTS/probability.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Probability review<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <span>Sep 15</span
-                ><a
-                  href="https://mit6875.github.io/FA23HANDOUTS/complexity-updated.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Complexity &amp; reductions<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <span>Oct 06</span
-                ><a
-                  href="https://mit6875.github.io/HANDOUTS/numbertheory.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Number theory review<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-            </ul>
+            <li>
+              <span>Sep 08</span>
+              <div class="review-entry">
+                <span class="review-title">Probability review</span>
+                <span class="review-details">Time TBD · Location TBD</span>
+              </div>
+            </li>
+          
+            <li>
+              <span>Sep 15</span>
+              <div class="review-entry">
+                <span class="review-title">Complexity &amp; reductions</span>
+                <span class="review-details">Time TBD · Location TBD</span>
+              </div>
+            </li>
+          
+            <li>
+              <span>Oct 06</span>
+              <div class="review-entry">
+                <span class="review-title">Number theory review</span>
+                <span class="review-details">Time TBD · Location TBD</span>
+              </div>
+            </li>
+          </ul>
           </article>
         </div>
       </section>
-      <section id="assignments" class="assignments-band" hidden>
+      <section id="assignments" class="assignments-band" >
         <div class="wrap section">
           <div class="section-label light-label">
             <span>03</span>
@@ -1241,16 +1277,20 @@
           </div>
           <div class="grading-intro">
             <p>
-              Grading is based on problem sets (20%), two midterm exams (40%), a
-              final (35%), and class participation (5%). There are five problem
-              sets. Students have ten total late days, with at most five used
-              on any one set.
-            </p>
-            <p class="submission-note">
-              Solutions should be typeset in LaTeX and submitted as PDF by
-              11:59:59 PM ET on the due date.
+              Grading is based on five problem sets (10%), a midterm exam (30%), a
+              final exam (40%), an oral problem-set review (10%), and class participation (10%).
             </p>
           </div>
+          <div class="oral-review-note">
+          <p class="policy-title">Oral problem-set review</p>
+          <p>
+            Each student will meet individually with an instructor to present one
+            problem selected by the instructors from any previously assigned problem
+            set. The problem will not be announced in advance. Students may use their
+            notes during the review. Oral reviews will be scheduled after the midterm
+            and before the final exam.
+          </p>
+        </div>
           <div class="assignment-grid">
             <article class="assignment-card">
               <div class="assignment-topline">
@@ -1268,21 +1308,8 @@
                 </div>
               </dl>
               <div class="assignment-links">
-                <a
-                  href="https://mit6875.github.io/PSETS/hw1.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >PDF<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                ><a
-                  href="https://mit6875.github.io/PSETS/hw1source.zip"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Source<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
+                <span class="placeholder-link">PDF</span>
+                <span class="placeholder-link">TeX</span>
               </div>
             </article>
             <article class="assignment-card">
@@ -1301,21 +1328,8 @@
                 </div>
               </dl>
               <div class="assignment-links">
-                <a
-                  href="https://mit6875.github.io/PSETS/hw_2.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >PDF<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                ><a
-                  href="https://mit6875.github.io/PSETS/hw2_source.tex"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Source<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
+                <span class="placeholder-link">PDF</span>
+                <span class="placeholder-link">TeX</span>
               </div>
             </article>
             <article class="assignment-card">
@@ -1330,64 +1344,18 @@
                 </div>
                 <div>
                   <dt>Due</dt>
-                  <dd>Oct 19</dd>
+                  <dd>Nov 04</dd>
                 </div>
               </dl>
               <div class="assignment-links">
-                <a
-                  href="https://mit6875.github.io/PSETS/hw3.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >PDF<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                ><a
-                  href="https://mit6875.github.io/PSETS/hw3source.zip"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Source<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
+                <span class="placeholder-link">PDF</span>
+                <span class="placeholder-link">TeX</span>
               </div>
             </article>
             <article class="assignment-card">
               <div class="assignment-topline">
                 <p>Problem set</p>
                 <span>04</span>
-              </div>
-              <dl>
-                <div>
-                  <dt>Released</dt>
-                  <dd>Oct 19</dd>
-                </div>
-                <div>
-                  <dt>Due</dt>
-                  <dd>Nov 04</dd>
-                </div>
-              </dl>
-              <div class="assignment-links">
-                <a
-                  href="https://mit6875.github.io/PSETS/hw4.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >PDF<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                ><a
-                  href="https://mit6875.github.io/PSETS/hw4source.zip"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Source<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </div>
-            </article>
-            <article class="assignment-card">
-              <div class="assignment-topline">
-                <p>Problem set</p>
-                <span>05</span>
               </div>
               <dl>
                 <div>
@@ -1399,57 +1367,82 @@
                   <dd>Nov 18</dd>
                 </div>
               </dl>
+             <div class="assignment-links">
+                <span class="placeholder-link">PDF</span>
+                <span class="placeholder-link">TeX</span>
+              </div>
+            </article>
+            <article class="assignment-card">
+              <div class="assignment-topline">
+                <p>Problem set</p>
+                <span>05</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>Released</dt>
+                  <dd>Nov 18</dd>
+                </div>
+                <div>
+                  <dt>Due</dt>
+                  <dd>Dec 02</dd>
+                </div>
+              </dl>
               <div class="assignment-links">
-                <a
-                  href="https://mit6875.github.io/PSETS/hw5.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >PDF<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                ><a
-                  href="https://mit6875.github.io/PSETS/hw5source.zip"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Source<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
+                <span class="placeholder-link">PDF</span>
+                <span class="placeholder-link">TeX</span>
               </div>
             </article>
           </div>
           <div class="policy-grid">
-            <div>
-              <p class="policy-title">Collaboration</p>
-              <p>
-                Discussion in groups of up to three is encouraged. Every student
-                must write their own solution and name all collaborators. The
-                final write-up must be entirely in your own words.  AI use policy!
-              </p>
-            </div>
-            <div>
-              <p class="policy-title">Attribution</p>
-              <p>
-                Published material may be used when acknowledged. Looking for or
-                using solutions from previous years is not permitted. AI use policy!
-              </p>
-            </div>
+          <div>
+            <p class="policy-title">Submission</p>
+            <p>
+              Solutions should be typeset in LaTeX and submitted as PDF by
+              11:59:59 PM ET on the due date.
+            </p>
+          </div>
+        
+          <div>
+            <p class="policy-title">Late days</p>
+            <p>
+              Students have ten total late days, with at most five used on any one
+              problem set.
+            </p>
+          </div>
+        
+          <div>
+            <p class="policy-title">Collaboration</p>
+            <p>
+              Discussion in groups of up to three is encouraged. Every student must
+              write their own solution and name all collaborators. The final write-up
+              must be entirely in their own words.
+            </p>
+          </div>
+        
+          <div>
+            <p class="policy-title">Attribution</p>
+            <p>
+              Published material may be used when acknowledged. Looking for or using
+              solutions from previous years is not permitted.
+            </p>
           </div>
         </div>
+        
+        <p class="ai-policy-ref">
+          For the use of AI tools on problem sets, see the
+          <a href="#ai-policy">AI use policy</a> above.
+        </p>
       </section>
       <section id="schedule" class="wrap section schedule-section">
         <div class="section-label">
-          <span>03</span>
+          <span>04</span>
           <h2>Schedule</h2>
         </div>
         <div class="schedule-heading">
           <p>
-            Five modules, twenty-five lectures, and one midterm exam. Fall
+            Five modules, twenty-five lectures, one midterm exam, and a final exam. Fall
             classes begin September 9; this course’s final meeting is December
             9. Topics remain tentative.
-            Five modules, twenty-five lectures, one midterm exam, and a final
-            exam. Fall classes begin September 9; this course’s final meeting
-            is December 9. Topics remain tentative.
           </p>
         </div>
         <div class="schedule">
@@ -1772,10 +1765,9 @@
                   <p>Wed · Oct 14</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Public-key Encryption IV</h4>
+                  <h4>Public-key encryption IV</h4>
                   <p>
-                    Further constructions and security notions for public-key
-                    encryption.
+                    Trapdoor permutations, RSA, and further constructions for public-key encryption.
                   </p>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
@@ -1920,7 +1912,7 @@
                 <div class="lecture-topic">
                   <h4>Zero knowledge II</h4>
                   <p>Placing NP in zero knowledge and the GMW paradigm.</p>
-                  <span class="milestone">Pset 4 due · Pset 5 out</span>
+                  <span class="milestone">Pset 3 due · Pset 4 out</span>
                 </div>
                 <div class="lecture-materials">
                   <a
@@ -2023,7 +2015,7 @@
                     Secure two-party and multi-party computation in the
                     semi-honest setting.
                   </p>
-                  <span class="milestone">Pset 5 due</span>
+                  <span class="milestone">Pset 4 due · Pset 5 out</span>
                 </div>
                 <div class="lecture-materials">
                   <a
@@ -2047,11 +2039,7 @@
                   <p>Mon · Nov 23</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Malicious security</h4>
-                  <p>
-                    Secure two-party computation, continued, against malicious
-                    adversaries.
-                  </p>
+                  <h4>Yao’s garbled circuits</h4>
                 </div>
                 <div class="lecture-materials">
                   <a
@@ -2075,7 +2063,7 @@
                   <p>Wed · Nov 25</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Yao’s garbled circuits</h4>
+                  <h4>Fully homomorphic encryption I</h4>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
@@ -2085,7 +2073,7 @@
                   <p>Mon · Nov 30</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Fully homomorphic encryption</h4>
+                  <h4>Fully homomorphic encryption II</h4>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
@@ -2095,18 +2083,9 @@
                   <p>Wed · Dec 02</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Security against malicious adversaries</h4>
-                </div>
-                <div class="lecture-materials"><span>—</span></div>
-              </article>
-              <article class="lecture-row">
-                <div class="lecture-date">
-                  <span>Lecture 24</span>
-                  <p>Mon · Dec 07</p>
-                </div>
-                <div class="lecture-topic">
                   <h4>The BGW protocol</h4>
                   <p>Information-theoretic multi-party computation.</p>
+                  <span class="milestone">Pset 5 due</span>
                 </div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
@@ -2125,10 +2104,20 @@
             <div class="lecture-list">
               <article class="lecture-row">
                 <div class="lecture-date">
+                  <span>Lecture 24</span>
+                  <p>Mon · Dec 07</p>
+                </div>
+                <div class="lecture-topic">
+                  <h4>Identity-based encryption</h4>
+                </div>
+                <div class="lecture-materials"><span>—</span></div>
+              </article>
+              <article class="lecture-row">
+                <div class="lecture-date">
                   <span>Lecture 25</span>
                   <p>Wed · Dec 09</p>
                 </div>
-                <div class="lecture-topic"><h4>The Frontiers</h4></div>
+                <div class="lecture-topic"><h4>AI / Obfuscation</h4></div>
                 <div class="lecture-materials"><span>—</span></div>
               </article>
               <div class="schedule-event exam-event">
@@ -2144,7 +2133,7 @@
       </section>
       <section id="resources" class="wrap section resources-section">
         <div class="section-label">
-          <span>04</span>
+          <span>05</span>
           <h2>Resources</h2>
         </div>
         <div class="resource-grid">
