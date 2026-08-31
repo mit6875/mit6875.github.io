@@ -510,6 +510,46 @@
         opacity: 0.5;
         cursor: default;
       }
+
+      .assignments-summary {
+        display: grid;
+        grid-template-columns: 86px 1fr;
+        align-items: center;
+        margin-bottom: 38px;
+        color: #f7fbfb;
+        font-family: var(--sans);
+        cursor: pointer;
+        list-style: none;
+      }
+      
+      .assignments-summary::-webkit-details-marker {
+        display: none;
+      }
+      
+      .assignments-summary span {
+        color: #8cc3ca;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+      }
+      
+      .assignments-summary strong {
+        font-size: 13px;
+        font-weight: 730;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      
+      .assignments-summary::after {
+        content: "＋";
+        grid-column: 2;
+        justify-self: end;
+        margin-top: -20px;
+      }
+      
+      .assignments-details[open] .assignments-summary::after {
+        content: "−";
+      }
       .policy-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1268,13 +1308,14 @@
           </article>
         </div>
       </section>
-      <section id="assignments" class="assignments-band" >
+      <section id="assignments" class="assignments-band">
         <div class="wrap section">
-          <div class="section-label light-label">
-            <span>03</span>
-            <h2>Assignments &amp; grading</h2>
-          </div>
-          <div class="grading-intro">
+          <details class="assignments-details">
+            <summary class="assignments-summary">
+              <span>03</span>
+              <strong>Assignments &amp; grading</strong>
+            </summary>
+        <div class="grading-intro">
             <p>
               Grading is based on five problem sets (10%), a midterm exam (30%), a
               final exam (40%), an oral problem-set review (10%), and class participation (10%).
@@ -1431,6 +1472,7 @@
           For the use of AI tools on problem sets, see the
           <a href="#ai-policy">AI use policy</a> above.
         </p>
+      </details>
       </div>
       </section>
       <section id="schedule" class="wrap section schedule-section">
