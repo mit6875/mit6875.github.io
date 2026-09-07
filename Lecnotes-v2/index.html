@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Lecture notes for MIT 6.5620 / 6.875 / 18.425, Foundations of Cryptography." />
+    <title>MIT 6.5620 — Foundations of Cryptography: Lecture Notes</title>
+    <style>
+      :root { --paper:#f3efe5; --ink:#172825; --muted:#6d746d; --line:#cbc4b4; --accent:#df5c40; --sidebar:#11231f; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }
+      a { color:inherit; text-decoration:none; }
+      button { color:inherit; font:inherit; }
+      .sidebar { position:fixed; inset:0 auto 0 0; width:282px; padding:31px 20px 21px; background:var(--sidebar); color:#f6f2e8; display:flex; flex-direction:column; z-index:10; }
+      .brand { display:flex; gap:12px; align-items:flex-start; padding:0 7px 25px; border-bottom:1px solid rgba(255,255,255,.15); }
+      .brand-code { color:#f36c50; font:700 25px/.95 Georgia,serif; letter-spacing:-1.4px; }
+      .brand-name { color:#fff; font:600 13px/1.1 Arial,sans-serif; }
+      .close { display:none; border:0; background:none; color:#fff; font-size:26px; }
+      .side-links { display:grid; gap:3px; padding:25px 0 22px; }
+      .side-links a { padding:10px 11px; border-left:2px solid transparent; color:#aebbb5; font-size:12px; }
+      .side-links a:hover,.side-links a.active { color:#fff; border-left-color:var(--accent); background:rgba(255,255,255,.05); }
+      .toc-label { padding:18px 10px 12px; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; color:#73827c; font:700 8px/1 Arial,sans-serif; letter-spacing:1.25px; }
+      .module-nav { display:grid; }
+      .module-nav a { display:grid; grid-template-columns:28px 1fr; gap:5px; padding:9px; border-left:2px solid transparent; color:#91a09a; }
+      .module-nav a span { color:#66756f; font:italic 11px/1.35 Georgia,serif; }
+      .module-nav a b { font:500 11px/1.28 Arial,sans-serif; }
+      .module-nav a:hover { color:#fff; border-left-color:var(--accent); background:rgba(255,255,255,.055); }
+      .side-footer { margin-top:auto; padding:15px 8px 0; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; color:#62716b; font:700 7px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
+      .page { margin-left:282px; min-height:100vh; }
+      .topbar { height:68px; padding:0 clamp(28px,5vw,76px); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:rgba(243,239,229,.94); backdrop-filter:blur(12px); z-index:5; }
+      .edition { color:#727872; font:700 9px/1 Arial,sans-serif; letter-spacing:1.6px; }
+      .top-actions { display:flex; align-items:center; gap:26px; }
+      .back-link { font-size:10px; font-weight:700; }
+      .back-link span,.offline span { color:var(--accent); }
+      .offline { border:0; background:none; font-size:10px; font-weight:700; cursor:pointer; }
+      .mobile-menu { display:none; border:0; background:none; font-weight:700; }
+      .content { width:min(1030px,calc(100% - 10vw)); margin:0 auto; }
+      .hero { position:relative; padding:86px 0 61px; border-bottom:1px solid var(--line); overflow:hidden; }
+      .hero::after { content:"∴"; position:absolute; right:5px; top:23px; color:rgba(23,40,37,.05); font:400 230px/1 Georgia,serif; }
+      .kicker,.eyebrow { color:var(--accent); font:700 9px/1 Arial,sans-serif; letter-spacing:1.9px; text-transform:uppercase; }
+      h1 { position:relative; z-index:1; margin:20px 0 25px; max-width:800px; font:500 clamp(64px,7vw,98px)/.87 Georgia,"Times New Roman",serif; letter-spacing:-5.2px; }
+      h1 em { color:var(--accent); font-weight:400; }
+      .deck { position:relative; z-index:1; margin:0; color:#465650; font:21px/1.52 Georgia,serif; }
+      .meta { margin-top:50px; display:flex; gap:65px; }
+      .meta div { display:grid; gap:7px; }
+      .meta span { color:#858982; font:700 8px/1 Arial,sans-serif; letter-spacing:1.25px; }
+      .meta strong { font-size:11px; }
+      .intro { padding:52px 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:1.45fr 1fr; gap:76px; }
+      .intro p { margin:13px 0 0; font:19px/1.58 Georgia,serif; }
+      .offline-card { display:grid; align-content:start; }
+      .offline-card button { padding:15px 0; border:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:none; display:grid; gap:7px; text-align:left; cursor:pointer; }
+      .offline-card span { color:var(--muted); font:700 8px/1 Arial,sans-serif; letter-spacing:1.2px; }
+      .offline-card b { font-size:11px; }
+      .offline-card i { color:var(--accent); float:right; font-style:normal; }
+      .lecture-index { padding:66px 0 90px; }
+      .section-heading { display:flex; justify-content:space-between; align-items:end; margin-bottom:31px; }
+      .section-heading h2 { margin:10px 0 0; font:400 40px/1 Georgia,serif; letter-spacing:-1.5px; }
+      .section-heading p { margin:0 0 2px; color:var(--muted); font-size:10px; }
+      .module { margin-top:56px; scroll-margin-top:90px; }
+      .module:first-of-type { margin-top:0; }
+      .module-heading { display:grid; grid-template-columns:110px 1fr; gap:24px; margin-bottom:25px; }
+      .module-heading>span { padding-top:8px; color:var(--accent); font:700 8px/1 Arial,sans-serif; letter-spacing:1.4px; }
+      .module-heading h3 { margin:0 0 8px; font:400 29px/1.1 Georgia,serif; letter-spacing:-.7px; }
+      .module-heading p { max-width:650px; margin:0; color:var(--muted); font-size:12px; line-height:1.5; }
+      .lectures { border-top:1px solid #99978e; }
+      .lecture { display:grid; grid-template-columns:64px minmax(220px,1fr) minmax(180px,.75fr) 72px; gap:16px; align-items:center; min-height:93px; border-bottom:1px solid var(--line); }
+      .number { color:#99978f; font:italic 25px/1 Georgia,serif; }
+      .title { font:24px/1.08 Georgia,serif; }
+      .title small { display:block; margin-bottom:7px; color:var(--muted); font:700 7px/1 Arial,sans-serif; letter-spacing:1.15px; }
+      .description { color:#656e68; font-size:11px; line-height:1.45; }
+      .status { color:#96988f; font:700 7px/1.35 Arial,sans-serif; letter-spacing:.9px; text-align:right; }
+      footer { padding:33px 0 44px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:end; color:#737971; }
+      footer>div { display:flex; gap:14px; align-items:start; }
+      footer p { margin:0; font-size:9px; line-height:1.5; }
+      @media (max-width:900px) {
+        .sidebar { transform:translateX(-100%); width:min(330px,88vw); transition:transform .25s; box-shadow:10px 0 40px rgba(0,0,0,.2); }
+        .sidebar.open { transform:translateX(0); }
+        .close { display:block; position:absolute; top:25px; right:20px; }
+        .page { margin-left:0; }
+        .mobile-menu { display:block; }
+        .edition { display:none; }
+        .topbar { height:58px; padding:0 22px; }
+        .content { width:calc(100% - 44px); }
+        .hero { padding:61px 0 47px; }
+        h1 { font-size:clamp(49px,13vw,80px); letter-spacing:-3px; }
+        .hero::after { display:none; }
+      }
+      @media (max-width:650px) {
+        .back-link { display:none; }
+        .meta { gap:24px; flex-wrap:wrap; }
+        .intro { grid-template-columns:1fr; gap:34px; }
+        .section-heading p,.description { display:none; }
+        .module-heading { grid-template-columns:1fr; gap:8px; }
+        .lecture { grid-template-columns:43px 1fr 65px; gap:10px; min-height:84px; }
+        .title { font-size:20px; }
+        footer { display:grid; gap:26px; }
+      }
+      @media print {
+        .sidebar,.topbar,.offline-card { display:none!important; }
+        .page { margin:0; }
+        .content { width:100%; }
+        body { background:#fff; }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <button class="close" type="button" aria-label="Close contents" onclick="document.getElementById('sidebar').classList.remove('open')">×</button>
+      <a class="brand" href="#top">
+        <span class="brand-code">6.5620</span>
+        <span class="brand-name">Foundations of<br />Cryptography</span>
+      </a>
+      <nav class="side-links" aria-label="Page navigation">
+        <a class="active" href="#top">Overview</a>
+        <a href="#lectures">Lecture sequence</a>
+        <a href="../index.html">Main course site ↗</a>
+      </nav>
+      <div class="toc-label"><span>COURSE MODULES</span><span>25 LECTURES</span></div>
+      <nav class="module-nav" aria-label="Course modules">
+        <a href="#module-01"><span>01</span><b>Basics &amp; private-key cryptography</b></a>
+        <a href="#module-02"><span>02</span><b>Public-key cryptography</b></a>
+        <a href="#module-03"><span>03</span><b>Zero knowledge</b></a>
+        <a href="#module-04"><span>04</span><b>Secure computation</b></a>
+        <a href="#module-05"><span>05</span><b>Advanced topics</b></a>
+      </nav>
+      <div class="side-footer"><span>Fall 2026</span><span>MIT EECS</span></div>
+    </aside>
+
+    <main class="page" id="top">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" onclick="document.getElementById('sidebar').classList.add('open')">6.5620 · Contents</button>
+        <span class="edition">MIT EECS · LECTURE NOTES</span>
+        <div class="top-actions">
+          <a class="back-link" href="../index.html"><span>←</span> Main course site</a>
+          <button class="offline" type="button" onclick="window.print()">Offline edition <span>↓</span></button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero">
+          <div class="kicker">Massachusetts Institute of Technology</div>
+          <h1>Foundations of<br /><em>Cryptography</em></h1>
+          <p class="deck">A rigorous introduction to modern cryptography.</p>
+          <div class="meta">
+            <div><span>COURSE</span><strong>6.5620 · 6.875 · 18.425</strong></div>
+            <div><span>TERM</span><strong>Fall 2026</strong></div>
+            <div><span>INSTRUCTORS</span><strong>S. Goldwasser · V. Vaikuntanathan</strong></div>
+          </div>
+        </section>
+
+        <section class="intro">
+          <div>
+            <span class="eyebrow">ABOUT THESE NOTES</span>
+            <p>This site follows the course’s official twenty-five-lecture sequence. Detailed notes will be added lecture by lecture.</p>
+          </div>
+          <div class="offline-card">
+            <button type="button" onclick="window.print()"><span>OFFLINE EDITION</span><b>Save the lecture index <i>↓</i></b></button>
+          </div>
+        </section>
+
+        <section class="lecture-index" id="lectures">
+          <div class="section-heading">
+            <div><span class="eyebrow">THE COURSE</span><h2>Lecture sequence</h2></div>
+            <p>25 lectures · 5 modules</p>
+          </div>
+
+          <section class="module" id="module-01">
+            <header class="module-heading"><span>MODULE 01</span><div><h3>Basics &amp; private-key cryptography</h3><p>Perfect secrecy, computational security, pseudorandomness, and the foundations of symmetric encryption.</p></div></header>
+            <div class="lectures">
+              <article class="lecture"><span class="number">01</span><span class="title"><small>SEP 09</small>Introduction &amp; perfect secrecy</span><span class="description">Secure communication, Shannon’s definition, the one-time pad, and Shannon’s lower bound.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">02</span><span class="title"><small>SEP 14</small>Computational security &amp; PRGs</span><span class="description">Computational adversaries, pseudorandom generators, and stateful secret-key encryption.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">03</span><span class="title"><small>SEP 16</small>Hybrids, PRGs &amp; PRFs</span><span class="description">The hybrid argument, PRG length extension, pseudorandom functions, and encryption from PRFs.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">04</span><span class="title"><small>SEP 21</small>Pseudorandom functions</span><span class="description">Formal PRF security, the GGM construction, and the definition of IND-CPA security.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">05</span><span class="title"><small>SEP 23</small>Authentication &amp; chosen-ciphertext security</span><span class="description">Identification protocols, message-authentication codes, and CCA-secure symmetric encryption.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">06</span><span class="title"><small>SEP 28</small>One-way functions</span><span class="description">Hard-core bits, pseudorandom generators, and the Goldreich–Levin theorem.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">07</span><span class="title"><small>SEP 30</small>Goldreich–Levin, continued</span><span class="description">A complexity-theoretic view of Goldreich–Levin through local list decoding.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+            </div>
+          </section>
+
+          <section class="module" id="module-02">
+            <header class="module-heading"><span>MODULE 02</span><div><h3>Public-key cryptography</h3><p>Key exchange, public-key encryption, signatures, and collision-resistant hashing.</p></div></header>
+            <div class="lectures">
+              <article class="lecture"><span class="number">08</span><span class="title"><small>OCT 05</small>Public-key cryptography I</span><span class="description">Key exchange and the number-theoretic ideas behind it.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">09</span><span class="title"><small>OCT 07</small>Public-key cryptography II</span><span class="description">Key exchange, continued, and the hardness assumptions that support it.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">10</span><span class="title"><small>OCT 13</small>Public-key cryptography III</span><span class="description">From key exchange to probabilistic public-key encryption.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">11</span><span class="title"><small>OCT 14</small>Public-key encryption IV</span><span class="description">Trapdoor permutations, RSA, and further constructions for public-key encryption.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">12</span><span class="title"><small>OCT 21</small>Digital signatures I</span><span class="description">Signature syntax, security, and the leftover hash lemma.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">13</span><span class="title"><small>OCT 26</small>Digital signatures II</span><span class="description">Signature constructions and collision-resistant hash functions.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">14</span><span class="title"><small>OCT 28</small>Digital signatures III</span><span class="description">Hash-and-sign, random oracles, and compact signature schemes.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">15</span><span class="title"><small>NOV 02</small>Identity-based encryption</span><span class="description">Public-key encryption where a user’s identity can serve as a public key.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+            </div>
+          </section>
+
+          <section class="module" id="module-03">
+            <header class="module-heading"><span>MODULE 03</span><div><h3>Zero knowledge</h3><p>Proofs that reveal nothing beyond validity, from interactive definitions to non-interactive systems.</p></div></header>
+            <div class="lectures">
+              <article class="lecture"><span class="number">16</span><span class="title"><small>NOV 04</small>Zero knowledge I</span><span class="description">Definitions, examples, simulation, and the knowledge-complexity viewpoint.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">17</span><span class="title"><small>NOV 09</small>Zero knowledge II</span><span class="description">Placing NP in zero knowledge and the GMW paradigm.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">18</span><span class="title"><small>NOV 16</small>Zero knowledge III</span><span class="description">Non-interactive zero knowledge, non-malleability, and applications.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+            </div>
+          </section>
+
+          <section class="module" id="module-04">
+            <header class="module-heading"><span>MODULE 04</span><div><h3>Secure computation</h3><p>How mutually distrustful parties compute together: from secret sharing to fully homomorphic encryption.</p></div></header>
+            <div class="lectures">
+              <article class="lecture"><span class="number">19</span><span class="title"><small>NOV 18</small>Secure computation: the toolkit</span><span class="description">Secret sharing and oblivious transfer.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">20</span><span class="title"><small>NOV 23</small>The GMW protocol</span><span class="description">Secure two-party and multi-party computation in the semi-honest setting.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">21</span><span class="title"><small>NOV 25</small>Yao’s garbled circuits</span><span class="description">Secure two-party computation through garbling and oblivious transfer.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">22</span><span class="title"><small>NOV 30</small>Fully homomorphic encryption I</span><span class="description">Computing on encrypted data: definitions and first constructions.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">23</span><span class="title"><small>DEC 02</small>Fully homomorphic encryption II</span><span class="description">Bootstrapping and the path to fully homomorphic evaluation.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <article class="lecture"><span class="number">24</span><span class="title"><small>DEC 07</small>The BGW protocol</span><span class="description">Information-theoretic multi-party computation.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+            </div>
+          </section>
+
+          <section class="module" id="module-05">
+            <header class="module-heading"><span>MODULE 05</span><div><h3>Advanced topics</h3><p>A view toward the frontiers of modern cryptography.</p></div></header>
+            <div class="lectures">
+              <article class="lecture"><span class="number">25</span><span class="title"><small>DEC 09</small>The frontiers of cryptography</span><span class="description">Recent directions and open questions across modern cryptography.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+            </div>
+          </section>
+        </section>
+
+        <footer>
+          <div><span class="brand-code">6.5620</span><p>Foundations of Cryptography<br />Massachusetts Institute of Technology</p></div>
+          <p>Fall 2026 · Lecture notes forthcoming</p>
+        </footer>
+      </div>
+    </main>
+    <script>
+      document.querySelectorAll("#sidebar a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          document.getElementById("sidebar").classList.remove("open");
+        });
+      });
+    </script>
+  </body>
+</html>
