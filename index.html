@@ -734,9 +734,12 @@
       }
       .resource-grid {
         display: grid;
-        grid-template-columns: 1.15fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         border-top: 1px solid var(--rule);
       }
+.resource-subhead {
+  margin-top: 30px;
+}
       .resource-grid article {
         min-height: 265px;
         border-right: 1px solid var(--hairline);
@@ -1228,7 +1231,7 @@
             which are meant to be a self-assessment mechanism that tests your understanding 
             of the course material. In particular, students are responsible for understanding 
             everything they submit and must be able to explain and justify every part of their solution. 
-            In particular, the oral problem-set review (10% of the course grade) 
+            The oral problem-set review (10% of the course grade) 
             will evaluate students' understanding of the solutions they submitted.
           </p>
         </aside>
@@ -1259,7 +1262,7 @@
             <div class="faculty-entry">
               <h3>Shafi Goldwasser</h3>
               <p>shafi at csail dot mit dot edu</p>
-              <p>Office hours: Time TBD · Location TBD</p>
+              <p>Office hours: By appointment (send an email).</p>
               <p class="faculty-links">
                 <a
                   href="https://math.mit.edu/directory/profile.html?pid=1088"
@@ -1718,8 +1721,8 @@
               <div>
                 <h3 id="module-02">Public-key cryptography</h3>
                 <p>
-                  Key exchange, public-key encryption, signatures, and
-                  collision-resistant hashing.
+                  Key exchange, public-key encryption, digital signatures,
+                  collision-resistant hashing, and identity-based encryption.
                 </p>
               </div>
             </header>
@@ -1819,7 +1822,7 @@
                   <p>Wed · Oct 14</p>
                 </div>
                 <div class="lecture-topic">
-                  <h4>Public-key encryption IV</h4>
+                  <h4>Public-key cryptography IV</h4>
                   <p>
                     Trapdoor permutations, RSA, and further constructions for public-key encryption.
                   </p>
@@ -1935,8 +1938,7 @@
             <div>
               <h3 id="module-03">Zero knowledge</h3>
               <p>
-                Proofs that reveal nothing beyond validity, from interactive
-                definitions to non-interactive systems.
+                Proofs that reveal nothing beyond validity.
               </p>
             </div>
           </header>
@@ -2119,93 +2121,95 @@
           <h2>Resources</h2>
         </div>
         <div class="resource-grid">
-          <article>
-            <p class="card-label">Lecture notes</p>
-            <ul>
-              <li>
-                <a
-                  href="Lecnotes-v2/index.html"
-                  >Fall 2026 lecture notes<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://mit6875.github.io/fall2022.html"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Fall 2022 course<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://web.engr.oregonstate.edu/~rosulekm/crypto/"
-                  target="_blank"
-                  rel="noreferrer"
-                  >The Joy of Cryptography<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.wisdom.weizmann.ac.il/~oded/foc-book.html"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Goldreich, Volumes 1 &amp; 2<span
-                    class="external-mark"
-                    aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-            </ul>
-          </article>
-          <article>
-            <p class="card-label">Textbooks</p>
-            <ul>
-              <li>
-                <a
-                  href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Katz–Lindell<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://toc.cryptobook.us/book.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Boneh–Shoup<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  >Pass–Shelat<span class="external-mark" aria-hidden="true"
-                    >↗</span
-                  ></a
-                >
-              </li>
-            </ul>
-          </article>
-        </div>
+  <article>
+    <p class="card-label">Lecture notes</p>
+    <ul>
+      <li>
+        <a href="Lecnotes-v2/index.html"
+  	>Fall 2026 lecture notes<span
+            class="external-mark"
+            aria-hidden="true"
+            >↗</span
+          ></a
+        >
+      </li>
+    </ul>
+
+    <p class="card-label resource-subhead">Previous courses</p>
+    <ul>
+      <li>
+        <a
+          href="https://mit6875.github.io/fall2025.html"
+          target="_blank"
+          rel="noreferrer"
+          >Fall 2025 course<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://mit6875.github.io/fall2023.html"
+          target="_blank"
+          rel="noreferrer"
+          >Fall 2023 course<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://mit6875.github.io/fall2022.html"
+          target="_blank"
+          rel="noreferrer"
+          >Fall 2022 course<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+    </ul>
+  </article>
+
+  <article>
+    <p class="card-label">Textbooks</p>
+    <ul>
+      <li>
+        <a
+          href="https://web.engr.oregonstate.edu/~rosulekm/crypto/"
+          target="_blank"
+          rel="noreferrer"
+          >The Joy of Cryptography<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.wisdom.weizmann.ac.il/~oded/foc-book.html"
+          target="_blank"
+          rel="noreferrer"
+          >Goldreich, Volumes 1 &amp; 2<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.amazon.com/Introduction-Modern-Cryptography-Principles-Protocols/dp/1584885513"
+          target="_blank"
+          rel="noreferrer"
+          >Katz–Lindell<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://toc.cryptobook.us/book.pdf"
+          target="_blank"
+          rel="noreferrer"
+          >Boneh–Shoup<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.cs.cornell.edu/courses/cs4830/2010fa/lecnotes.pdf"
+          target="_blank"
+          rel="noreferrer"
+          >Pass–Shelat<span class="external-mark" aria-hidden="true">↗</span></a
+        >
+      </li>
+    </ul>
+  </article>
+</div>
       </section>
       <footer>
         <div class="wrap footer-inner">
