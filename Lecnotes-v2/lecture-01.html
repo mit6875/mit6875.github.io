@@ -56,11 +56,7 @@
       h1 { max-width:800px; margin:17px 0 22px; font:500 clamp(56px,7vw,88px)/.92 Georgia,serif; letter-spacing:-4px; }
       .deck { max-width:680px; margin:0; color:#4b5b55; font-size:21px; line-height:1.52; }
       .chapter-meta { display:flex; gap:42px; margin-top:36px; color:#7c827c; font:700 8px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
-      .reading-grid { display:grid; grid-template-columns:170px minmax(0,720px); justify-content:center; gap:68px; padding:55px 0 90px; }
-      .on-page { position:sticky; top:98px; align-self:start; display:grid; gap:9px; font-family:Arial,sans-serif; }
-      .on-page>span { margin-bottom:7px; color:#858981; font:700 8px/1 Arial,sans-serif; letter-spacing:1.2px; }
-      .on-page a { padding-left:10px; border-left:1px solid var(--line); color:#6f756f; font-size:9px; line-height:1.35; }
-      .on-page a:hover { color:var(--accent); border-color:var(--accent); }
+      .reading-grid { display:grid; grid-template-columns:minmax(0,720px); justify-content:center; padding:55px 0 90px; }
       .prose { min-width:0; font-size:16px; line-height:1.8; }
       .prose section { position:relative; margin:0 0 62px; scroll-margin-top:92px; }
       .prose h2 { margin:0 0 24px; padding-bottom:16px; border-bottom:1px solid var(--line); font:400 31px/1.16 Georgia,serif; letter-spacing:-.8px; }
@@ -102,7 +98,6 @@
         .topbar { height:58px; padding:0 22px; }
         .article { width:calc(100% - 44px); }
         .reading-grid { grid-template-columns:1fr; }
-        .on-page { display:none; }
       }
       @media (max-width:650px) {
         .course-link { display:none; }
@@ -122,7 +117,6 @@
         .page { margin:0; }
         .article { width:100%; }
         .reading-grid { display:block; padding-top:35px; }
-        .on-page { display:none; }
         body { background:#fff; }
         .prose section { break-inside:auto; }
         .definition,.theorem,.remark,.info-card { break-inside:avoid; }
@@ -175,17 +169,6 @@
         </header>
 
         <div class="reading-grid">
-          <nav class="on-page" aria-label="On this page">
-            <span>ON THIS PAGE</span>
-            <a href="#staff">Course staff</a>
-            <a href="#grading">Grading</a>
-            <a href="#about">What is this class about?</a>
-            <a href="#perfect-security">Perfect security</a>
-            <a href="#defining-security">Defining security</a>
-            <a href="#one-time-pad">The one-time pad</a>
-            <a href="#only-once">Why only once?</a>
-          </nav>
-
           <div class="prose">
             <section id="staff">
               <h2><span>1.</span> Course staff</h2>
