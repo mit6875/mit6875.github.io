@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="MIT 6.5620 Lecture 1: Introduction, perfect security, and the one-time pad." />
+    <title>Lecture 1: Introduction & Perfect Secrecy — MIT 6.5620</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]],
+          macros: {
+            Enc: "\\mathsf{Enc}",
+            Dec: "\\mathsf{Dec}",
+            calM: "\\mathcal{M}",
+            calC: "\\mathcal{C}",
+            calK: "\\mathcal{K}"
+          }
+        },
+        chtml: { scale: 1 }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      :root { --paper:#f4f0e7; --ink:#182824; --muted:#6e756f; --line:#cbc5b7; --accent:#df5c40; --sidebar:#11231f; --panel:#ebe5d8; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; background:var(--paper); color:var(--ink); font-family:Georgia,"Times New Roman",serif; }
+      a { color:inherit; text-decoration:none; }
+      button { color:inherit; font:inherit; }
+      .sidebar { position:fixed; inset:0 auto 0 0; width:282px; padding:31px 20px 21px; background:var(--sidebar); color:#f6f2e8; display:flex; flex-direction:column; z-index:10; }
+      .brand { display:flex; gap:12px; align-items:flex-start; padding:0 7px 25px; border-bottom:1px solid rgba(255,255,255,.15); }
+      .brand-code { color:#f36c50; font:700 25px/.95 Georgia,serif; letter-spacing:-1.4px; }
+      .brand-name { color:#fff; font:600 13px/1.1 Arial,sans-serif; }
+      .close { display:none; border:0; background:none; color:#fff; font-size:26px; }
+      .side-links { display:grid; gap:3px; padding:25px 0 22px; }
+      .side-links a { padding:10px 11px; border-left:2px solid transparent; color:#aebbb5; font:12px/1.3 Arial,sans-serif; }
+      .side-links a:hover,.side-links a.active { color:#fff; border-left-color:var(--accent); background:rgba(255,255,255,.05); }
+      .toc-label { padding:18px 10px 12px; border-top:1px solid rgba(255,255,255,.12); color:#73827c; font:700 8px/1 Arial,sans-serif; letter-spacing:1.3px; }
+      .toc { display:grid; overflow:auto; padding-bottom:20px; }
+      .toc a { display:grid; grid-template-columns:23px 1fr; gap:5px; padding:8px 9px; border-left:2px solid transparent; color:#91a09a; font:500 10px/1.25 Arial,sans-serif; }
+      .toc a span { color:#66756f; font:italic 11px/1.2 Georgia,serif; }
+      .toc a:hover { color:#fff; border-left-color:var(--accent); background:rgba(255,255,255,.055); }
+      .side-footer { margin-top:auto; padding:15px 8px 0; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; color:#62716b; font:700 7px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
+      .page { margin-left:282px; min-height:100vh; }
+      .topbar { height:68px; padding:0 clamp(28px,5vw,76px); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:rgba(244,240,231,.94); backdrop-filter:blur(12px); z-index:5; font-family:Arial,sans-serif; }
+      .edition { color:#727872; font:700 9px/1 Arial,sans-serif; letter-spacing:1.6px; }
+      .top-actions { display:flex; align-items:center; gap:26px; }
+      .topbar a,.topbar button { border:0; background:none; font:700 10px/1 Arial,sans-serif; cursor:pointer; }
+      .topbar a span,.topbar button span { color:var(--accent); }
+      .mobile-menu { display:none; }
+      .article { width:min(1050px,calc(100% - 10vw)); margin:0 auto; }
+      .chapter-head { padding:73px 0 54px; border-bottom:1px solid var(--line); }
+      .chapter-label,.eyebrow { color:var(--accent); font:700 9px/1 Arial,sans-serif; letter-spacing:1.8px; text-transform:uppercase; }
+      h1 { max-width:800px; margin:17px 0 22px; font:500 clamp(56px,7vw,88px)/.92 Georgia,serif; letter-spacing:-4px; }
+      .deck { max-width:680px; margin:0; color:#4b5b55; font-size:21px; line-height:1.52; }
+      .chapter-meta { display:flex; gap:42px; margin-top:36px; color:#7c827c; font:700 8px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
+      .reading-grid { display:grid; grid-template-columns:170px minmax(0,720px); justify-content:center; gap:68px; padding:55px 0 90px; }
+      .on-page { position:sticky; top:98px; align-self:start; display:grid; gap:9px; font-family:Arial,sans-serif; }
+      .on-page>span { margin-bottom:7px; color:#858981; font:700 8px/1 Arial,sans-serif; letter-spacing:1.2px; }
+      .on-page a { padding-left:10px; border-left:1px solid var(--line); color:#6f756f; font-size:9px; line-height:1.35; }
+      .on-page a:hover { color:var(--accent); border-color:var(--accent); }
+      .prose { min-width:0; font-size:16px; line-height:1.8; }
+      .prose section { position:relative; margin:0 0 62px; scroll-margin-top:92px; }
+      .prose h2 { margin:0 0 24px; padding-bottom:16px; border-bottom:1px solid var(--line); font:400 31px/1.16 Georgia,serif; letter-spacing:-.8px; }
+      .prose h2 span { color:var(--accent); font-style:italic; }
+      .prose p { margin:0 0 19px; }
+      .prose ul { margin:0 0 22px; padding-left:23px; }
+      .prose li { margin:8px 0; padding-left:4px; }
+      .lead { color:#364842; font-size:20px; line-height:1.6; }
+      .info-card { margin:24px 0; padding:22px 25px; background:var(--ink); color:#f6f2e8; }
+      .info-card strong { color:#f4775c; font-family:Arial,sans-serif; }
+      .definition,.theorem,.remark { margin:30px 0; padding:26px 29px; border:1px solid #a8a59c; background:#f8f4eb; box-shadow:5px 5px 0 #ddd6c8; }
+      .theorem { border-color:var(--ink); box-shadow:5px 5px 0 var(--ink); }
+      .box-head { display:flex; justify-content:space-between; gap:20px; margin-bottom:15px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+      .box-head span { color:var(--accent); font:700 8px/1 Arial,sans-serif; letter-spacing:1.25px; text-transform:uppercase; }
+      .box-head b { text-align:right; font:600 11px/1.2 Arial,sans-serif; }
+      .definition p:last-child,.theorem p:last-child,.remark p:last-child { margin-bottom:0; }
+      .formula { margin:22px 0; padding:18px; overflow-x:auto; background:var(--ink); color:#f8f3e9; text-align:center; }
+      mjx-container[jax="CHTML"][display="true"] { margin:0!important; overflow-x:auto; overflow-y:hidden; }
+      .proof { margin:25px 0 35px; padding:0 0 0 24px; border-left:2px solid var(--line); }
+      .proof h3 { margin:0 0 13px; color:var(--accent); font:italic 18px/1 Georgia,serif; }
+      .proof p:last-child::after { content:" □"; float:right; font-weight:700; }
+      .margin-note { margin:25px 0; padding:17px 20px; border-left:3px solid var(--accent); background:var(--panel); }
+      .margin-note b { display:block; margin-bottom:5px; color:var(--accent); font:700 8px/1 Arial,sans-serif; letter-spacing:1.1px; text-transform:uppercase; }
+      .remark { border:0; border-left:3px solid var(--accent); box-shadow:none; background:var(--panel); }
+      .references { padding-top:5px; }
+      .reference { padding:18px 0; border-top:1px solid var(--line); font-size:14px; }
+      .reference a { color:var(--accent); border-bottom:1px solid currentColor; }
+      .chapter-nav { display:flex; justify-content:space-between; align-items:center; padding:31px 0 42px; border-top:1px solid var(--line); font-family:Arial,sans-serif; }
+      .chapter-nav a { display:grid; gap:7px; }
+      .chapter-nav span { color:var(--accent); font:700 8px/1 Arial,sans-serif; letter-spacing:1px; }
+      .chapter-nav b { font:400 16px/1.2 Georgia,serif; }
+      @media (max-width:900px) {
+        .sidebar { transform:translateX(-100%); width:min(330px,88vw); transition:transform .25s; box-shadow:10px 0 40px rgba(0,0,0,.2); }
+        .sidebar.open { transform:translateX(0); }
+        .close { display:block; position:absolute; top:24px; right:18px; }
+        .page { margin-left:0; }
+        .mobile-menu { display:block; }
+        .edition { display:none; }
+        .topbar { height:58px; padding:0 22px; }
+        .article { width:calc(100% - 44px); }
+        .reading-grid { grid-template-columns:1fr; }
+        .on-page { display:none; }
+      }
+      @media (max-width:650px) {
+        .course-link { display:none; }
+        .chapter-head { padding:51px 0 42px; }
+        h1 { font-size:47px; letter-spacing:-2.2px; }
+        .deck { font-size:18px; }
+        .chapter-meta { gap:18px; flex-wrap:wrap; }
+        .reading-grid { padding-top:40px; }
+        .prose { font-size:15px; }
+        .prose h2 { font-size:27px; }
+        .definition,.theorem { padding:22px 20px; }
+        .box-head { display:grid; }
+        .box-head b { text-align:left; }
+      }
+      @media print {
+        .sidebar,.topbar,.chapter-nav { display:none!important; }
+        .page { margin:0; }
+        .article { width:100%; }
+        .reading-grid { display:block; padding-top:35px; }
+        .on-page { display:none; }
+        body { background:#fff; }
+        .prose section { break-inside:auto; }
+        .definition,.theorem,.remark,.info-card { break-inside:avoid; }
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <button class="close" type="button" aria-label="Close contents" onclick="document.getElementById('sidebar').classList.remove('open')">×</button>
+      <a class="brand" href="index.html">
+        <span class="brand-code">6.5620</span>
+        <span class="brand-name">Foundations of<br />Cryptography</span>
+      </a>
+      <nav class="side-links" aria-label="Course navigation">
+        <a href="index.html">← All lectures</a>
+        <a class="active" href="#top">Lecture 01</a>
+        <a href="../index.html">Main course site ↗</a>
+      </nav>
+      <div class="toc-label">IN THIS LECTURE</div>
+      <nav class="toc" aria-label="Lecture contents">
+        <a href="#staff"><span>1</span>Course staff</a>
+        <a href="#website"><span>2</span>Course website</a>
+        <a href="#grading"><span>3</span>Grading</a>
+        <a href="#about"><span>4</span>What is this class about?</a>
+        <a href="#perfect-security"><span>5</span>Perfect security</a>
+        <a href="#defining-security"><span>6</span>Defining security</a>
+        <a href="#one-time-pad"><span>7</span>The one-time pad</a>
+        <a href="#only-once"><span>8</span>Why only once?</a>
+        <a href="#references"><span>9</span>References</a>
+      </nav>
+      <div class="side-footer"><span>Lecture 01</span><span>Sep 09</span></div>
+    </aside>
+
+    <main class="page" id="top">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" onclick="document.getElementById('sidebar').classList.add('open')">6.5620 · Contents</button>
+        <span class="edition">MIT EECS · LECTURE 01</span>
+        <div class="top-actions">
+          <a class="course-link" href="index.html"><span>←</span> Lecture index</a>
+          <button type="button" onclick="window.print()">Offline edition <span>↓</span></button>
+        </div>
+      </header>
+
+      <article class="article">
+        <header class="chapter-head">
+          <span class="chapter-label">LECTURE 01 · SEP 09</span>
+          <h1>Introduction &amp;<br />Perfect Secrecy</h1>
+          <p class="deck">Course overview, Shannon’s definition of perfect security, and the one-time pad.</p>
+          <div class="chapter-meta"><span>MIT 6.5620 · 6.875 · 18.425</span><span>Fall 2026</span><span>Foundations of Cryptography</span></div>
+        </header>
+
+        <div class="reading-grid">
+          <nav class="on-page" aria-label="On this page">
+            <span>ON THIS PAGE</span>
+            <a href="#staff">Course staff</a>
+            <a href="#grading">Grading</a>
+            <a href="#about">What is this class about?</a>
+            <a href="#perfect-security">Perfect security</a>
+            <a href="#defining-security">Defining security</a>
+            <a href="#one-time-pad">The one-time pad</a>
+            <a href="#only-once">Why only once?</a>
+          </nav>
+
+          <div class="prose">
+            <section id="staff">
+              <h2><span>1.</span> Course staff</h2>
+              <div class="info-card">
+                <p><strong>Instructors:</strong> Shafi Goldwasser and Vinod Vaikuntanathan</p>
+                <p><strong>Teaching assistants:</strong> Noga Amit and Zoe Xi</p>
+              </div>
+            </section>
+
+            <section id="website">
+              <h2><span>2.</span> Course website</h2>
+              <p>All information about the class can be found on the <a href="../index.html" style="color:var(--accent);border-bottom:1px solid currentColor">course website</a>.</p>
+            </section>
+
+            <section id="grading">
+              <h2><span>3.</span> Grading</h2>
+              <ul>
+                <li><strong>30%</strong> of the grade: midterm.</li>
+                <li><strong>40%</strong> of the grade: final.</li>
+                <li><strong>10%</strong> of the grade: five problem sets.</li>
+                <li><strong>10%</strong> of the grade: oral problem-set review, scheduled after the midterm.</li>
+                <li><strong>10%</strong> of the grade: class participation.</li>
+                <li>You may collaborate on problem sets in small groups of up to three, but must write your solutions separately and in your own words. We strongly recommend <em>not</em> using AI tools to solve your problem sets.</li>
+                <li>If you need an extension for any reason, email the staff and you will be granted 48 additional hours, no questions asked. If you need more time, contact S<sup>3</sup> if you are an undergraduate or your academic advisor if you are a graduate student.</li>
+              </ul>
+            </section>
+
+            <section id="about">
+              <h2><span>4.</span> What is this class about?</h2>
+              <p class="lead">This is a foundations class in which we will learn fundamental concepts in cryptography. We will see three themes.</p>
+              <ul>
+                <li><strong>Definitions.</strong> We will learn how to think adversarially: how to model the adversary, its goals, and its capabilities. We will focus on finding the “correct definitions” that capture the real world. When trying to achieve secrecy, integrity, authenticity, fairness, zero knowledge, or another cryptographic goal, we often encounter an impossibility result. Cryptography is the art of overcoming such barriers—often by carefully choosing the definitions and models.</li>
+                <li><strong>Hardness assumptions.</strong> Most cryptography relies on hardness assumptions because unconditional security is often impossible. These assumptions come from number theory, group theory, elliptic curves, lattices, and coding theory.</li>
+                <li><strong>Reductions.</strong> We prove security via reductions: if an adversary breaks our scheme, we transform that adversary into a break of the underlying hardness assumption. As Silvio Micali puts it, “science wins either way!”</li>
+              </ul>
+              <p>We will use these concepts to do what has always seemed indistinguishable from magic: communicate secretly and authentically without meeting to share a secret; compute on encrypted data; prove statements without revealing why they are true; hide in plain sight; and more.</p>
+            </section>
+
+            <section id="perfect-security">
+              <h2><span>5.</span> Perfect security and the one-time pad</h2>
+              <p>Claude Shannon was the first to give a rigorous definition of secure encryption <a href="#ref-shannon" style="color:var(--accent)">[1]</a>. His definition is now commonly called <em>perfect security</em>. He also showed that a very simple encryption scheme—the one-time pad—satisfies this definition.</p>
+              <p>First, let us understand the syntax of an encryption scheme. Alice and Bob need a private or secret key that the eavesdropper Eve does not know; otherwise, Eve can simulate Bob and recover the hidden message whenever Bob does. We will revisit this assumption later in the course. For now, we study symmetric-key, or secret-key, encryption.</p>
+
+              <div class="definition">
+                <div class="box-head"><span>DEFINITION 1</span><b>Encryption scheme</b></div>
+                <p>An encryption scheme has a message space \(\mathcal M\) (the plaintext space), a ciphertext space \(\mathcal C\), a key space \(\mathcal K\), and two polynomial-time algorithms with syntax</p>
+                <div class="formula">\[\Enc:\mathcal K\times\mathcal M\rightarrow\mathcal C \qquad \Dec:\mathcal K\times\mathcal C\rightarrow\mathcal M.\]</div>
+                <p><strong>Correctness.</strong> For every \(m\in\mathcal M\) and \(k\in\mathcal K\),</p>
+                <div class="formula">\[\Dec(k,\Enc(k,m))=m.\]</div>
+                <p><strong>Security.</strong> To be defined.</p>
+              </div>
+
+              <p>Correctness is the easy part. How do we define what it means for an encryption scheme to be secure? For now, it makes sense to restrict the adversary to eavesdropping on communications between Alice and Bob, rather than actively tampering with them. One thing at a time.</p>
+              <p>We want to be <em>maximalistic</em>: seeing a ciphertext should not help the adversary determine the transmitted message beyond any prior knowledge already conveyed by the message distribution \(M\). If \(M\) is uniform over \(\{\texttt{buy},\texttt{sell}\}\), then even after seeing the ciphertext, the adversary’s view should remain 50–50. This is the essence of Shannon’s definition.</p>
+            </section>
+
+            <section id="defining-security">
+              <h2><span>6.</span> How to define security</h2>
+              <div class="definition">
+                <div class="box-head"><span>DEFINITION 2</span><b>Shannon security / perfect secrecy</b></div>
+                <p>An encryption scheme has message, ciphertext, and key spaces \(\mathcal M,\mathcal C,\mathcal K\), and polynomial-time algorithms \((\Enc,\Dec)\). It satisfies correctness as above and, for every distribution \(M\) over \(\mathcal M\), every plaintext \(m\in\mathcal M\), and every ciphertext \(c\in\mathcal C\),</p>
+                <div class="formula">\[\Pr[M=m]=\Pr_{k\gets\mathcal K}[M=m\mid \Enc(k,M)=c].\]</div>
+              </div>
+              <p>The definition does not refer explicitly to an adversary. Nevertheless, it captures the idea that Eve knows exactly as much about the plaintext after seeing the ciphertext as she did before. The ciphertext reveals no information about \(m\).</p>
+
+              <div class="definition">
+                <div class="box-head"><span>DEFINITION 3</span><b>Perfect indistinguishability</b></div>
+                <p>An encryption scheme \((\Enc,\Dec)\) is perfectly indistinguishable if for every \(m_0,m_1\in\mathcal M\) and every \(c\in\mathcal C\),</p>
+                <div class="formula">\[\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]=\Pr_{k\gets\mathcal K}[\Enc(k,m_1)=c].\]</div>
+              </div>
+
+              <div class="theorem">
+                <div class="box-head"><span>CLAIM 1</span><b>Equivalence</b></div>
+                <p>An encryption scheme is perfectly secret if and only if it is perfectly indistinguishable.</p>
+              </div>
+
+              <div class="proof">
+                <h3>Proof.</h3>
+                <p>First, suppose \((\Enc,\Dec)\) is Shannon secure. Fix plaintexts \(m_0,m_1\in\mathcal M\) and a ciphertext \(c\in\mathcal C\). Let \(M\) be uniform on \(\{m_0,m_1\}\), so \(\Pr[M=m_0]=\Pr[M=m_1]=1/2\). By Shannon security, for each \(b\in\{0,1\}\),</p>
+                <div class="formula">\[\Pr[M=m_b]=\Pr_{k\gets\mathcal K}[M=m_b\mid\Enc(k,M)=c].\]</div>
+                <p>Bayes’ theorem gives</p>
+                <div class="formula">\[\Pr_{k\gets\mathcal K}[M=m_b\mid\Enc(k,M)=c]=\frac{\Pr[M=m_b]\Pr_{k\gets\mathcal K}[\Enc(k,m_b)=c]}{\Pr_{k\gets\mathcal K}[\Enc(k,M)=c]}.\]</div>
+                <p>Combining these equalities,</p>
+                <div class="formula">\[\Pr_{k\gets\mathcal K}[\Enc(k,m_b)=c]=\Pr_{k\gets\mathcal K}[\Enc(k,M)=c].\]</div>
+                <p>Since this holds for both \(b=0\) and \(b=1\), the two ciphertext probabilities are equal, proving perfect indistinguishability.</p>
+                <p>Conversely, suppose the scheme is perfectly indistinguishable. Let \(M\) be any distribution over \(\mathcal M\), and fix \(m_0\in\mathcal M\) and \(c\in\mathcal C\). By Bayes’ rule,</p>
+                <div class="formula">\[\Pr_{k\gets\mathcal K}[M=m_0\mid\Enc(k,M)=c]=\frac{\Pr[M=m_0]\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]}{\Pr_{k\gets\mathcal K}[\Enc(k,M)=c]}.\]</div>
+                <p>Perfect indistinguishability implies</p>
+                <div class="formula">\[\begin{aligned}\Pr_{k\gets\mathcal K}[\Enc(k,M)=c] &= \sum_{m_1\in\mathcal M}\Pr[M=m_1]\Pr_{k\gets\mathcal K}[\Enc(k,m_1)=c]\\ &= \sum_{m_1\in\mathcal M}\Pr[M=m_1]\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]\\ &= \Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c].\end{aligned}\]</div>
+                <p>Substituting into Bayes’ rule yields \(\Pr[M=m_0\mid\Enc(k,M)=c]=\Pr[M=m_0]\), as required.</p>
+              </div>
+
+              <p>There is a third, equivalent definition in which Eve appears explicitly. It resembles many of the definitions we will use later.</p>
+              <div class="definition">
+                <div class="box-head"><span>DEFINITION 4</span><b>Perfect security against an adversary</b></div>
+                <p>An encryption scheme \((\Enc,\Dec)\) is perfectly secure against an adversary if for every \(\mathcal E:\mathcal C\rightarrow\{0,1\}\) and every pair \(m_0,m_1\in\mathcal M\),</p>
+                <div class="formula">\[\Pr_{b\gets\{0,1\},\,k\gets\mathcal K}[\mathcal E(\Enc(k,m_b))=b]=\frac12.\]</div>
+              </div>
+              <p>It is a good exercise to show that this definition is equivalent to perfect indistinguishability, and therefore to Shannon security.</p>
+            </section>
+
+            <section id="one-time-pad">
+              <h2><span>7.</span> The one-time pad</h2>
+              <p>Shannon not only gave the first rigorous definition of secure encryption; he also constructed a scheme satisfying it. The construction is known as the <em>one-time pad</em>.</p>
+              <aside class="margin-note"><b>Historical note</b>The one-time pad predates Shannon and can be traced to Frank Miller in 1882. Shannon was the first to provide formal guarantees.</aside>
+              <p>For any integer \(n\), the message, ciphertext, and key spaces are all \(\{0,1\}^n\). Choose \(n\) large enough to accommodate the plaintexts to be sent.</p>
+              <div class="formula">\[\Enc(k,m)=k\oplus m \qquad\text{and}\qquad \Dec(k,c)=k\oplus c.\]</div>
+              <p>The one-time pad is elegant, simple, and efficient. It is also easy to prove perfectly indistinguishable, which immediately implies perfect secrecy.</p>
+              <div class="theorem">
+                <div class="box-head"><span>THEOREM 1</span><b>Security of the one-time pad</b></div>
+                <p>The one-time pad is perfectly indistinguishable.</p>
+              </div>
+              <div class="proof">
+                <h3>Proof.</h3>
+                <p>For plaintexts \(m_0,m_1\in\{0,1\}^n\) and ciphertext \(c\in\{0,1\}^n\), there are unique keys \(k_0:=m_0\oplus c\) and \(k_1:=m_1\oplus c\) satisfying \(\Enc(k_b,m_b)=c\). Therefore,</p>
+                <div class="formula">\[\Pr_{k\gets\{0,1\}^n}[\Enc(k,m_b)=c]=\Pr_{k\gets\{0,1\}^n}[k=k_b]=2^{-n}.\]</div>
+                <p>Thus the probabilities are equal for \(m_0\) and \(m_1\), as desired.</p>
+              </div>
+            </section>
+
+            <section id="only-once">
+              <h2><span>8.</span> The one-time pad can be used only once</h2>
+              <p>The one-time pad has been used significantly in practice, especially by diplomats transmitting classified information during World War II. However, a key of length \(n\) can encrypt only \(n\) bits. To exchange a 1 GB message, Alice and Bob must first exchange a 1 GB key.</p>
+              <p>Reusing a key \(k\gets\{0,1\}^n\) to encrypt two messages \(m_0,m_1\in\{0,1\}^n\) breaks security because</p>
+              <div class="formula">\[\Enc(k,m_0)\oplus\Enc(k,m_1)=m_0\oplus m_1.\]</div>
+              <p>The unfortunate fact is that this limitation is inherent.</p>
+              <div class="theorem">
+                <div class="box-head"><span>THEOREM 2</span><b>Shannon’s lower bound</b></div>
+                <p>If \((\Enc,\Dec)\) is perfectly indistinguishable, then \(|\mathcal K|\geq|\mathcal M|\).</p>
+              </div>
+              <div class="proof">
+                <h3>Proof.</h3>
+                <p>For every plaintext \(m\in\mathcal M\) and every ciphertext \(c\) in the image of \(\Enc\), at least one key must map \(m\) to \(c\); otherwise the scheme is not perfectly indistinguishable. Two distinct plaintexts cannot map to the same ciphertext under the same key, because correctness would then be impossible. Thus there must be at least as many keys as ciphertexts. Since there must be at least one distinct ciphertext for every plaintext, there must be at least as many keys as plaintexts.</p>
+              </div>
+              <div class="remark"><div class="box-head"><span>REMARK</span><b>Randomized encryption</b></div><p>We will later consider randomized encryption algorithms. The same impossibility result holds for randomized encryption, though the proof is slightly more delicate.</p></div>
+              <p>This impossibility result is unacceptable for our goals. We want to agree on a single key \(k\gets\{0,1\}^n\) and then encrypt arbitrarily many messages. Given the lower bound, we must somehow weaken the security definition.</p>
+              <p>To see how, examine the attack. Suppose \(|\mathcal K|&lt;|\mathcal M|\), and Eve receives \(c=\Enc(k,m_b)\). She can compute</p>
+              <div class="formula">\[M_c:=\{\Dec(k',c):k'\in\mathcal K\}.\]</div>
+              <p>If \(m_0\in M_c\) and \(m_1\notin M_c\), Eve outputs 0. If \(m_1\in M_c\) and \(m_0\notin M_c\), she outputs 1. If both lie in \(M_c\), she outputs a random bit.</p>
+              <p>The lower-bound proof shows that for some pair \(m_0,m_1\), there is a probability \(p&gt;0\) that one plaintext does not lie in \(M_c\). Eve then succeeds with probability at least \((1+p)/2&gt;1/2\).</p>
+              <p>But deciding whether \(m_b\in M_c\) is extremely challenging: it takes time roughly \(2^n\). Even for \(n=256\), this is more than the number of molecules on Earth. Since Eve represents an entity in the real world, let us restrict her running time to be significantly less than \(2^n\). This turns out to be a very good idea.</p>
+            </section>
+
+            <section class="references" id="references">
+              <h2><span>9.</span> References</h2>
+              <div class="reference" id="ref-shannon"><strong>[1]</strong> Claude E. Shannon. “Communication Theory of Secrecy Systems.” <em>Bell System Technical Journal</em> 28(4), 656–715, 1949.</div>
+            </section>
+          </div>
+        </div>
+
+        <nav class="chapter-nav" aria-label="Lecture navigation">
+          <a href="index.html"><span>← INDEX</span><b>All lectures</b></a>
+          <a href="index.html#module-01" style="text-align:right"><span>NEXT →</span><b>Lecture 02 · Notes forthcoming</b></a>
+        </nav>
+      </article>
+    </main>
+    <script>
+      document.querySelectorAll("#sidebar a").forEach(function (link) {
+        link.addEventListener("click", function () { document.getElementById("sidebar").classList.remove("open"); });
+      });
+    </script>
+  </body>
+</html>

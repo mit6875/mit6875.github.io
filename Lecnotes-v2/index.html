@@ -65,6 +65,8 @@
       .module-heading p { max-width:650px; margin:0; color:var(--muted); font-size:12px; line-height:1.5; }
       .lectures { border-top:1px solid #99978e; }
       .lecture { display:grid; grid-template-columns:64px minmax(220px,1fr) minmax(180px,.75fr) 72px; gap:16px; align-items:center; min-height:93px; border-bottom:1px solid var(--line); }
+      .lecture-link { transition:padding .2s,color .2s; }
+      .lecture-link:hover { padding-left:9px; color:var(--accent); }
       .number { color:#99978f; font:italic 25px/1 Georgia,serif; }
       .title { font:24px/1.08 Georgia,serif; }
       .title small { display:block; margin-bottom:7px; color:var(--muted); font:700 7px/1 Arial,sans-serif; letter-spacing:1.15px; }
@@ -168,7 +170,7 @@
           <section class="module" id="module-01">
             <header class="module-heading"><span>MODULE 01</span><div><h3>Basics &amp; private-key cryptography</h3><p>Perfect secrecy, computational security, pseudorandomness, and the foundations of symmetric encryption.</p></div></header>
             <div class="lectures">
-              <article class="lecture"><span class="number">01</span><span class="title"><small>SEP 09</small>Introduction &amp; perfect secrecy</span><span class="description">Secure communication, Shannon’s definition, the one-time pad, and Shannon’s lower bound.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
+              <a class="lecture lecture-link" href="lecture-01.html"><span class="number">01</span><span class="title"><small>SEP 09</small>Introduction &amp; perfect secrecy</span><span class="description">Secure communication, Shannon’s definition, the one-time pad, and Shannon’s lower bound.</span><span class="status">READ<br />NOTES →</span></a>
               <article class="lecture"><span class="number">02</span><span class="title"><small>SEP 14</small>Computational security &amp; PRGs</span><span class="description">Computational adversaries, pseudorandom generators, and stateful secret-key encryption.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
               <article class="lecture"><span class="number">03</span><span class="title"><small>SEP 16</small>Hybrids, PRGs &amp; PRFs</span><span class="description">The hybrid argument, PRG length extension, pseudorandom functions, and encryption from PRFs.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
               <article class="lecture"><span class="number">04</span><span class="title"><small>SEP 21</small>Pseudorandom functions</span><span class="description">Formal PRF security, the GGM construction, and the definition of IND-CPA security.</span><span class="status">NOTES<br />FORTHCOMING</span></article>
