@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="MIT 6.5620 Lecture 1: Introduction, perfect security, and the one-time pad." />
-    <title>Lecture 1: Introduction & Perfect Secrecy — MIT 6.5620</title>
+    <meta name="description" content="MIT 6.5620 Lecture 1: Intro, perfect security, and the one-time pad." />
+    <title>Lecture 1: Intro & Perfect Secrecy — MIT 6.5620</title>
     <script>
       window.MathJax = {
         tex: {
@@ -45,7 +45,7 @@
       .side-footer { margin-top:auto; padding:15px 8px 0; border-top:1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; color:#62716b; font:700 7px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
       .page { margin-left:282px; min-height:100vh; }
       .topbar { height:68px; padding:0 clamp(28px,5vw,76px); border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:rgba(244,240,231,.94); backdrop-filter:blur(12px); z-index:5; font-family:Arial,sans-serif; }
-      .edition { color:#727872; font:700 9px/1 Arial,sans-serif; letter-spacing:1.6px; }
+      .edition { display:flex; gap:24px; color:#727872; font:700 9px/1 Arial,sans-serif; letter-spacing:1.2px; text-transform:uppercase; }
       .top-actions { display:flex; align-items:center; gap:26px; }
       .topbar a,.topbar button { border:0; background:none; font:700 10px/1 Arial,sans-serif; cursor:pointer; }
       .topbar a span,.topbar button span { color:var(--accent); }
@@ -53,9 +53,8 @@
       .article { width:min(1050px,calc(100% - 10vw)); margin:0 auto; }
       .chapter-head { padding:73px 0 54px; border-bottom:1px solid var(--line); }
       .chapter-label,.eyebrow { color:var(--accent); font:700 9px/1 Arial,sans-serif; letter-spacing:1.8px; text-transform:uppercase; }
-      h1 { max-width:800px; margin:17px 0 22px; font:500 clamp(56px,7vw,88px)/.92 Georgia,serif; letter-spacing:-4px; }
+      h1 { max-width:none; margin:17px 0 22px; font:500 clamp(48px,5.4vw,80px)/.92 Georgia,serif; letter-spacing:-3.5px; white-space:nowrap; }
       .deck { max-width:680px; margin:0; color:#4b5b55; font-size:21px; line-height:1.52; }
-      .chapter-meta { display:flex; gap:42px; margin-top:36px; color:#7c827c; font:700 8px/1 Arial,sans-serif; letter-spacing:1px; text-transform:uppercase; }
       .reading-grid { display:grid; grid-template-columns:minmax(0,720px); justify-content:center; padding:55px 0 90px; }
       .prose { min-width:0; font-size:16px; line-height:1.8; }
       .prose section { position:relative; margin:0 0 62px; scroll-margin-top:92px; }
@@ -84,7 +83,7 @@
       .references { padding-top:5px; }
       .reference { padding:18px 0; border-top:1px solid var(--line); font-size:14px; }
       .reference a { color:var(--accent); border-bottom:1px solid currentColor; }
-      .chapter-nav { display:flex; justify-content:space-between; align-items:center; padding:31px 0 42px; border-top:1px solid var(--line); font-family:Arial,sans-serif; }
+      .chapter-nav { display:flex; justify-content:flex-end; align-items:center; padding:31px 0 42px; border-top:1px solid var(--line); font-family:Arial,sans-serif; }
       .chapter-nav a { display:grid; gap:7px; }
       .chapter-nav span { color:var(--accent); font:700 8px/1 Arial,sans-serif; letter-spacing:1px; }
       .chapter-nav b { font:400 16px/1.2 Georgia,serif; }
@@ -100,11 +99,9 @@
         .reading-grid { grid-template-columns:1fr; }
       }
       @media (max-width:650px) {
-        .course-link { display:none; }
         .chapter-head { padding:51px 0 42px; }
-        h1 { font-size:47px; letter-spacing:-2.2px; }
+        h1 { font-size:clamp(28px,8vw,47px); letter-spacing:-1.8px; }
         .deck { font-size:18px; }
-        .chapter-meta { gap:18px; flex-wrap:wrap; }
         .reading-grid { padding-top:40px; }
         .prose { font-size:15px; }
         .prose h2 { font-size:27px; }
@@ -131,7 +128,6 @@
         <span class="brand-name">Foundations of<br />Cryptography</span>
       </a>
       <nav class="side-links" aria-label="Course navigation">
-        <a href="index.html">← All lectures</a>
         <a class="active" href="#top">Lecture 01</a>
         <a href="../index.html">Main course site ↗</a>
       </nav>
@@ -153,9 +149,8 @@
     <main class="page" id="top">
       <header class="topbar">
         <button class="mobile-menu" type="button" onclick="document.getElementById('sidebar').classList.add('open')">6.5620 · Contents</button>
-        <span class="edition">MIT EECS · LECTURE 01</span>
+        <span class="edition"><span>MIT 6.5620 · 6.875 · 18.425</span><span>Fall 2026</span><span>Foundations of Cryptography</span></span>
         <div class="top-actions">
-          <a class="course-link" href="index.html"><span>←</span> Lecture index</a>
           <button type="button" onclick="window.print()">Offline edition <span>↓</span></button>
         </div>
       </header>
@@ -163,9 +158,8 @@
       <article class="article">
         <header class="chapter-head">
           <span class="chapter-label">LECTURE 01 · SEP 09</span>
-          <h1>Introduction &amp;<br />Perfect Secrecy</h1>
+          <h1>Intro &amp; Perfect Secrecy</h1>
           <p class="deck">Course overview, Shannon’s definition of perfect security, and the one-time pad.</p>
-          <div class="chapter-meta"><span>MIT 6.5620 · 6.875 · 18.425</span><span>Fall 2026</span><span>Foundations of Cryptography</span></div>
         </header>
 
         <div class="reading-grid">
@@ -320,7 +314,6 @@
         </div>
 
         <nav class="chapter-nav" aria-label="Lecture navigation">
-          <a href="index.html"><span>← INDEX</span><b>All lectures</b></a>
           <a href="index.html#module-01" style="text-align:right"><span>NEXT →</span><b>Lecture 02 · Notes forthcoming</b></a>
         </nav>
       </article>
