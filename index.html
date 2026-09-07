@@ -648,7 +648,6 @@
       .schedule-event {
         display: grid;
         grid-template-columns: 150px minmax(0, 1fr) 112px;
-        grid-template-columns: 150px minmax(0, 1fr);
         gap: 26px;
         border-top: 1px solid var(--hairline);
         padding: 20px 0;
@@ -701,6 +700,13 @@
         font-size: 11.5px;
         display: none;
       }
+      .lecture-materials.has-notes {
+        display: block;
+      }
+      .lecture-materials a {
+        color: var(--teal-dark);
+        font-weight: 680;
+      }
       .lecture-materials > span {
         color: #a8b0b3;
       }
@@ -737,9 +743,6 @@
         grid-template-columns: 1fr 1fr;
         border-top: 1px solid var(--rule);
       }
-.resource-subhead {
-  margin-top: 30px;
-}
       .resource-grid article {
         min-height: 265px;
         border-right: 1px solid var(--hairline);
@@ -1528,20 +1531,10 @@
                   </p>
                   <span class="milestone">Pset 1 out</span>
                 </div>
-                <div class="lecture-materials">
-                  <a
-                  <!--
-                    Slide link commented out:
-                    <a
-                    href="https://mit6875.github.io/FA23SLIDES/lec1.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Slides<span class="external-mark" aria-hidden="true"
-                      >↗</span
-                    ></a
+                <div class="lecture-materials has-notes">
+                  <a href="Lecnotes-v2/lecture-01.html"
+                    >Lecture notes <span aria-hidden="true">→</span></a
                   >
-                -->
-                  <span aria-hidden="true">—</span>
                 </div>
               </article>
               <article class="lecture-row">
@@ -2122,20 +2115,7 @@
         </div>
         <div class="resource-grid">
   <article>
-    <p class="card-label">Lecture notes</p>
-    <ul>
-      <li>
-        <a href="Lecnotes-v2/index.html"
-  	>Fall 2026 lecture notes<span
-            class="external-mark"
-            aria-hidden="true"
-            >↗</span
-          ></a
-        >
-      </li>
-    </ul>
-
-    <p class="card-label resource-subhead">Previous courses</p>
+    <p class="card-label">Previous courses</p>
     <ul>
       <li>
         <a
