@@ -133,15 +133,14 @@
       </nav>
       <div class="toc-label">IN THIS LECTURE</div>
       <nav class="toc" aria-label="Lecture contents">
-        <a href="#staff"><span>1</span>Course staff</a>
-        <a href="#website"><span>2</span>Course website</a>
+        <a href="#staff"><span>1</span>Course Staff</a>
+        <a href="#website"><span>2</span>Course Website</a>
         <a href="#grading"><span>3</span>Grading</a>
         <a href="#about"><span>4</span>What is this class about?</a>
-        <a href="#perfect-security"><span>5</span>Perfect security</a>
-        <a href="#defining-security"><span>6</span>Defining security</a>
-        <a href="#one-time-pad"><span>7</span>The one-time pad</a>
-        <a href="#only-once"><span>8</span>Why only once?</a>
-        <a href="#references"><span>9</span>References</a>
+        <a href="#perfect-security"><span>5</span>Today: Perfect Security and the One-Time Pad</a>
+        <a href="#defining-security"><span>6</span>How to Define the Security of an Encryption Scheme</a>
+        <a href="#one-time-pad"><span>7</span>The One-Time Pad</a>
+        <a href="#only-once"><span>8</span>The one-time pad can be used only once!</a>
       </nav>
       <div class="side-footer"><span>Lecture 01</span><span>Sep 09</span></div>
     </aside>
@@ -159,156 +158,206 @@
         <header class="chapter-head">
           <span class="chapter-label">LECTURE 01 · SEP 09</span>
           <h1>Intro &amp; Perfect Secrecy</h1>
-          <p class="deck">Course overview, Shannon’s definition of perfect security, and the one-time pad.</p>
         </header>
 
         <div class="reading-grid">
           <div class="prose">
             <section id="staff">
-              <h2><span>1.</span> Course staff</h2>
-              <div class="info-card">
-                <p><strong>Instructors:</strong> Shafi Goldwasser and Vinod Vaikuntanathan</p>
-                <p><strong>Teaching assistants:</strong> Noga Amit and Zoe Xi</p>
-              </div>
+              <h2><span>1.</span> Course Staff</h2>
+              <ul>
+                <li>Instructors: Shafi Goldwasser and Vinod Vaikuntanathan</li>
+                <li>TAs: Noga Amit and Zoe Xi</li>
+              </ul>
             </section>
 
             <section id="website">
-              <h2><span>2.</span> Course website</h2>
-              <p>All information about the class can be found on the <a href="../index.html" style="color:var(--accent);border-bottom:1px solid currentColor">course website</a>.</p>
+              <h2><span>2.</span> Course Website</h2>
+              <p>All the information about the class can be found in the course website: <a href="https://mit6875.github.io" style="color:var(--accent);border-bottom:1px solid currentColor">mit6875.github.io</a>.</p>
             </section>
 
             <section id="grading">
               <h2><span>3.</span> Grading</h2>
               <ul>
-                <li><strong>30%</strong> of the grade: midterm.</li>
-                <li><strong>40%</strong> of the grade: final.</li>
-                <li><strong>10%</strong> of the grade: five problem sets.</li>
-                <li><strong>10%</strong> of the grade: oral problem-set review, scheduled after the midterm.</li>
-                <li><strong>10%</strong> of the grade: class participation.</li>
-                <li>You may collaborate on problem sets in small groups of up to three, but must write your solutions separately and in your own words. We strongly recommend <em>not</em> using AI tools to solve your problem sets.</li>
-                <li>If you need an extension for any reason, email the staff and you will be granted 48 additional hours, no questions asked. If you need more time, contact S<sup>3</sup> if you are an undergraduate or your academic advisor if you are a graduate student.</li>
+                <li>30% of the grade: Midterm.</li>
+                <li>40% of the grade: Final.</li>
+                <li>10% of the grade: Problem Sets. We will have 5 Problem Sets.</li>
+                <li>10% of the grade: Oral Problem Set Review, scheduled after the midterm.</li>
+                <li>10% of the grade: Class Participation.</li>
+                <li>You can collaborate on the Psets in small groups (of up to three), but must write your solutions separately, in your own words. We strongly recommend <em>not</em> using AI tools to solve your problem sets.</li>
+                <li>If you need an extension (for any reason!) just email the staff, and you will be granted 48 additional hours, no questions asked! If you need more than that, please contact \(S^3\) if you are an undergraduate and your academic advisor if you are a graduate student.</li>
               </ul>
             </section>
 
             <section id="about">
               <h2><span>4.</span> What is this class about?</h2>
-              <p class="lead">This is a foundations class in which we will learn fundamental concepts in cryptography. We will see three themes.</p>
+              <p>This class is a foundations class where we will learn fundamental concepts in cryptography. We will see three themes:</p>
               <ul>
-                <li><strong>Definitions.</strong> We will learn how to think adversarially: how to model the adversary, its goals, and its capabilities. We will focus on finding the “correct definitions” that capture the real world. When trying to achieve secrecy, integrity, authenticity, fairness, zero knowledge, or another cryptographic goal, we often encounter an impossibility result. Cryptography is the art of overcoming such barriers—often by carefully choosing the definitions and models.</li>
-                <li><strong>Hardness assumptions.</strong> Most cryptography relies on hardness assumptions because unconditional security is often impossible. These assumptions come from number theory, group theory, elliptic curves, lattices, and coding theory.</li>
-                <li><strong>Reductions.</strong> We prove security via reductions: if an adversary breaks our scheme, we transform that adversary into a break of the underlying hardness assumption. As Silvio Micali puts it, “science wins either way!”</li>
+                <li><strong>Definitions:</strong> We will learn how to think adversarially: How to model the adversary: its goals and its capabilities. We will focus on coming up with the “correct definitions” that capture the real world. We will see that often when trying to achieve a cryptographic goal, be it secrecy, integrity, authenticity, fairness, zero-knowledge etc., we often hit an impossibility result. Cryptography is the art of overcoming such barriers. This is often achieved by carefully choosing the definitions and models.</li>
+                <li><strong>Hardness assumptions:</strong> Most of cryptography relies on hardness assumptions, since unconditional security is often impossible to achieve. These hardness assumptions come from various branches of mathematics: number theory, group theory, elliptic curves, lattices, and coding theory.</li>
+                <li><strong>Reductions:</strong> We prove the security of our schemes via reductions: We prove that if there exists an adversary that breaks our scheme then we can reduce this adversary to a break of the underlying hardness assumption. So “science wins either way!” (quote of Silvio Micali).</li>
               </ul>
-              <p>We will use these concepts to do what has always seemed indistinguishable from magic: communicate secretly and authentically without meeting to share a secret; compute on encrypted data; prove statements without revealing why they are true; hide in plain sight; and more.</p>
+              <p>We will use these concepts to do (what has always seemed to me indistinguishable from) magic. We will see how we can communicate in a secret and authenticated manner without ever meeting to share a secret! We will show how to compute on encrypted data, how to prove statements without revealing any information about why the statement is true, how to hide in plain sight, and more!</p>
             </section>
 
             <section id="perfect-security">
-              <h2><span>5.</span> Perfect security and the one-time pad</h2>
-              <p>Claude Shannon was the first to give a rigorous definition of secure encryption <a href="#ref-shannon" style="color:var(--accent)">[1]</a>. His definition is now commonly called <em>perfect security</em>. He also showed that a very simple encryption scheme—the one-time pad—satisfies this definition.</p>
-              <p>First, let us understand the syntax of an encryption scheme. Alice and Bob need a private or secret key that the eavesdropper Eve does not know; otherwise, Eve can simulate Bob and recover the hidden message whenever Bob does. We will revisit this assumption later in the course. For now, we study symmetric-key, or secret-key, encryption.</p>
+              <h2><span>5.</span> Today: Perfect Security and the One-Time Pad</h2>
+              <p>Claude Shannon was the first to give a rigorous definition of a secure encryption scheme <span style="color:var(--accent)">[1]</span>, and his definition is now commonly referred to as <em>perfect security</em>. He also showed that a very simple encryption scheme, namely the one-time pad, satisfies this definition.</p>
+
+              <p>But first, let's try to understand the syntax of an encryption scheme. An immediate observation is that Alice and Bob need a key (a private key or a secret key) that the eavesdropper Eve has no knowledge of (otherwise, Eve can simulate Bob and recover the hidden message whenever Bob does.) We will revisit this assumption much later in the course, but for now, we will stick with this assumption and study symmetric-key or secret-key encryption schemes.</p>
 
               <div class="definition">
-                <div class="box-head"><span>DEFINITION 1</span><b>Encryption scheme</b></div>
-                <p>An encryption scheme has a message space \(\mathcal M\) (the plaintext space), a ciphertext space \(\mathcal C\), a key space \(\mathcal K\), and two polynomial-time algorithms with syntax</p>
-                <div class="formula">\[\Enc:\mathcal K\times\mathcal M\rightarrow\mathcal C \qquad \Dec:\mathcal K\times\mathcal C\rightarrow\mathcal M.\]</div>
-                <p><strong>Correctness.</strong> For every \(m\in\mathcal M\) and \(k\in\mathcal K\),</p>
-                <div class="formula">\[\Dec(k,\Enc(k,m))=m.\]</div>
-                <p><strong>Security.</strong> To be defined.</p>
+                <div class="box-head"><span>Definition</span></div>
+                <p>An encryption scheme is associated with a message space \({\cal M}\) (also referred to as the plaintext space), a ciphertext space \({\cal C}\) and a key space \({\cal K}\), and two polynomial time algorithms \((\Enc, \Dec)\) with the following syntax:</p>
+                <ul>
+                  <li>\(\Enc:{\cal K}\times{\cal M}\rightarrow {\cal C}\)</li>
+                  <li>\(\Dec:{\cal K}\times{\cal C}\rightarrow {\cal M}\)</li>
+                </ul>
+                <p>The encryption scheme is required to satisfy the following properties:</p>
+                <ul>
+                  <li><strong>Correctness:</strong> For every \(m\in{\cal M}\) and \(k\in {\cal K}\),
+                    <div class="formula">\[\Dec(k,\Enc(k,m))=m.\]</div>
+                  </li>
+                  <li><strong>Security:</strong> \(\cdots\)</li>
+                </ul>
               </div>
 
-              <p>Correctness is the easy part. How do we define what it means for an encryption scheme to be secure? For now, it makes sense to restrict the adversary to eavesdropping on communications between Alice and Bob, rather than actively tampering with them. One thing at a time.</p>
-              <p>We want to be <em>maximalistic</em>: seeing a ciphertext should not help the adversary determine the transmitted message beyond any prior knowledge already conveyed by the message distribution \(M\). If \(M\) is uniform over \(\{\texttt{buy},\texttt{sell}\}\), then even after seeing the ciphertext, the adversary’s view should remain 50–50. This is the essence of Shannon’s definition.</p>
+              <p>Well, correctness is the easy part. How in the world does one define what it means for an encryption scheme to be secure? It makes sense, for now, to restrict the adversary to merely eavesdrop on communications between Alice and Bob, as opposed to being able to actively tamper with it. One thing at a time...</p>
+
+              <p>We want to be <em>maximalistic</em> and ask that seeing a ciphertext does not help an adversary determine what the transmitted message is, beyond any prior knowledge of the transmitted message that the message distribution \(M\) itself might convey. For example, \(M\) may be the uniform distribution over the set \(\{\texttt{buy},\texttt{sell}\}\). In this case, even after seeing the ciphertext, the adversary's view of the transmitted message is 50-50, the same as it was before she had a chance to see the ciphertext. This is the essence of Shannon's definition of perfect secrecy!</p>
             </section>
 
             <section id="defining-security">
-              <h2><span>6.</span> How to define security</h2>
+              <h2><span>6.</span> How to Define the Security of an Encryption Scheme</h2>
+              <p>In what follows, we present Shannon's definition of a perfectly secure encryption scheme.</p>
               <div class="definition">
-                <div class="box-head"><span>DEFINITION 2</span><b>Shannon security / perfect secrecy</b></div>
-                <p>An encryption scheme has message, ciphertext, and key spaces \(\mathcal M,\mathcal C,\mathcal K\), and polynomial-time algorithms \((\Enc,\Dec)\). It satisfies correctness as above and, for every distribution \(M\) over \(\mathcal M\), every plaintext \(m\in\mathcal M\), and every ciphertext \(c\in\mathcal C\),</p>
-                <div class="formula">\[\Pr[M=m]=\Pr_{k\gets\mathcal K}[M=m\mid \Enc(k,M)=c].\]</div>
+                <div class="box-head"><span>Definition</span></div>
+                <p>An encryption scheme is associated with a message space \({\cal M}\) (also referred to as the plaintext space), a ciphertext space \({\cal C}\) and a key space \({\cal K}\), and two polynomial time algorithms \((\Enc, \Dec)\) with the following syntax:</p>
+                <ul>
+                  <li>\(\Enc:{\cal K}\times{\cal M}\rightarrow {\cal C}\)</li>
+                  <li>\(\Dec:{\cal K}\times{\cal C}\rightarrow {\cal M}\)</li>
+                </ul>
+                <p>The encryption scheme is required to satisfy the following properties:</p>
+                <ul>
+                  <li><strong>Correctness:</strong> For every \(m\in{\cal M}\) and \(k\in {\cal K}\),
+                    <div class="formula">\[\Dec(k,\Enc(k,m))=m.\]</div>
+                  </li>
+                  <li><strong>Shannon Security (or, Perfect Secrecy):</strong> For any probability distribution \(M\) over the plaintext space \({\cal M}\) and every plaintext \(m\in{\cal M}\) and ciphertext \(c\in{\cal C}\),
+                    <div class="formula">\[\Pr [M =m]= \Pr_{k\gets {\cal K}} [M = m | \Enc(k,M) = c] .\]</div>
+                  </li>
+                </ul>
               </div>
-              <p>The definition does not refer explicitly to an adversary. Nevertheless, it captures the idea that Eve knows exactly as much about the plaintext after seeing the ciphertext as she did before. The ciphertext reveals no information about \(m\).</p>
+              <p>Notice that there is no reference to an adversary in the security definition. However, this definition intuitively captures that the adversary (Eve) knows exactly as much about the plaintext after seeing the ciphertext as she did before. In other words, Eve does not gain any information about the plaintext \(m\) from the ciphertext \(c\).</p>
+
+              <p>It turns out that Shannon security is equivalent to the following definition that (it turns out) is easier to work with:</p>
 
               <div class="definition">
-                <div class="box-head"><span>DEFINITION 3</span><b>Perfect indistinguishability</b></div>
-                <p>An encryption scheme \((\Enc,\Dec)\) is perfectly indistinguishable if for every \(m_0,m_1\in\mathcal M\) and every \(c\in\mathcal C\),</p>
-                <div class="formula">\[\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]=\Pr_{k\gets\mathcal K}[\Enc(k,m_1)=c].\]</div>
+                <div class="box-head"><span>Definition</span><b>Perfect Indistinguishability</b></div>
+                <p>An encryption scheme \((\Enc,\Dec)\) is said to have perfect indistinguishability if for every message \(m_0,m_1\in{\cal M}\) and every ciphertext \(c\in{\cal C}\)</p>
+                <div class="formula">\[\Pr_{k\gets {\cal K}}[\Enc(k,m_0)=c]= \Pr_{k\gets {\cal K}}[\Enc(k,m_1)=c]\]</div>
               </div>
 
               <div class="theorem">
-                <div class="box-head"><span>CLAIM 1</span><b>Equivalence</b></div>
+                <div class="box-head"><span>Claim</span></div>
                 <p>An encryption scheme is perfectly secret if and only if it is perfectly indistinguishable.</p>
               </div>
+              <p>The proof is straightforward, and is essentially just a single application of Bayes’ theorem. But since this is the first lecture we will do it carefully in class.</p>
 
               <div class="proof">
                 <h3>Proof.</h3>
-                <p>First, suppose \((\Enc,\Dec)\) is Shannon secure. Fix plaintexts \(m_0,m_1\in\mathcal M\) and a ciphertext \(c\in\mathcal C\). Let \(M\) be uniform on \(\{m_0,m_1\}\), so \(\Pr[M=m_0]=\Pr[M=m_1]=1/2\). By Shannon security, for each \(b\in\{0,1\}\),</p>
-                <div class="formula">\[\Pr[M=m_b]=\Pr_{k\gets\mathcal K}[M=m_b\mid\Enc(k,M)=c].\]</div>
-                <p>Bayes’ theorem gives</p>
-                <div class="formula">\[\Pr_{k\gets\mathcal K}[M=m_b\mid\Enc(k,M)=c]=\frac{\Pr[M=m_b]\Pr_{k\gets\mathcal K}[\Enc(k,m_b)=c]}{\Pr_{k\gets\mathcal K}[\Enc(k,M)=c]}.\]</div>
-                <p>Combining these equalities,</p>
-                <div class="formula">\[\Pr_{k\gets\mathcal K}[\Enc(k,m_b)=c]=\Pr_{k\gets\mathcal K}[\Enc(k,M)=c].\]</div>
-                <p>Since this holds for both \(b=0\) and \(b=1\), the two ciphertext probabilities are equal, proving perfect indistinguishability.</p>
-                <p>Conversely, suppose the scheme is perfectly indistinguishable. Let \(M\) be any distribution over \(\mathcal M\), and fix \(m_0\in\mathcal M\) and \(c\in\mathcal C\). By Bayes’ rule,</p>
-                <div class="formula">\[\Pr_{k\gets\mathcal K}[M=m_0\mid\Enc(k,M)=c]=\frac{\Pr[M=m_0]\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]}{\Pr_{k\gets\mathcal K}[\Enc(k,M)=c]}.\]</div>
-                <p>Perfect indistinguishability implies</p>
-                <div class="formula">\[\begin{aligned}\Pr_{k\gets\mathcal K}[\Enc(k,M)=c] &= \sum_{m_1\in\mathcal M}\Pr[M=m_1]\Pr_{k\gets\mathcal K}[\Enc(k,m_1)=c]\\ &= \sum_{m_1\in\mathcal M}\Pr[M=m_1]\Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c]\\ &= \Pr_{k\gets\mathcal K}[\Enc(k,m_0)=c].\end{aligned}\]</div>
-                <p>Substituting into Bayes’ rule yields \(\Pr[M=m_0\mid\Enc(k,M)=c]=\Pr[M=m_0]\), as required.</p>
+                <p>First, we show that any Shannon secure encryption scheme \((\Enc,\Dec)\) is perfectly indistinguishable. To this end, fix any two plaintexts \(m_0,m_1 \in {\cal M}\) and any ciphertext \(c \in{\cal C}\). We need to prove that</p>
+                <div class="formula">\[\Pr_{k\gets{\cal K}}[\Enc(k,m_0) = c] = \Pr_{k\gets{\cal K}}[\Enc(k,m_1) = c].\]</div>
+                <p>Let \(M\) be the distribution defined by</p>
+                <div class="formula">\[\Pr[M = m_0] = \Pr[M = m_1] = 1/2.\]</div>
+                <p>Namely, \(M\) is the uniform distribution on \(\{m_0,m_1\}\). By Shannon security, for any \(b \in\{0,1\}\),</p>
+                <div class="formula">\[\Pr[M =m_b]= \Pr_{k\gets{\cal K}}[M = m_b | \Enc(k,M) = c] .\]</div>
+                <p>By Bayes’ theorem,</p>
+                <div class="formula">\[\Pr_{k\gets{\cal K}}[M =m_b | \Enc(k,M) = c] = \frac{\Pr[M = m_b]\cdot \Pr_{k\gets{\cal K}}[\Enc(k,m_b) = c]}{\Pr_{k\gets{\cal K}}[\Enc(k,M) = c]}\]</div>
+                <p>Putting these two equalities together, we conclude that</p>
+                <div class="formula">\[{\Pr_{k\gets{\cal K}}[\Enc(k,m_b) = c] }={\Pr_{k\gets{\cal K}}[\Enc(k,M) = c]}.\]</div>
+                <p>By the definition of the distribution \(M\)</p>
+                <div class="formula">\[{\Pr_{k\gets{\cal K}}[\Enc(k,M) = c]}=\frac12\cdot {\Pr_{k\gets{\cal K}}[\Enc(k,m_0) = c] }+\frac12\cdot {\Pr_{k\gets{\cal K}}[\Enc(k,m_1) = c] },\]</div>
+                <p>which together with the equation above, implies that</p>
+                <div class="formula">\[\Pr_{k\gets{\cal K}}[\Enc(k,m_0) = c]=\Pr_{k\gets{\cal K}}[\Enc(k,m_1) = c],\]</div>
+                <p>as desired.</p>
+                <p>Next, suppose that our encryption scheme is perfectly indistinguishable, and we will prove that it is Shannon secure. To this end, let \(M\) be any distribution over the plaintext space \({\cal M}\), and fix any \(m_0\in{\cal M}\) and \(c\in{\cal C}\). By Bayes' rule,</p>
+                <div class="formula">\[\Pr_{k\gets {\cal K}}[M = m_0 | \Enc(k,M) = c] = \frac{\Pr[M = m_0]\cdot \Pr_{k\gets {\cal K}}[\Enc(k,m_0) = c]}{\Pr_{k\gets {\cal K}}[\Enc(k,M) = c]}\]</div>
+                <p>By perfect indistinguishability,</p>
+                <div class="formula">\[\begin{aligned}
+                  &\Pr_{k\gets {\cal K}}[\Enc(k,M) = c] =\\
+                  &\sum_{m_1\in{\cal M}} \Pr [M =m_1]\cdot\Pr_{k\gets {\cal K}}[\Enc(k,m_1) = c] = \\
+                  &\sum_{m_1\in{\cal M}} \Pr [M =m_1]\cdot\Pr_{k\gets {\cal K}}[\Enc(k,m_0) = c] =\\
+                  &\Pr_{k\gets {\cal K}}[\Enc(k,m_0) = c]
+                \end{aligned}\]</div>
+                <p>Plugging this in to the above, we see that</p>
+                <div class="formula">\[\Pr_{k\gets{\cal K}}[M =m_0 | \Enc(k,M) = c] = \Pr[M = m_0] ,\]</div>
+                <p>as desired.</p>
               </div>
 
-              <p>There is a third, equivalent definition in which Eve appears explicitly. It resembles many of the definitions we will use later.</p>
+              <p>Here is yet another definition that is equivalent to the previous two, and where the adversary Eve is considered explicitly. It is also more similar to most of the other definitions that we will see in this course.</p>
               <div class="definition">
-                <div class="box-head"><span>DEFINITION 4</span><b>Perfect security against an adversary</b></div>
-                <p>An encryption scheme \((\Enc,\Dec)\) is perfectly secure against an adversary if for every \(\mathcal E:\mathcal C\rightarrow\{0,1\}\) and every pair \(m_0,m_1\in\mathcal M\),</p>
-                <div class="formula">\[\Pr_{b\gets\{0,1\},\,k\gets\mathcal K}[\mathcal E(\Enc(k,m_b))=b]=\frac12.\]</div>
+                <div class="box-head"><span>Definition</span><b>Perfect security against an adversary</b></div>
+                <p>An encryption scheme \((\Enc,\Dec)\) is perfectly secure against an adversary if for any adversary \({\cal E} : {\cal C} \rightarrow \{0,1\}\) and any pair of messages \(m_0,m_1 \in{\cal M}\),</p>
+                <div class="formula">\[\Pr_{b\gets\{0,1\}, k\gets{\cal K}}[{\cal E}(\Enc(k,m_b)) = b] = 1/2 .\]</div>
               </div>
-              <p>It is a good exercise to show that this definition is equivalent to perfect indistinguishability, and therefore to Shannon security.</p>
+              <p>It is a good exercise to convince yourself that this definition is equivalent to perfect indistinguishability (and thus to Shannon security).</p>
             </section>
 
             <section id="one-time-pad">
-              <h2><span>7.</span> The one-time pad</h2>
-              <p>Shannon not only gave the first rigorous definition of secure encryption; he also constructed a scheme satisfying it. The construction is known as the <em>one-time pad</em>.</p>
-              <aside class="margin-note"><b>Historical note</b>The one-time pad predates Shannon and can be traced to Frank Miller in 1882. Shannon was the first to provide formal guarantees.</aside>
-              <p>For any integer \(n\), the message, ciphertext, and key spaces are all \(\{0,1\}^n\). Choose \(n\) large enough to accommodate the plaintexts to be sent.</p>
-              <div class="formula">\[\Enc(k,m)=k\oplus m \qquad\text{and}\qquad \Dec(k,c)=k\oplus c.\]</div>
-              <p>The one-time pad is elegant, simple, and efficient. It is also easy to prove perfectly indistinguishable, which immediately implies perfect secrecy.</p>
+              <h2><span>7.</span> The One-Time Pad</h2>
+              <p>Shannon not only gave the first rigorous definition of a secure encryption scheme. He also constructed a scheme that satisfies this definition. The construction is known as the <em>One-Time Pad</em>.</p>
+              <aside class="margin-note">The one-time pad was discovered and used previously to Shannon, dating back to Frank Miller in 1882. However, Shannon was the first to provide formal guarantees.</aside>
+              <p>In this scheme, the message space \({\cal M}\), the ciphertext \({\cal C}\) and the key space \({\cal K}\) are all equal to \(\{0,1\}^n\), for any integer \(n\) of our choice.</p>
+              <aside class="margin-note">We simply choose n large enough to accomodate the plaintexts that we’d like to send.</aside>
+              <ul>
+                <li>For every \(k,m\in\{0,1\}^n\), \(\Enc(k,m)=k\oplus m\).</li>
+                <li>For every \(k,c\in\{0,1\}^n\), \(\Dec(k,c)=k\oplus c\).</li>
+              </ul>
+              <p>The one-time pad is very elegant, simple, and efficient. It is also very easy to prove that it’s perfectly indistinguishable, which immediately implies that it is also Shannon secret (since we proved that the two definitions are equivalent).</p>
               <div class="theorem">
-                <div class="box-head"><span>THEOREM 1</span><b>Security of the one-time pad</b></div>
+                <div class="box-head"><span>Theorem</span></div>
                 <p>The one-time pad is perfectly indistinguishable.</p>
               </div>
               <div class="proof">
                 <h3>Proof.</h3>
-                <p>For plaintexts \(m_0,m_1\in\{0,1\}^n\) and ciphertext \(c\in\{0,1\}^n\), there are unique keys \(k_0:=m_0\oplus c\) and \(k_1:=m_1\oplus c\) satisfying \(\Enc(k_b,m_b)=c\). Therefore,</p>
-                <div class="formula">\[\Pr_{k\gets\{0,1\}^n}[\Enc(k,m_b)=c]=\Pr_{k\gets\{0,1\}^n}[k=k_b]=2^{-n}.\]</div>
-                <p>Thus the probabilities are equal for \(m_0\) and \(m_1\), as desired.</p>
+                <p>For any two plaintexts \(m_0,m_1 \in\{0,1\}^n\) and any ciphertext \(c\in\{0,1\}^n\) there are unique keys \(k_0 := m_0 \oplus c\) and \(k_1 := m_1 \oplus c\) satisfying \(\Enc(k_b,m_b) = c\). Therefore,</p>
+                <div class="formula">\[\Pr_{k\gets\{0,1\}^n}[\Enc(k,m_b)=c]=\Pr_{k\gets\{0,1\}^n}[k=k_b]=2^{-n},\]</div>
+                <p>and thus</p>
+                <div class="formula">\[\Pr_{k\gets\{0,1\}^n}[\Enc(k,m_0)=c]=\Pr_{k\gets\{0,1\}^n}[\Enc(k,m_1)=c],\]</div>
+                <p>as desired.</p>
               </div>
             </section>
 
             <section id="only-once">
-              <h2><span>8.</span> The one-time pad can be used only once</h2>
-              <p>The one-time pad has been used significantly in practice, especially by diplomats transmitting classified information during World War II. However, a key of length \(n\) can encrypt only \(n\) bits. To exchange a 1 GB message, Alice and Bob must first exchange a 1 GB key.</p>
-              <p>Reusing a key \(k\gets\{0,1\}^n\) to encrypt two messages \(m_0,m_1\in\{0,1\}^n\) breaks security because</p>
-              <div class="formula">\[\Enc(k,m_0)\oplus\Enc(k,m_1)=m_0\oplus m_1.\]</div>
-              <p>The unfortunate fact is that this limitation is inherent.</p>
+              <h2><span>8.</span> The one-time pad can be used only once!</h2>
+              <p>The one-time pad was used significantly in practice (especially by diplomats to transmit classified information for example during World War 2). However, it is important to note that the one-time pad can be used to encrypt only \(n\) bits. If Alice and Bob want to exchange a message of length 1 GB then they need to exchange a key of size 1 GB.</p>
+
+              <p>Notice that if we use the same key \(k\gets \{0,1\}^n\) to encrypt two messages \(m_0,m_1\in\{0,1\}^n\) then security is broken, since</p>
+              <div class="formula">\[\Enc(k,m_0)\oplus\Enc(k,m_1)= m_0\oplus m_1\]</div>
+
+              <p>The sad fact is that this is inherent!</p>
               <div class="theorem">
-                <div class="box-head"><span>THEOREM 2</span><b>Shannon’s lower bound</b></div>
-                <p>If \((\Enc,\Dec)\) is perfectly indistinguishable, then \(|\mathcal K|\geq|\mathcal M|\).</p>
+                <div class="box-head"><span>Theorem</span></div>
+                <p>If \((\Enc,\Dec)\) is perfectly indistinguishable then \(|{\cal K}|\geq |{\cal M}|\).</p>
               </div>
               <div class="proof">
                 <h3>Proof.</h3>
-                <p>For every plaintext \(m\in\mathcal M\) and every ciphertext \(c\) in the image of \(\Enc\), at least one key must map \(m\) to \(c\); otherwise the scheme is not perfectly indistinguishable. Two distinct plaintexts cannot map to the same ciphertext under the same key, because correctness would then be impossible. Thus there must be at least as many keys as ciphertexts. Since there must be at least one distinct ciphertext for every plaintext, there must be at least as many keys as plaintexts.</p>
+                <p>For every plaintext \(m\in{\cal M}\) and every ciphertext \(c\) in the image of \(\Enc\) there must be at least one key that maps \(m\) to \(c\), since otherwise the scheme is not perfectly indistinguishable. Since two distinct plaintexts cannot map to the same ciphertext under the same key (because then we could not possibly have correctness), we must have at least as many keys as ciphertexts. Since there must be at least one distinct ciphertext for each plaintext, this implies that we must have as many keys as plaintexts.</p>
               </div>
-              <div class="remark"><div class="box-head"><span>REMARK</span><b>Randomized encryption</b></div><p>We will later consider randomized encryption algorithms. The same impossibility result holds for randomized encryption, though the proof is slightly more delicate.</p></div>
-              <p>This impossibility result is unacceptable for our goals. We want to agree on a single key \(k\gets\{0,1\}^n\) and then encrypt arbitrarily many messages. Given the lower bound, we must somehow weaken the security definition.</p>
-              <p>To see how, examine the attack. Suppose \(|\mathcal K|&lt;|\mathcal M|\), and Eve receives \(c=\Enc(k,m_b)\). She can compute</p>
-              <div class="formula">\[M_c:=\{\Dec(k',c):k'\in\mathcal K\}.\]</div>
-              <p>If \(m_0\in M_c\) and \(m_1\notin M_c\), Eve outputs 0. If \(m_1\in M_c\) and \(m_0\notin M_c\), she outputs 1. If both lie in \(M_c\), she outputs a random bit.</p>
-              <p>The lower-bound proof shows that for some pair \(m_0,m_1\), there is a probability \(p&gt;0\) that one plaintext does not lie in \(M_c\). Eve then succeeds with probability at least \((1+p)/2&gt;1/2\).</p>
-              <p>But deciding whether \(m_b\in M_c\) is extremely challenging: it takes time roughly \(2^n\). Even for \(n=256\), this is more than the number of molecules on Earth. Since Eve represents an entity in the real world, let us restrict her running time to be significantly less than \(2^n\). This turns out to be a very good idea.</p>
-            </section>
+              <div class="remark">
+                <div class="box-head"><span>Remark</span></div>
+                <p>We will later consider randomized encryption algorithms. We mention that the same impossibility result holds for randomized encryptions, but the proof is slightly more delicate.</p>
+              </div>
 
-            <section class="references" id="references">
-              <h2><span>9.</span> References</h2>
-              <div class="reference" id="ref-shannon"><strong>[1]</strong> Claude E. Shannon. “Communication Theory of Secrecy Systems.” <em>Bell System Technical Journal</em> 28(4), 656–715, 1949.</div>
+              <p>The above impossibility result in unacceptable! We would like to agree on a single key \(k\gets\{0,1\}^n\) and then encrypt arbitrarily many messages! What can we do (given the impossibility result above)? Clearly, we should somehow weaken the security definition!</p>
+              <p>To see how, let's examine the attack:</p>
+
+              <p>suppose that we have some encryption scheme for which \(|{\cal K}|&lt;|{\cal M}|\), and let’s try to understand what the above proof tells us about Eve’s ability to break this scheme. Recall that Eve’s goal is to take as input a ciphertext \(c\) and guess whether it is an encryption of \(m_0\) or \(m_1\), with success probability better than \(1/2\).</p>
+
+              <p>Given a ciphertext \(c = \Enc(k,m_b)\), Eve will compute the set \(M_c :=\{\Dec(k',c) : k' \in{\cal K} \}\). If \(m_0\in M_c\) and \(m_1\notin M_c\), then Eve will output output \(0\). Similarly, if \(m_1\in M_c\) and \(m_0\notin M_c\), then Eve will output \(1\). If \(m_0,m_1 \in M_c\) then Eve will output a random bit \(b'\).</p>
+
+              <p>The above proof shows that, for at least one pair of messages \(m_0,m_1\in {\cal M}\), there is a non-zero probability \(p &gt; 0\) that one of the plaintexts will not lie in \(M_c\), in which case Eve will succeed with probability at least \((1 + p)/2 &gt; 1/2\).</p>
+
+              <p>But, computing whether \(m_b\in M_c\) is extremely challenging, and takes time roughly \(2^n\), which even for \(n=256\) is more than the number of molecules on earth! Recall that Eve is meant to represent some entity in the real world, so let's model her as such, and restrict her running time to be significantly less than \(2^n\). This turns out to be a very good idea!</p>
             </section>
           </div>
         </div>
