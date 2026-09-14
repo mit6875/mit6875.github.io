@@ -695,14 +695,19 @@
         text-transform: uppercase;
       }
       .lecture-materials {
-        justify-self: end;
-        font-family: var(--sans);
-        font-size: 11.5px;
-        display: none;
-      }
-      .lecture-materials.has-notes {
-        display: block;
-      }
+      justify-self: stretch;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      display: none;
+    }
+    
+    .lecture-materials.has-notes {
+      display: block;
+    }
+    
+    .lecture-materials.has-notes a {
+      display: block;
+    }
       .lecture-materials a {
         color: var(--teal-dark);
         font-weight: 680;
@@ -1553,7 +1558,6 @@
                 <a href="Lecnotes-v2/lecture-01.html"
                   >Lecture notes <span aria-hidden="true">→</span></a
                 >
-                <span aria-hidden="true"> · </span>
                 <a href="Slides-2026/lec1.pptx"
                   >Slides <span aria-hidden="true">→</span></a
                 >
