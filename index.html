@@ -682,6 +682,30 @@
         font-family: var(--sans);
         font-size: 12.5px;
       }
+      .lecture-topic > p.lecture-readings-label {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 9.5px;
+        font-weight: 680;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .lecture-readings {
+        max-width: 690px;
+        margin: 2px 0 0;
+        padding-left: 16px;
+        color: var(--text-tertiary);
+        font-family: var(--sans);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .lecture-readings li + li {
+        margin-top: 3px;
+      }
+      .lecture-readings a {
+        color: var(--teal-dark);
+        font-style: italic;
+      }
       .milestone {
         margin-top: 9px;
         border-radius: 2px;
@@ -1603,6 +1627,10 @@
                     Secure communication, Shannon’s definition, the one-time
                     pad, and Shannon’s lower bound.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="PAPERS/shannon-secrecy.pdf">Communication Theory of Secrecy Systems</a> by Claude Shannon</li>
+                  </ul>
                   <span class="milestone">Pset 1 out</span>
                 </div>
                 <div class="lecture-materials has-notes">
@@ -1625,6 +1653,10 @@
                     Computational adversaries, pseudorandom generators, and
                     stateful secret-key encryption.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="PAPERS/How_To_Generate_Cryptographically_Strong_Sequences_Of_Pseudo-Random_Bits.pdf">How to Generate Cryptographically Strong Sequences of Pseudo-random Bits</a> by Manuel Blum and Silvio Micali</li>
+                  </ul>
                 </div>
                 <div class="lecture-materials has-notes">
                   <a href="LECNOTES/Fall26/lec2.pdf"
@@ -1646,6 +1678,10 @@
                     The hybrid argument, PRG length extension, pseudorandom
                     functions, and encryption from PRFs.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="PAPERS/How_To_Construct_Random_Functions.pdf">How To Construct Random Functions</a> by Oded Goldreich, Shafi Goldwasser, and Silvio Micali</li>
+                  </ul>
                 </div>
                 <div class="lecture-materials has-notes">
                 <a href="LECNOTES/Fall26/lec3.pdf"
@@ -1667,6 +1703,10 @@
                     Formal PRF security, the GGM construction, and the
                     definition of IND-CPA security.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="https://eprint.iacr.org/2017/652.pdf" target="_blank" rel="noreferrer">Pseudorandom Functions: Three Decades Later</a> by Andrej Bogdanov and Alon Rosen</li>
+                  </ul>
                 </div>
                  <div class="lecture-materials has-notes">
                    <a href="LECNOTES/Fall26/lec4.pdf"
@@ -1688,6 +1728,10 @@
                     Hard-core bits, pseudorandom generators, and the
                     Goldreich–Levin theorem.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="https://cseweb.ucsd.edu/~mihir/papers/xormacs.pdf" target="_blank" rel="noreferrer">XOR MACs: New Methods for Message Authentication Using Finite Pseudorandom Functions</a> by Mihir Bellare, Roch Guerin, and Phillip Rogaway</li>
+                  </ul>
                  <span class="milestone">Pset 1 due · Pset 2 out</span>
                 </div>
                 <div class="lecture-materials has-notes">
@@ -1710,6 +1754,12 @@
                     A PRF Construction: The Advanced Encryption Standard (AES).
                     Chosen Ciphertext Security.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="https://www.wisdom.weizmann.ac.il/~oded/gl.html" target="_blank" rel="noreferrer">A Generic Hardcore Predicate for Any One-Way Function</a> by Oded Goldreich and Leonid Levin</li>
+                    <li><a href="https://dl.acm.org/doi/pdf/10.1145/346048.346049" target="_blank" rel="noreferrer">List Decoding: Algorithms and Applications</a> by Madhu Sudan (see page 3 for a construction of hardcore predicates from any list-decodable code)</li>
+                    <li><a href="https://www.csc.kth.se/~johanh/prgfromowf.pdf" target="_blank" rel="noreferrer">A Pseudorandom Generator from any One-way Function</a> by Johan Håstad, Russell Impagliazzo, Leonid A. Levin, and Michael Luby</li>
+                  </ul>
                 </div>
                 <div class="lecture-materials has-notes">
                 <a href="Slides-2026/lec6.pptx"
@@ -1739,6 +1789,10 @@
                 <div class="lecture-topic">
                   <h4>Public-key cryptography I</h4>
                   <p>Key exchange and the number-theoretic ideas behind it.</p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="https://dl.acm.org/doi/epdf/10.1145/359340.359342" target="_blank" rel="noreferrer">A Method for Obtaining Digital Signatures and Public-Key Cryptosystems</a> by Ron Rivest, Adi Shamir, and Leonard Adleman</li>
+                  </ul>
                 </div>
                 <div class="lecture-materials has-notes">
                 <a href="LECNOTES/Fall26/lec7.pdf"
@@ -1760,6 +1814,10 @@
                     Key exchange, continued, and the hardness assumptions that
                     support it.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="https://dl.acm.org/doi/10.1145/800070.802212" target="_blank" rel="noreferrer">Probabilistic Encryption and How to Play Mental Poker Keeping Secret All Partial Information</a> by Shafi Goldwasser and Silvio Micali</li>
+                  </ul>
                 </div>
                 <div class="lecture-materials has-notes">
                 <a href="Slides-2026/lec8.pptx"
@@ -1781,21 +1839,16 @@
                   <p>
                     From key exchange to probabilistic public-key encryption.
                   </p>
+                  <p class="lecture-readings-label">Additional readings:</p>
+                  <ul class="lecture-readings">
+                    <li><a href="FA23HANDOUTS/rsa-hardcore-bit.pdf">RSA and Rabin Functions: Certain Parts Are as Hard as the Whole</a> by Werner Alexi, Benny Chor, Oded Goldreich, and Claus P. Schnorr</li>
+                  </ul>
                 <span class="milestone">Pset 2 due · Pset 3 out</span>
                 </div>
-                <div class="lecture-materials">
-                  <!--
-                    Slide link commented out:
-                    <a
-                    href="https://mit6875.github.io/FA23SLIDES/lec10.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    >Slides<span class="external-mark" aria-hidden="true"
-                      >↗</span
-                    ></a
-                  >
-                -->
-                  <span aria-hidden="true">—</span>
+                <div class="lecture-materials has-notes">
+                <a href="Slides-2026/lec9.pptx"
+                  >Slides <span aria-hidden="true">→</span></a
+                >
                 </div>
               </article>
               
