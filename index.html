@@ -448,6 +448,38 @@
         border-top: 1px solid #426069;
         border-bottom: 1px solid #426069;
       }
+      .exam-row {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 26px;
+        margin-top: 28px;
+        border-top: 1px solid #426069;
+        border-bottom: 1px solid #426069;
+        padding: 22px 0;
+      }
+      .exam-row > p {
+        margin-bottom: 0;
+        color: #85c1c9;
+        font-family: var(--sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .exam-row h3 {
+        margin-bottom: 0;
+        color: #f7fbfb;
+        font-size: 22px;
+        font-weight: 560;
+        line-height: 1.2;
+      }
+      @media (max-width: 700px) {
+        .exam-row {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
       .assignment-card {
         padding: 22px 18px;
         border-right: 1px solid #36535b;
@@ -1548,6 +1580,24 @@
                 <span class="placeholder-link">TeX</span>
               </div>
             </article>
+          </div>
+          <div class="exam-row">
+            <p>Midterm</p>
+            <h3>Practice midterm</h3>
+            <div class="assignment-links">
+              <a
+                href="midterm/practice-midterm.pdf"
+                target="_blank"
+                rel="noreferrer"
+                >PDF<span class="external-mark" aria-hidden="true">↗</span></a
+              >
+              <a
+                href="midterm/practice-midterm-sols.pdf"
+                target="_blank"
+                rel="noreferrer"
+                >Solutions<span class="external-mark" aria-hidden="true">↗</span></a
+              >
+            </div>
           </div>
           <div class="policy-grid">
           <div>
